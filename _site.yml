@@ -2,7 +2,7 @@ name: "Upwell_taller_interno"
 title: "Taller bases de datos"
 description: |
   Taller bases de datos
-output_dir: "site"
+output_dir: "_site"
 creative_commons: CC BY-SA
 navbar:
   logo:

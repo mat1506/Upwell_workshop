@@ -90,7 +90,7 @@ Matías
 
 ### Slides
 
-+ [00: Introcción](slides/intruction.html)
++ [00: Introcción](slides/Introduction.html)
 
 
 
