@@ -1,12 +1,29 @@
-name: "Upwell_workshop"
-title: "Taller Upwell"
+name: "Upwell_taller_interno"
+title: "Taller bases de datos"
 description: |
-  Taller Upwell
-output_dir: "_site"
+  Taller bases de datos
+output_dir: "site"
+creative_commons: CC BY-SA
 navbar:
+  logo:
+    image: images/logo.png
+    href: https://www.upwell.cl/web/
   right:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
-output: distill::distill_article
+    - text: "Worshop"
+      href: neotoma.html
+    
+cookie_consent:
+  style: simple
+  type: express
+  palette: light
+  lang: en
+  cookies_policy: url
+output:
+  distill::distill_article:
+    toc: true
+    highlight: rstudio
+    css: styles.css
