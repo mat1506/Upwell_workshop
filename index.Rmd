@@ -1,15 +1,91 @@
 ---
-title: "Taller Upwell"
+title: "Taller sobre construcción de bases de datos"
+author:
+- name: Matías Frugone-Álvarez, Ph.D.
+  url: https://matfrugone.netlify.app
+  affiliation: Tecnico de datos Upwell
+  affiliation_url: https://www.upwell.cl/web/
+- name: Eugenia Gayo
+  url: http://www.upwell.cl/web/biogeoquimica-de-humboldt/
+  affiliation: Directora del proyecto Upwell
+  affiliation_url: https://www.upwell.cl/web/investigadores/
+- name: Carola Flores
+  url: http://www.upwell.cl/web/interaccion-humano-ambiente/
+  affiliation: Directora alterna del proyecto Upwell
+  affiliation_url: https://www.upwell.cl/web/investigadores/
+- name: Bernardo Broitman
+
+  url: http://www.upwell.cl/web/ecologia-de-humboldt/
+  affiliation: Investigador responsable Ecología de Humboldt
+  affiliation_url: http://www.upwell.cl/web/ecologia-de-humboldt/
+date: "`r Sys.Date()`"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  Bienvenidos a la website del taller de datos UPWELL. `Espero que lo disfruten!`
 site: distill::distill_website
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
 ```
 
+
+## Bienvenidos  
+
+Gracias por asistir a este curso de uso, manipulación y análisis de baes de datos del proyecto UPWELL 
+
+```{r, include=FALSE, fig.cap="[Slides](slides/index.html)"}
+knitr::include_url("slides/index.html")
+```
+
+
+\
+
+## Pre-requisitos
+
+### Esencial
+
++ Instalar rstudio.cloud <https://rstudio.cloud>.
++ Instalar la ultima version de [Zoom](https://zoom.us/download).
++ Join a pre-course technology check session - details are in the pre-course email.
++ ....
+
+### Opcional
+
+Please tune into class with a laptop that has the following installed:
+
+
+<aside>
+On the day of the class, we'll provide you with a link to an RStudio Cloud project that contains all of the course materials. 
+</aside>
+
+* Una version reciente de R (>=3.9.0), disponible en <https://cran.r-project.org/>
+
+* Una version reciente de RStudio Desktop (>=1.3.0), disponible en <https://www.rstudio.com/download> (RStudio Desktop Open Source License)
+
+* TLos R packages que vamos a usar;
+
+    ```{r echo=TRUE, eval = FALSE}
+    install.packages(c("tidyverse", "neotoma"))
+    ```
+
+<aside>
+We will use the software listed above only as an important backup should there be problems with the classroom server connection.
+</aside>
+
+I look forward to meeting you,
+
+Matías
+
+
+
+
+
+
+\
+
+## Links
+
++ [RStudio Cloud workspace](http://bit.ly/tmv-rmed2020)
+
+### Slides
