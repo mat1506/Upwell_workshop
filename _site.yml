@@ -13,7 +13,7 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - text: "Worshop"
+    - text: "Workshop"
       href: neotoma.html
     
 cookie_consent:
