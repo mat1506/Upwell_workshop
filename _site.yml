@@ -13,7 +13,9 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - text: "Workshop"
+    - text: "Install Party"
+      href: install.html
+    - text: "Neotoma"
       href: neotoma.html
     
 cookie_consent:

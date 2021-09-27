@@ -1,10 +1,6 @@
 ---
-title: "Taller sobre construcción de bases de datos"
+title: "Taller UPWELL: introducción a bases de datos y metadatos"
 author:
-- name: Dr. Matías Frugone-Álvarez.
-  url: https://matfrugone.netlify.app
-  affiliation: Tecnico de datos Upwell
-  affiliation_url: https://www.upwell.cl/web/
 - name: Dra. Eugenia Gayo
   url: http://www.upwell.cl/web/biogeoquimica-de-humboldt/
   affiliation: Directora del proyecto Upwell
@@ -14,13 +10,16 @@ author:
   affiliation: Directora alterna del proyecto Upwell
   affiliation_url: https://www.upwell.cl/web/investigadores/
 - name: Dr. Bernardo Broitman
-
   url: http://www.upwell.cl/web/ecologia-de-humboldt/
   affiliation: Investigador responsable Ecología de Humboldt
   affiliation_url: http://www.upwell.cl/web/ecologia-de-humboldt/
+- name: Dr. Matías Frugone-Álvarez.
+  url: https://matfrugone.netlify.app
+  affiliation: Tecnico de datos Upwell
+  affiliation_url: https://www.upwell.cl/web/  
 date: "`r Sys.Date()`"
 description: |
-  Bienvenidos a la website del taller de datos UPWELL. `Espero que lo disfruten!`
+  Bienvenidos a la website del taller sobre bases de datos del Núcleo Milenio UPWELL. `Espero que lo disfruten!`
 site: distill::distill_website
 ---
 
@@ -31,7 +30,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Bienvenidos
 
-Gracias por asistir a este curso de uso, manipulación y análisis de bases de datos del proyecto UPWELL
+Gracias por asistir a este curso de uso, manipulación y análisis de bases de datos y meta-datos del proyecto UPWELL
+
+Diseñamos una serie de talleres prácticos para introducir a un grupo diverso de estudiantes y científicos, jóvenes y no tan jóvenes, para utilizar y aprovechar el poder de los repositorios de datos abiertos en línea, junto con las herramientas computacionales y analíticas necesarias para ello.
 
 ```{r, include=FALSE, fig.cap="[Slides](slides/index.html)"}
 knitr::include_url("slides/index.html")
@@ -43,10 +44,12 @@ knitr::include_url("slides/index.html")
 
 ### Esencial
 
--   Instalar rstudio.cloud <https://rstudio.cloud>.
 -   Instalar la última version de [Zoom](https://zoom.us/download).
+-   Instalar la última versión del Sofware [R](https://www.r-project.org/).
+-   Instalar la última versión de [RStudio](https://www.rstudio.com/).
+-   Instalar la última version de [Git](https://git-scm.com/).
+-   Crear una cuenta en [GitHub](https://github.com/).
 -   Únase a una sesión de verificación de tecnología previa al curso; los detalles se encuentran en el correo electrónico previo al curso.
--   ....
 
 ### Opcional
 
@@ -54,13 +57,13 @@ Configure la clase con una computadora portátil que tenga lo siguiente instalad
 
 <aside>
 
-El día de la clase, le proporcionaremos un enlace a un proyecto de RStudio Cloud que contiene todos los materiales del curso.
+El día de la clase, le proporcionaremos un enlace a un proyecto de GitHub ClassRoom que contiene todos los materiales del curso.
 
 </aside>
 
--   Una version reciente de R (\>=3.9.0), disponible en <https://cran.r-project.org/>
+-   Una versión reciente de R (\>=3.9.0), disponible en <https://cran.r-project.org/>
 
--   Una version reciente de RStudio Desktop (\>=1.3.0), disponible en <https://www.rstudio.com/download> (RStudio Desktop Open Source License)
+-   Una versión reciente de RStudio Desktop (\>=1.3.0), disponible en <https://www.rstudio.com/download> (RStudio Desktop Open Source License)
 
 -   Los R packages que vamos a usar;
 
