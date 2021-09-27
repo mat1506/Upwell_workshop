@@ -2303,15 +2303,66 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#guia-de-instalación-del-sofware-r-y">Guia de instalación del sofware R y</a>
+<li><a href="#guia-de-instalación-del-sofware-r-y-rstudio">Guia de instalación del sofware R y RStudio</a>
 <ul>
-<li><a href="#windows">Windows</a></li>
+<li><a href="#introducción">Introducción</a></li>
+<li><a href="#instalar-r">Instalar R</a>
+<ul>
+<li><a href="#instalar-r-en-windows">Instalar R en Windows</a></li>
+<li><a href="#instalar-r-en-mac">Instalar R en Mac</a></li>
+</ul></li>
+<li><a href="#instalar-rstudio">Instalar RStudio</a>
+<ul>
+<li><a href="#instalar-rstudio-en-windows">Instalar RStudio en Windows</a></li>
+<li><a href="#instalar-rstudio-en-mac-os">Instalar RStudio en Mac OS</a></li>
+</ul></li>
+<li><a href="#entorno-de-trabajo-de-rstudio">Entorno de trabajo de RStudio</a></li>
 </ul></li>
 </ul>
 </nav>
 </div>
-<h1 id="guia-de-instalación-del-sofware-r-y">Guia de instalación del sofware R y</h1>
-<h2 id="windows">Windows</h2>
+<h1 id="guia-de-instalación-del-sofware-r-y-rstudio">Guia de instalación del sofware R y RStudio</h1>
+<h2 id="introducción">Introducción</h2>
+<p>El objetivo de esta guía es detallar el proceso de instalación de R y su IDE, RStudio, y familiarizar al usuario con el entorno de trabajo que proporciona RStudio.</p>
+<h2 id="instalar-r">Instalar R</h2>
+<p>Para instalar R nos dirigiremos a la página web de R project. Para ello haremos click en el siguiente enlace: <a href="http://www.r-project.org" class="uri">http://www.r-project.org</a>.</p>
+<p><a href="https://www.r-project.org/"><img src="images/%C3%ADndice.png" title="R project" alt="Página principal de R project" /></a></p>
+<p>Para descargar el software haremos click en <strong>CRAN</strong> y luego sobre el enlace del “espejo” (mirror) más próximo a nuestra ubicación.</p>
+<p><a href="https://cran.r-project.org/mirrors.html"><img src="images/Captura%20de%20pantalla%20de%202021-09-27%2015-54-10.png" alt="Espejos para cada país del R project" /></a></p>
+<p>Luego debemos seleccionar la versión de R para el sistema operativo que esté utilizando, Windows o Mac OS</p>
+<p><a href="https://cran.dcc.uchile.cl/"><img src="images/%C3%ADndice2.png" alt="Descargar R" /></a></p>
+<h3 id="instalar-r-en-windows">Instalar R en Windows</h3>
+<p>Al hacer clic sobre “Download R for Windows” sremos dirigidos a la página que se reproduce a continuación. Allí haremos clic sobre <strong>install R for the first time</strong>.</p>
+<figure>
+<img src="images/%C3%ADndice3.png" alt="Figura 4. Instalar R en Windows" /><figcaption aria-hidden="true">Figura 4. Instalar R en Windows</figcaption>
+</figure>
+<p>En la siguiente ventana, haremos clic sobre <strong>Download R 4.0.3 for Windows</strong> y guardar el archivo de instalación.</p>
+<p>Luego, ejecutaremos el archivo descargado para proceder a la instalación de R y seguiremos las instrucciones del ejecutable.</p>
+<h3 id="instalar-r-en-mac">Instalar R en Mac</h3>
+<p>Lo primero es descargar el fostware, para ello haremos clic sobre <strong>Download R for (Mac) OS X</strong> y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.</p>
+<figure>
+<img src="images/%C3%ADndice5.png" alt="Instalar la versión 4.1.1 de R para Mac OS 10.13" /><figcaption aria-hidden="true">Instalar la versión 4.1.1 de R para Mac OS 10.13</figcaption>
+</figure>
+<p>Para descargar haremos click sobre <strong>R-4.1.1.pkg</strong> y guardaremos el archivo de instalación para luego ejecutarlo e instalar R.</p>
+<h2 id="instalar-rstudio">Instalar RStudio</h2>
+<p>Primero, debemos descargar RStudio desde su página web (<a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a>) Allí seleccionamos la versión gratuita de RStudio Desktop</p>
+<p><a href="https://www.rstudio.com/products/rstudio/download/"><img src="images/%C3%ADndice6.png" alt="Selección de la versión de RStudio" /></a></p>
+<h3 id="instalar-rstudio-en-windows">Instalar RStudio en Windows</h3>
+<p>Luego, haremos click en el botón de descarga. Automáticamente se decargará un ejecutable para instalar RStudio. Se requiere de Windows 7 o superior.</p>
+<h3 id="instalar-rstudio-en-mac-os">Instalar RStudio en Mac OS</h3>
+<p>Luego, haremos click en el botón de descarga. Automáticamente se decargará un ejecutable para instalar RStudio. Se requiere de Mac OS High Sierra o superior.</p>
+<h2 id="entorno-de-trabajo-de-rstudio">Entorno de trabajo de RStudio</h2>
+<p>Al abrir RStudio deberíamos ver una pantalla similar a lo que se muestra en la siguiente imagen:</p>
+<figure>
+<img src="images/%C3%ADndice7.png" alt="Aspecto general de RStudio" /><figcaption aria-hidden="true">Aspecto general de RStudio</figcaption>
+</figure>
+<p>Una vez en RStudio, podemos escribir y ejecutar las órdenes de varias formas:</p>
+<ul>
+<li><p>directamente en la consola</p></li>
+<li><p>a través de un script (.R)</p></li>
+<li><p>con archivos Rmarkdown (.Rmd)</p></li>
+</ul>
+<p>Como podemos ver, RStudio está (normalmente) dividido en 4 paneles.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
