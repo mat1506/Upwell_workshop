@@ -1,12 +1,12 @@
 ---
-title: "Untitled"
+title: "Guia de instalación"
 description: |
-  A new article created using the Distill format.
+  Una guia rapida de instalación de las distintas herramientas para el taller UPWELL
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: Matías Frugone Álvarez 
+    url: https://matfrugone.netlify.app
+    affiliation: Tecnico de datos Upwell
+    affiliation_url: https://www.upwell.cl/web/ 
 date: "`r Sys.Date()`"
 output: distill::distill_article
 ---
@@ -15,11 +15,76 @@ output: distill::distill_article
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web. 
+# Guia de instalación del sofware R y RStudio
 
-Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+## Introducción
 
+El objetivo de esta guía es detallar el proceso de instalación de R y su IDE, RStudio, y familiarizar al usuario con el entorno de trabajo que proporciona RStudio.
 
+## Instalar R
 
+Para instalar R nos dirigiremos a la página web de R project. Para ello haremos click en el siguiente enlace: <http://www.r-project.org>.
 
+[![Página principal de R project](images/%C3%ADndice.png "R project")](https://www.r-project.org/)
 
+Para descargar el software haremos click en **CRAN** y luego sobre el enlace del "espejo" (mirror) más próximo a nuestra ubicación.
+
+[![Espejos para cada país del R project](images/Captura%20de%20pantalla%20de%202021-09-27%2015-54-10.png)](https://cran.r-project.org/mirrors.html)
+
+Luego debemos seleccionar la versión de R para el sistema operativo que esté utilizando, Windows o Mac OS
+
+[![Descargar R](images/%C3%ADndice2.png)](https://cran.dcc.uchile.cl/)
+
+### Instalar R en Windows
+
+Al hacer clic sobre "Download R for Windows" sremos dirigidos a la
+página que se reproduce a continuación. Allí haremos clic sobre **install R for the first time**.
+
+![Figura 4. Instalar R en Windows](images/%C3%ADndice3.png)
+
+En la siguiente ventana, haremos clic sobre **Download R 4.0.3 for Windows** y guardar el archivo de instalación.
+
+Luego, ejecutaremos el archivo descargado para proceder a la instalación de R y seguiremos las instrucciones del ejecutable.
+
+### Instalar R en Mac
+
+Lo primero es descargar el fostware, para ello haremos clic sobre **Download R for (Mac) OS X** y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de
+cada uno.
+
+![Instalar la versión 4.1.1 de R para Mac OS 10.13](images/%C3%ADndice5.png)
+
+Para descargar haremos click sobre **R-4.1.1.pkg** y guardaremos el archivo de instalación para luego ejecutarlo e instalar R.
+
+## Instalar RStudio
+
+Primero, debemos descargar RStudio desde su página web (<https://rstudio.com/products/rstudio/download/>) Allí seleccionamos la versión gratuita de RStudio Desktop
+
+[![Selección de la versión de RStudio](images/%C3%ADndice6.png)](https://www.rstudio.com/products/rstudio/download/)
+
+### Instalar RStudio en Windows
+
+Luego, haremos click en el botón de descarga. Automáticamente se
+decargará un ejecutable para instalar RStudio. Se requiere de Windows 7 o
+superior.
+
+### Instalar RStudio en Mac OS
+
+Luego, haremos click en el botón de descarga. Automáticamente se
+decargará un ejecutable para instalar RStudio. Se requiere de Mac OS
+High Sierra o superior.
+
+## Entorno de trabajo de RStudio
+
+Al abrir RStudio deberíamos ver una pantalla similar a lo que se muestra en la siguiente imagen:
+
+![Aspecto general de RStudio](images/%C3%ADndice7.png)
+
+Una vez en RStudio, podemos escribir y ejecutar las órdenes de varias formas:
+
+-   directamente en la consola
+
+-   a través de un script (.R)
+
+-   con archivos Rmarkdown (.Rmd)
+
+Como podemos ver, RStudio está (normalmente) dividido en 4 paneles.

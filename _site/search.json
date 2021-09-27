@@ -36,17 +36,17 @@
     },
     {
       "path": "install.html",
-      "title": "Untitled",
-      "description": "A new article created using the Distill format.\n",
+      "title": "Guia de instalación",
+      "description": "Una guia rapida de instalación de las distintas herramientas para el taller UPWELL\n",
       "author": [
         {
-          "name": "Nora Jones",
-          "url": "https://example.com/norajones"
+          "name": "Matías Frugone Álvarez",
+          "url": "https://matfrugone.netlify.app"
         }
       ],
       "date": "`r Sys.Date()`",
-      "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill for R Markdown at https://rstudio.github.io/distill.\n\n\n\n",
-      "last_modified": "2021-09-27T12:25:48-03:00"
+      "contents": "\n\nContents\nGuia de instalación del sofware R y\nWindows\n\n\nGuia de instalación del sofware R y\nWindows\n\n\n\n",
+      "last_modified": "2021-09-27T15:49:58-03:00"
     },
     {
       "path": "neotoma.html",
