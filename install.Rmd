@@ -1,7 +1,7 @@
 ---
 title: "Guía de instalación"
 description: |
-  Una guia rapida de instalación de las distintas herramientas para el taller UPWELL
+  Una guía rápida de instalación de las distintas herramientas para el taller UPWELL
 author:
   - name: Matías Frugone Álvarez 
     url: https://matfrugone.netlify.app
@@ -15,7 +15,7 @@ output: distill::distill_article
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Guia de instalación del sofware R y RStudio
+# Guía de instalación del sofware R y RStudio
 
 ## Introducción
 
