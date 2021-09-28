@@ -74,12 +74,11 @@ install.packages(c("tidyverse","devtools", "tinytex", "rmarkdown", "usethis", "h
 
 Una vez que tinytex está instalado, utilícelo para instalar una instalación mínima de LaTeX:
 
+```{r echo=TRUE, eval = FALSE}
 
-    ```{r echo=TRUE, eval = FALSE}
-    
 tinytex::install_tinytex()
-    
-    ```
+
+```
 
 Algunos de estos son paquetes grandes, por lo que es mejor comenzar a instalarlos. Si tiene algún problema de instalación, venga a verme en la próxima pausa para el café.
 
