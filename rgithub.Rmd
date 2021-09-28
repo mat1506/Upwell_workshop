@@ -1,0 +1,70 @@
+---
+title: "Cómo usar Git/GitHub con R"
+description: |
+  Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/
+author:
+  - name: David February 13, 2021
+  
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Cómo usar Git/GitHub con R
+
+El uso de Git y GitHub junto con RStudio tiene el poder de revolucionar la forma en que trabajas en R. Pero configurar todo puede ser un desafío.
+
+## ¿Qué es Git? ¿Qué es GitHub?
+
+Recuerdo cuando estaba empezando a aprender R, Git y GitHub eran cosas de las que había oído hablar, pero que solo entendía vagamente. Tenía la sensación de que se trataba de colaboración y compartir código, pero más allá de eso...
+
+Entonces... ¿qué son Git y GitHub? En primer lugar, son dos cosas separadas:
+
+1.  Git es un software de código abierto para el control de versiones. Utilizando Git, puedes hacer cosas como ver todas las versiones anteriores de código que has creado en un proyecto.
+
+2.  GitHub es el servicio más popular (otros incluyen GitLab y BitBucket) para colaborar en código usando Git.
+
+Es posible usar Git sin usar GitHub, aunque la mayoría de la gente combina los dos. Poder tener un registro de todos los cambios que ha realizado en su código tanto localmente como en un sitio web remoto es poderoso.
+
+## ¿Por qué debería usar Git y GitHub?
+
+1.  **El uso de Git y GitHub sirve como copia de seguridad**.
+
+2.  **El uso de Git y GitHub te permite usar el control de versiones**
+
+3.  **El uso de Git y GitHub permite trabajar en el mismo proyecto al mismo tiempo que los colaboradores.**
+
+## Cómo configurar Git
+
+Ahora que tienes un poco más de comprensión de lo que son Git y GitHub, hablemos de cómo configurar todo. Gran parte de lo que compartiré proviene del excelente libro [Happy Git with R](http://happygitwithr.com/) de Jenny Bryan y Jim Hester. Sin embargo, en el momento de escribir este artículo (febrero de 2021), algunas cosas han cambiado con respecto a las credenciales. Adorno lo que creo que es el consejo más actualizado para configurar todo.
+
+## Instalar Git
+
+El primer paso es instalar Git.[El capítulo 6 de Happy Git with R](https://happygitwithr.com/install-git.html) establece el proceso para los usuarios de Mac, Windows y Linux. Estoy en un GNU-Linux, así que Git vino preinstalado en mi computadora (al igual que en MAC). Pude verificar que tenía Git instalado usando el terminal en RStudio.
+
+En terminal de RStudio:
+
+```{bash echo=TRUE, eval = FALSE}
+
+which git
+git --version
+
+```
+
+## Configurar Git (Editar gitconfig file)
+
+El siguiente paso es configurar Git. Esto se trata en el [Capítulo 7 de Happy Git with R](https://happygitwithr.com/hello-git.html), aunque muestro lo que creo que es un proceso un poco más fácil. Específicamente, sugiero usar la función [edit_git_config() del paquete usethis](https://usethis.r-lib.org/reference/edit.html), que abrirá su [archivo gitconfig](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup). Agregue su nombre y correo electrónico y cierre esto.
+
+En la consola de RStudio:
+
+```{r echo=TRUE, eval = FALSE}
+
+library(usethis)
+usethis::edit_git_config()
+# Modificar en el fichero ".gitconfig" los apartados: "name" y "email" 
+# y guardar el fichero
+
+```

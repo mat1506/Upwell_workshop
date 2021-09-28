@@ -68,8 +68,20 @@ El día de la clase, le proporcionaremos un enlace a un proyecto de GitHub Class
 -   Los R packages que vamos a usar;
 
     ```{r echo=TRUE, eval = FALSE}
-    install.packages(c("tidyverse", "neotoma"))
+install.packages(c("tidyverse","devtools", "tinytex", "rmarkdown", "usethis", "here", "neotoma"))
     ```
+
+
+Una vez que tinytex está instalado, utilícelo para instalar una instalación mínima de LaTeX:
+
+
+    ```{r echo=TRUE, eval = FALSE}
+    
+tinytex::install_tinytex()
+    
+    ```
+
+Algunos de estos son paquetes grandes, por lo que es mejor comenzar a instalarlos. Si tiene algún problema de instalación, venga a verme en la próxima pausa para el café.
 
 <aside>
 

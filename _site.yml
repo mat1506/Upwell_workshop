@@ -15,9 +15,11 @@ navbar:
       href: about.html
     - text: "Install Party"
       href: install.html
+    - text: "Git/GitHub con R"
+      href: rgithub.html
     - text: "Neotoma"
       href: neotoma.html
-    
+      
 cookie_consent:
   style: simple
   type: express
