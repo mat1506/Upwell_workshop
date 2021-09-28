@@ -2309,6 +2309,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#instalar-r">Instalar R</a>
 <ul>
 <li><a href="#instalar-r-en-windows">Instalar R en Windows</a></li>
+<li><a href="#cómo-actualizar-la-instalación-de-r-en-windows">¿Cómo actualizar la instalación de R en Windows?</a></li>
 <li><a href="#instalar-r-en-mac">Instalar R en Mac</a></li>
 </ul></li>
 <li><a href="#instalar-rstudio">Instalar RStudio</a>
@@ -2349,6 +2350,53 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </figure>
 <p>En la siguiente ventana, haremos clic sobre <strong>Download R 4.0.3 for Windows</strong> y guardar el archivo de instalación.</p>
 <p>Luego, ejecutaremos el archivo descargado para proceder a la instalación de R y seguiremos las instrucciones del ejecutable.</p>
+<h3 id="cómo-actualizar-la-instalación-de-r-en-windows">¿Cómo actualizar la instalación de R en Windows?</h3>
+<p><strong>Paso 1</strong>: Verifique su versión de instalación existente dirigiéndose a RStudio y escribiendo la versión en la consola. Esto debería darle la información sobre sus versiones principales y secundarias instaladas de R. Algo como esto:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>version</span>
+</code></pre>
+</div>
+</div>
+<p><strong>Paso 2</strong>: Dirígete a RGui (recuerda que no vayas a RStudio, busca RGui en el menú de inicio de Windows). Instale y cargue un paquete llamado installr, usando estos comandos:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Install the *installr* package</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"installr"</span><span class='op'>)</span>
+  
+<span class='co'># Load the package</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'>"installr"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><strong>Paso 3</strong>: Simplemente ejecute el comando installr :: updateR () y espere a que aparezca el cuadro de diálogo de información.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># The below command will check your </span>
+<span class='co'># installed version against the latest </span>
+<span class='co'># version available and will show you </span>
+<span class='co'># an information dialogue box</span>
+<span class='fu'>installr</span><span class='fu'>::</span><span class='fu'>updateR</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><img src="images/202012307.png" width="920" /></p>
+<p><strong>Paso 4:</strong> navegue por todos los procedimientos de instalación como se muestra a continuación:<br />
+<br />
+<strong>Paso 4.1:</strong> Si desea mantenerse libre de spam, presione No</p>
+<p><img src="images/202012308.png" /></p>
+<p>Paso 4.2: haga clic en Sí, si desea actualizar su versión de instalación de R</p>
+<p><img src="images/202012309.png" /></p>
+<p>Paso 4.3: A menos que tenga una instalación nueva y limpia, definitivamente haga clic en Sí</p>
+<p><img src="images/2020123010.png" /></p>
+<p>Paso 4.4: si no estaba trabajando en proyectos de producción en ese momento, presione No.</p>
+<p><img src="images/2020123011.png" /></p>
+<p>Paso 4.5: Esto está relacionado con RShiny. Haga clic en Sí.</p>
+<p><img src="images/2020123012.png" /></p>
+<p>Paso 4.6: Aunque los paquetes deberían tener compatibilidad con versiones anteriores, haga clic en Sí.</p>
+<p><img src="images/2020123013-01.png" /></p>
+<p>Paso 5: Una vez realizada toda la instalación, cierre su RGui y regrese a RStudio y vuelva a ejecutar la versión del comando para verificar si su instalación de R se ha actualizado o no.</p>
+<p><img src="images/Capture2.PNG" /></p>
 <h3 id="instalar-r-en-mac">Instalar R en Mac</h3>
 <p>Lo primero es descargar el fostware, para ello haremos clic sobre <strong>Download R for (Mac) OS X</strong> y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.</p>
 <figure>
@@ -2425,7 +2473,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 <p>Para verificar que la configuración se realizó correctamente utiliza este comando.</p>
 <p><code>$ git config –list</code></p>
-<p>Deberá imprimirte en la terminal las configuraciones, entre ellas las que acabamos de actualizar.</p>
+<p>Deberá imprimir en la terminal las configuraciones, entre ellas las que acabamos de actualizar.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">core.excludeFiles=~/.gitignore</span></span>

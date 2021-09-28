@@ -45,6 +45,79 @@ En la siguiente ventana, haremos clic sobre **Download R 4.0.3 for Windows** y g
 
 Luego, ejecutaremos el archivo descargado para proceder a la instalación de R y seguiremos las instrucciones del ejecutable.
 
+### ¿Cómo actualizar la instalación de R en Windows?
+
+**Paso 1**: Verifique su versión de instalación existente dirigiéndose a
+RStudio y escribiendo la versión en la consola. Esto debería darle la
+información sobre sus versiones principales y secundarias instaladas de
+R. Algo como esto:
+
+```{r echo=TRUE, eval = FALSE}
+
+version
+
+```
+
+**Paso 2**: Dirígete a RGui (recuerda que no vayas a RStudio, busca RGui en el
+menú de inicio de Windows). Instale y cargue un paquete llamado
+installr, usando estos comandos:
+
+```{r echo=TRUE, eval = FALSE}
+
+# Install the *installr* package
+install.packages("installr")
+  
+# Load the package
+library("installr")
+
+```
+
+**Paso 3**: Simplemente ejecute el comando installr :: updateR () y espere a que aparezca el cuadro de diálogo de información.
+
+```{r echo=TRUE, eval = FALSE}
+
+# The below command will check your 
+# installed version against the latest 
+# version available and will show you 
+# an information dialogue box
+installr::updateR()
+
+```
+
+![](images/202012307.png){width="920"}
+
+**Paso 4:** navegue por todos los procedimientos de instalación como se muestra a continuación:\
+\
+**Paso 4.1:** Si desea mantenerse libre de spam, presione No
+
+![](images/202012308.png)
+
+Paso 4.2: haga clic en Sí, si desea actualizar su versión de instalación de R
+
+![](images/202012309.png)
+
+Paso 4.3: A menos que tenga una instalación nueva y limpia, definitivamente haga clic en Sí
+
+![](images/2020123010.png)
+
+Paso 4.4: si no estaba trabajando en proyectos de producción en ese momento, presione No.
+
+![](images/2020123011.png)
+
+Paso 4.5: Esto está relacionado con RShiny. Haga clic en Sí.
+
+![](images/2020123012.png)
+
+Paso 4.6: Aunque los paquetes deberían tener compatibilidad con versiones anteriores, haga clic en Sí.
+
+![](images/2020123013-01.png)
+
+Paso 5: Una vez realizada toda la instalación, cierre su RGui y regrese a
+RStudio y vuelva a ejecutar la versión del comando para verificar si su
+instalación de R se ha actualizado o no.
+
+![](images/Capture2.PNG)
+
 ### Instalar R en Mac
 
 Lo primero es descargar el fostware, para ello haremos clic sobre **Download R for (Mac) OS X** y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.
@@ -180,7 +253,7 @@ Para verificar que la configuración se realizó correctamente utiliza este coma
 
 `$ git config –list`
 
-Deberá imprimirte en la terminal las configuraciones, entre ellas las que acabamos de actualizar.
+Deberá imprimir en la terminal las configuraciones, entre ellas las que acabamos de actualizar.
 
 ```{bash bash6, echo=TRUE, eval = FALSE}
 
