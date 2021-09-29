@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Introducción
 
-El objetivo de esta guía es detallar el proceso de instalación de R y su IDE, RStudio, y familiarizar al usuario con el entorno de trabajo que proporciona RStudio.
+El objetivo de esta guía es detallar el proceso de instalación de R y su [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment)), RStudio, y familiarizar al usuario con el entorno de trabajo que proporciona RStudio.
 
 ## Instalar R
 
@@ -35,22 +35,182 @@ Luego debemos seleccionar la versión de R para el sistema operativo que esté u
 
 [![Descargar R](images/%C3%ADndice2.png){width="878"}](https://cran.dcc.uchile.cl/)
 
-### Instalar R en Windows
+### Instalar R en **Ubuntu** 
+
+Paquete para la actual R 4.1. release \* están disponibles para la
+mayoría de las versiones de escritorio estables de Ubuntu hasta su fecha de finalización oficial. Sin embargo, solo la última versión de Long Term Support (LTS) es totalmente compatible. A partir del 19 de mayo de 2021, las versiones compatibles son:
+
+-   Hirsute Hippo (21.04, amd64 only)
+
+-   Groovy Gorilla (20.10, amd64 only),
+
+-   Focal Fossa (20.04; LTS and amd64 only),
+
+-   Bionic Beaver (18.04; LTS), and
+
+-   Xenial Xerus (16.04; LTS).
+
+Tenga en cuenta que para instalar paquetes de R 4.1, se necesita una entrada nueva y diferente sources.list. Consulte los detalles a
+continuación.\
+\
+Para versiones anteriores de R, consulte el archivo [corresponding README](https://cran.r-project.org/bin/linux/ubuntu/olderreleasesREADME.html).
+
+### Paquetes CRAN adicionales
+
+Para paquetes binarios adicionales para R (actualmente más de 4000+), consulte los diferentes PPA de CRAN2deb4ubuntu. Para R 4.1. \*, Esto es <https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+>
+
+El repositorio 'c2d4u' solo está disponible para las versiones LTS. Si
+desea intentar usar el repositorio con una versión que no sea LTS, puede
+editar manualmente la 'c2d4u_team-ubuntu-c2d4u4_0 \_- \*. List' para usar
+focal en lugar de la versión prevista. Este uso del repositorio 'c2d4u'
+no es compatible. Se recomienda encarecidamente una versión LTS para
+utilizar el repositorio 'c2d4u'.
+
+### Instalación
+
+Para obtener los últimos paquetes de R 4.1, agregue una entrada como
+
+```{bash echo=TRUE, eval = FALSE}
+
+deb https://cloud.r-project.org/bin/linux/ubuntu hirsute-cran40/
+
+```
+
+o
+
+```{bash echo=TRUE, eval = FALSE}
+
+deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/
+
+```
+
+o
+
+```{bash echo=TRUE, eval = FALSE}
+
+deb https://cloud.r-project.org/bin/linux/ubuntu groovy-cran40/
+
+```
+
+o
+
+```{bash echo=TRUE, eval = FALSE}
+
+deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
+```
+
+o
+
+```{bash echo=TRUE, eval = FALSE}
+
+deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran40/
+```
+
+En su archivo /etc/apt/sources.list. Al utilizar
+<https://cloud.r-project.org,> se le redirigirá automáticamente a un
+espejo CRAN cercano. Consulte <https://cran.r-project.org/mirrors.html>
+para obtener la lista actual de espejos CRAN.
+
+Para instalar el sistema R completo, use:
+
+```{bash echo=TRUE, eval = FALSE}
+
+sudo apt-get update
+sudo apt-get install r-base
+```
+
+Usuarios que necesitan compilar paquetes R desde la fuente [p. Ej. los
+mantenedores de paquetes, o cualquier persona que instale paquetes con
+install.packages ()] también debe instalar el paquete r-base-dev:
+
+```{bash echo=TRUE, eval = FALSE}
+
+sudo apt-get install r-base-dev
+
+```
+
+Por lo demás, los paquetes R para Ubuntu se comportan como los de Debian.
+Se puede encontrar información adicional en el archivo README de Debian ubicado en <https://cran.R-project.org/bin/linux/debian/.>\
+\
+La instalación y compilación de R o algunos de sus paquetes pueden requerir
+paquetes de Ubuntu de los repositorios 'backports'. Por lo tanto, se sugiere activar los repositorios de backports con una entrada como:
+
+```{bash echo=TRUE, eval = FALSE}
+
+deb https://<my.favorite.ubuntu.mirror>/ focal-backports main restricted universe
+```
+
+en su archivo /etc/apt/sources.list. Consulte <https://launchpad.net/ubuntu/+archivemirrors> para ver la lista de espejos de Ubuntu.
+
+### Usando apt-key
+
+Los archivos de Ubuntu en CRAN están firmados con la clave "Michael
+Rutter marutter\@gmail.com" con el ID de clave 0x51716619e084dab9. Para
+agregar la clave a su sistema con un comando, use (gracias a Brett
+Presnell por la sugerencia):
+
+```{bash echo=TRUE, eval = FALSE}
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+```
+
+Se puede utilizar un método alternativo recuperando la clave con
+
+```{bash echo=TRUE, eval = FALSE}
+
+gpg --keyserver keyserver.ubuntu.com --recv-key E298A3A825C0D65DFD57CBB651716619E084DAB9
+```
+
+y luego alimentarlo a apt-key con
+
+```{bash echo=TRUE, eval = FALSE}
+
+gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
+```
+
+Algunas personas han informado de dificultades para utilizar este
+enfoque. El problema generalmente está relacionado con un firewall que
+bloquea el puerto 11371. Si el primer comando gpg falla, puede
+intentarlo (gracias a Mischan Toosarani por el consejo):
+
+```{bash echo=TRUE, eval = FALSE}
+
+gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+```
+
+y luego alimentarlo a apt-key con
+
+```{bash echo=TRUE, eval = FALSE}
+
+gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
+
+```
+
+Otro enfoque alternativo es buscar la clave en
+<http://keyserver.ubuntu.com:11371/> y copiar la clave en un archivo de
+texto sin formato, digamos key.txt. Luego, ingrese la clave a apt-key
+con
+
+```{bash echo=TRUE, eval = FALSE}
+
+sudo apt-key add key.txt
+```
+
+## Instalar R en Windows
 
 Al hacer clic sobre "Download R for Windows" sremos dirigidos a la página que se reproduce a continuación. Allí haremos clic sobre **install R for the first time**.
 
 ![Figura 4. Instalar R en Windows](images/%C3%ADndice3.png)
 
-En la siguiente ventana, haremos clic sobre **Download R 4.0.3 for Windows** y guardar el archivo de instalación.
+En la siguiente ventana, haremos clic sobre **Download R 4.1.1 for Windows** y guardar el archivo de instalación.
+
+[![Instalar la versión 4.1.1 de R para Windows](images/%C3%ADndice-01.png "Instalar la versión 4.1.1 de R para Windows"){width="900"}](https://cran.r-project.org/bin/windows/base/)
 
 Luego, ejecutaremos el archivo descargado para proceder a la instalación de R y seguiremos las instrucciones del ejecutable.
 
 ### ¿Cómo actualizar la instalación de R en Windows?
 
-**Paso 1**: Verifique su versión de instalación existente dirigiéndose a
-RStudio y escribiendo la versión en la consola. Esto debería darle la
-información sobre sus versiones principales y secundarias instaladas de
-R. Algo como esto:
+**Paso 1**: Verifique su versión de instalación existente dirigiéndose a RStudio y escribiendo la versión en la consola. Esto debería darle la información sobre sus versiones principales y secundarias instaladas de R. Algo como esto:
 
 ```{r echo=TRUE, eval = FALSE}
 
@@ -58,9 +218,7 @@ version
 
 ```
 
-**Paso 2**: Dirígete a RGui (recuerda que no vayas a RStudio, busca RGui en el
-menú de inicio de Windows). Instale y cargue un paquete llamado
-installr, usando estos comandos:
+**Paso 2**: Dirígete a RGui (recuerda que no vayas a RStudio, busca RGui en el menú de inicio de Windows). Instale y cargue un paquete llamado installr, usando estos comandos:
 
 ```{r echo=TRUE, eval = FALSE}
 
@@ -112,15 +270,13 @@ Paso 4.6: Aunque los paquetes deberían tener compatibilidad con versiones anter
 
 ![](images/2020123013-01.png)
 
-Paso 5: Una vez realizada toda la instalación, cierre su RGui y regrese a
-RStudio y vuelva a ejecutar la versión del comando para verificar si su
-instalación de R se ha actualizado o no.
+Paso 5: Una vez realizada toda la instalación, cierre su RGui y regrese a RStudio y vuelva a ejecutar la versión del comando para verificar si su instalación de R se ha actualizado o no.
 
 ![](images/Capture2.PNG)
 
 ### Instalar R en Mac
 
-Lo primero es descargar el fostware, para ello haremos clic sobre **Download R for (Mac) OS X** y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.
+Lo primero es descargar el software, para ello haremos clic sobre **Download R for (Mac) OS X** y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.
 
 ![Instalar la versión 4.1.1 de R para Mac OS 10.13](images/%C3%ADndice5.png)
 
@@ -128,9 +284,62 @@ Para descargar haremos click sobre **R-4.1.1.pkg** y guardaremos el archivo de i
 
 ## Instalar RStudio
 
+RStudio es un entorno de desarrollo integrado para el lenguaje de programación R, dedicado a la computación estadística y gráficos. Incluye una consola, editor de sintaxis que apoya la ejecución de código, así como herramientas para el trazado, la depuración y la gestión del espacio de trabajo.
+
 Primero, debemos descargar RStudio desde su página web (<https://rstudio.com/products/rstudio/download/>) Allí seleccionamos la versión gratuita de RStudio Desktop
 
 [![Selección de la versión de RStudio](images/%C3%ADndice6.png)](https://www.rstudio.com/products/rstudio/download/)
+
+### Instalar RStudio en Ubuntu
+
+### A través de la terminal
+
+**Paso 1:** Abra la terminal (Ctrl + Alt + T) en Ubuntu.
+
+**Paso 2:** actualice la caché de paquetes.
+
+```{bash echo=TRUE, eval = FALSE}
+
+sudo apt-get update
+
+```
+
+**Paso 3:** Descarga de R Studio en Ubuntu
+
+Instale el paquete gdebi para instalar paquetes .deb fácilmente.
+
+```{bash echo=TRUE, eval = FALSE}
+
+sudo add-apt-repository universe
+sudo apt-get install gdebi-core
+
+```
+
+**Paso 4:** Vaya a la [página de descargas de R Studio](https://www.rstudio.com/products/rstudio/download/#download) y seleccione el último paquete \* .deb disponible para Ubuntu 18 / Debian 10.
+
+**Paso 5:** Vaya a la carpeta Descargas en la máquina local.
+
+```{bash echo=TRUE, eval = FALSE}
+
+$ cd Descargas/
+$ ls
+ rstudio-2021.09.0+351-amd64.deb
+
+```
+
+Paso 6: instalar usando el paquete gdebi.
+
+```{bash echo=TRUE, eval = FALSE}
+
+sudo gdebi rstudio-1.2.5042-amd64.deb
+
+```
+
+![](images/Installing-R-Studio-using-gdebi-package.png)
+
+Alternativamente, RStudio también se puede instalar a través del
+software Ubuntu, pero el uso del enfoque anterior generalmente garantiza
+que se instale la última versión.
 
 ### Instalar RStudio en Windows
 
@@ -156,7 +365,7 @@ Una vez en RStudio, podemos escribir y ejecutar las órdenes de varias formas:
 
 Como podemos ver, RStudio está (normalmente) dividido en 4 paneles.
 
-## Instalar Git 
+## Instalar Git
 
 Git es un sistema de control de versiones. Al ser un sistema de control de versiones, git hará un seguimiento de los archivos fuente que son necesarios para construir un proyecto que estemos editando. De tal manera que se se añade un fichero (conjunto de archivos), se modifica o se borra, git guardará en un registro interno cada uno de los cambios. Esto permite poder consultar el estado del proyecto en una determinada fecha, pudiéndolo recuperar tal y como estaba, aunque se hubieran borrado ficheros. Que sea un sistema distribuido significa que cada copia del proyecto contiene todo el histórico completo, hasta el momento en que se hizo la copia.
 
@@ -182,15 +391,9 @@ Sólo debe descargarse el instalador correspondiente desde la página oficial de
 
 [![Instalar Git para Windows](images/Captura%20de%20pantalla%20de%202021-09-27%2016-34-10.png "Instalar Git para Windows"){width="890"}](https://git-scm.com/)
 
-El instalador para Windows abrirá un asistente que mostrará una serie
-de opciones durante el proceso. No debe preocuparse y dejar las
-opciones marcadas por defecto que serán suficientes en la mayoría de las
-situaciones.
+El instalador para Windows abrirá un asistente que mostrará una serie de opciones durante el proceso. No debe preocuparse y dejar las opciones marcadas por defecto que serán suficientes en la mayoría de las situaciones.
 
-Una vez terminado, puedes marcar la opción Iniciar Git Bash si quieres
-abrir una línea de comandos de Bash o si has seleccionado la línea de
-comandos de Windows que ejecuta Git desde la línea de comandos de
-Windows. Compruebe la instalación ejecutando git de prueba con:
+Una vez terminado, puedes marcar la opción Iniciar Git Bash si quieres abrir una línea de comandos de Bash o si has seleccionado la línea de comandos de Windows que ejecuta Git desde la línea de comandos de Windows. Compruebe la instalación ejecutando git de prueba con:
 
 ```{bash bash3, echo=TRUE, eval = FALSE}
 
@@ -206,9 +409,7 @@ Primero te vas a [este enlace](https://git-scm.com/download/mac), en la sección
 
 Una vez descargado en tu computadora, solo le das doble clic al archivo **`git-2.33.0-intel-universal-mavericks.dmg`** mostrado en la imagen de abajo. Se abrirá una carpeta con un archivo del mismo nombre, pero con extensión **`pkg`**, y lo abrimos.
 
-Si te sale el siguiente mensaje es porque la fuente de este paquete no
-está registrada como una fuente de confianza. Esto es una configuración
-predeterminada de macOS.
+Si te sale el siguiente mensaje es porque la fuente de este paquete no está registrada como una fuente de confianza. Esto es una configuración predeterminada de macOS.
 
 ![](images/git-abrir-pkg.webp)
 
@@ -236,8 +437,7 @@ git --version
 
 ## Configuración inicial de Git recomendada
 
-Es recomendado configurar git para empezar a trabajar con él, esto te
-ayuda a registrar tus cambios y versiones con tu información personal.
+Es recomendado configurar git para empezar a trabajar con él, esto te ayuda a registrar tus cambios y versiones con tu información personal.
 
 Para establecer la configuración con tu nombre y correo electrónico vamos a usar el comando `git config`.
 

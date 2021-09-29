@@ -2309,12 +2309,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#introducción">Introducción</a></li>
 <li><a href="#instalar-r">Instalar R</a>
 <ul>
-<li><a href="#instalar-r-en-windows">Instalar R en Windows</a></li>
+<li><a href="#instalar-r-en-ubuntu">Instalar R en <strong>Ubuntu</strong></a></li>
+<li><a href="#paquetes-cran-adicionales">Paquetes CRAN adicionales</a></li>
+<li><a href="#instalación">Instalación</a></li>
+<li><a href="#usando-apt-key">Usando apt-key</a></li>
+</ul></li>
+<li><a href="#instalar-r-en-windows">Instalar R en Windows</a>
+<ul>
 <li><a href="#cómo-actualizar-la-instalación-de-r-en-windows">¿Cómo actualizar la instalación de R en Windows?</a></li>
 <li><a href="#instalar-r-en-mac">Instalar R en Mac</a></li>
 </ul></li>
 <li><a href="#instalar-rstudio">Instalar RStudio</a>
 <ul>
+<li><a href="#instalar-rstudio-en-ubuntu">Instalar RStudio en Ubuntu</a></li>
+<li><a href="#a-través-de-la-terminal">A través de la terminal</a></li>
 <li><a href="#instalar-rstudio-en-windows">Instalar RStudio en Windows</a></li>
 <li><a href="#instalar-rstudio-en-mac-os">Instalar RStudio en Mac OS</a></li>
 <li><a href="#entorno-de-trabajo-de-rstudio">Entorno de trabajo de RStudio</a></li>
@@ -2336,7 +2344,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 <h1 id="guía-de-instalación-del-sofware-r-y-rstudio">Guía de instalación del sofware R y RStudio</h1>
 <h2 id="introducción">Introducción</h2>
-<p>El objetivo de esta guía es detallar el proceso de instalación de R y su IDE, RStudio, y familiarizar al usuario con el entorno de trabajo que proporciona RStudio.</p>
+<p>El objetivo de esta guía es detallar el proceso de instalación de R y su <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a>), RStudio, y familiarizar al usuario con el entorno de trabajo que proporciona RStudio.</p>
 <h2 id="instalar-r">Instalar R</h2>
 <p>Para instalar R nos dirigiremos a la página web de R project. Para ello haremos click en el siguiente enlace: <a href="http://www.r-project.org" class="uri">http://www.r-project.org</a>.</p>
 <p><a href="https://www.r-project.org/"><img src="images/%C3%ADndice.png" title="R project" width="800" alt="Página principal de R project" /></a></p>
@@ -2344,12 +2352,105 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p><a href="https://cran.r-project.org/mirrors.html"><img src="images/Captura%20de%20pantalla%20de%202021-09-27%2015-54-10.png" width="870" alt="Espejos para cada país del R project" /></a></p>
 <p>Luego debemos seleccionar la versión de R para el sistema operativo que esté utilizando, Windows o Mac OS</p>
 <p><a href="https://cran.dcc.uchile.cl/"><img src="images/%C3%ADndice2.png" width="878" alt="Descargar R" /></a></p>
-<h3 id="instalar-r-en-windows">Instalar R en Windows</h3>
+<h3 id="instalar-r-en-ubuntu">Instalar R en <strong>Ubuntu</strong></h3>
+<p>Paquete para la actual R 4.1. release * están disponibles para la mayoría de las versiones de escritorio estables de Ubuntu hasta su fecha de finalización oficial. Sin embargo, solo la última versión de Long Term Support (LTS) es totalmente compatible. A partir del 19 de mayo de 2021, las versiones compatibles son:</p>
+<ul>
+<li><p>Hirsute Hippo (21.04, amd64 only)</p></li>
+<li><p>Groovy Gorilla (20.10, amd64 only),</p></li>
+<li><p>Focal Fossa (20.04; LTS and amd64 only),</p></li>
+<li><p>Bionic Beaver (18.04; LTS), and</p></li>
+<li><p>Xenial Xerus (16.04; LTS).</p></li>
+</ul>
+<p>Tenga en cuenta que para instalar paquetes de R 4.1, se necesita una entrada nueva y diferente sources.list. Consulte los detalles a continuación.<br />
+<br />
+Para versiones anteriores de R, consulte el archivo <a href="https://cran.r-project.org/bin/linux/ubuntu/olderreleasesREADME.html">corresponding README</a>.</p>
+<h3 id="paquetes-cran-adicionales">Paquetes CRAN adicionales</h3>
+<p>Para paquetes binarios adicionales para R (actualmente más de 4000+), consulte los diferentes PPA de CRAN2deb4ubuntu. Para R 4.1. *, Esto es <a href="https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+" class="uri">https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+</a></p>
+<p>El repositorio ‘c2d4u’ solo está disponible para las versiones LTS. Si desea intentar usar el repositorio con una versión que no sea LTS, puede editar manualmente la ‘c2d4u_team-ubuntu-c2d4u4_0 _- *. List’ para usar focal en lugar de la versión prevista. Este uso del repositorio ‘c2d4u’ no es compatible. Se recomienda encarecidamente una versión LTS para utilizar el repositorio ‘c2d4u’.</p>
+<h3 id="instalación">Instalación</h3>
+<p>Para obtener los últimos paquetes de R 4.1, agregue una entrada como</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">deb</span> https://cloud.r-project.org/bin/linux/ubuntu hirsute-cran40/</span></code></pre></div>
+</div>
+<p>o</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">deb</span> https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/</span></code></pre></div>
+</div>
+<p>o</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">deb</span> https://cloud.r-project.org/bin/linux/ubuntu groovy-cran40/</span></code></pre></div>
+</div>
+<p>o</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">deb</span> https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/</span></code></pre></div>
+</div>
+<p>o</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">deb</span> https://cloud.r-project.org/bin/linux/ubuntu xenial-cran40/</span></code></pre></div>
+</div>
+<p>En su archivo /etc/apt/sources.list. Al utilizar <a href="https://cloud.r-project.org," class="uri">https://cloud.r-project.org,</a> se le redirigirá automáticamente a un espejo CRAN cercano. Consulte <a href="https://cran.r-project.org/mirrors.html" class="uri">https://cran.r-project.org/mirrors.html</a> para obtener la lista actual de espejos CRAN.</p>
+<p>Para instalar el sistema R completo, use:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install r-base</span></code></pre></div>
+</div>
+<p>Usuarios que necesitan compilar paquetes R desde la fuente [p. Ej. los mantenedores de paquetes, o cualquier persona que instale paquetes con install.packages ()] también debe instalar el paquete r-base-dev:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install r-base-dev</span></code></pre></div>
+</div>
+<p>Por lo demás, los paquetes R para Ubuntu se comportan como los de Debian. Se puede encontrar información adicional en el archivo README de Debian ubicado en <a href="https://cran.R-project.org/bin/linux/debian/." class="uri">https://cran.R-project.org/bin/linux/debian/.</a><br />
+<br />
+La instalación y compilación de R o algunos de sus paquetes pueden requerir paquetes de Ubuntu de los repositorios ‘backports’. Por lo tanto, se sugiere activar los repositorios de backports con una entrada como:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">deb</span> https://<span class="op">&lt;</span>my.favorite.ubuntu.mirror<span class="op">&gt;</span>/ focal-backports main restricted universe</span></code></pre></div>
+</div>
+<p>en su archivo /etc/apt/sources.list. Consulte <a href="https://launchpad.net/ubuntu/+archivemirrors" class="uri">https://launchpad.net/ubuntu/+archivemirrors</a> para ver la lista de espejos de Ubuntu.</p>
+<h3 id="usando-apt-key">Usando apt-key</h3>
+<p>Los archivos de Ubuntu en CRAN están firmados con la clave “Michael Rutter marutter@gmail.com” con el ID de clave 0x51716619e084dab9. Para agregar la clave a su sistema con un comando, use (gracias a Brett Presnell por la sugerencia):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span></code></pre></div>
+</div>
+<p>Se puede utilizar un método alternativo recuperando la clave con</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-key</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span></code></pre></div>
+</div>
+<p>y luego alimentarlo a apt-key con</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">-a</span> <span class="at">--export</span> E298A3A825C0D65DFD57CBB651716619E084DAB9 <span class="kw">|</span> <span class="fu">sudo</span> apt-key add <span class="at">-</span></span></code></pre></div>
+</div>
+<p>Algunas personas han informado de dificultades para utilizar este enfoque. El problema generalmente está relacionado con un firewall que bloquea el puerto 11371. Si el primer comando gpg falla, puede intentarlo (gracias a Mischan Toosarani por el consejo):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">--keyserver</span> hkp://keyserver.ubuntu.com:80 <span class="at">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span></code></pre></div>
+</div>
+<p>y luego alimentarlo a apt-key con</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gpg</span> <span class="at">-a</span> <span class="at">--export</span> E298A3A825C0D65DFD57CBB651716619E084DAB9 <span class="kw">|</span> <span class="fu">sudo</span> apt-key add <span class="at">-</span></span></code></pre></div>
+</div>
+<p>Otro enfoque alternativo es buscar la clave en <a href="http://keyserver.ubuntu.com:11371/" class="uri">http://keyserver.ubuntu.com:11371/</a> y copiar la clave en un archivo de texto sin formato, digamos key.txt. Luego, ingrese la clave a apt-key con</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key add key.txt</span></code></pre></div>
+</div>
+<h2 id="instalar-r-en-windows">Instalar R en Windows</h2>
 <p>Al hacer clic sobre “Download R for Windows” sremos dirigidos a la página que se reproduce a continuación. Allí haremos clic sobre <strong>install R for the first time</strong>.</p>
 <figure>
 <img src="images/%C3%ADndice3.png" alt="Figura 4. Instalar R en Windows" /><figcaption aria-hidden="true">Figura 4. Instalar R en Windows</figcaption>
 </figure>
-<p>En la siguiente ventana, haremos clic sobre <strong>Download R 4.0.3 for Windows</strong> y guardar el archivo de instalación.</p>
+<p>En la siguiente ventana, haremos clic sobre <strong>Download R 4.1.1 for Windows</strong> y guardar el archivo de instalación.</p>
+<p><a href="https://cran.r-project.org/bin/windows/base/"><img src="images/%C3%ADndice-01.png" title="Instalar la versión 4.1.1 de R para Windows" width="900" alt="Instalar la versión 4.1.1 de R para Windows" /></a></p>
 <p>Luego, ejecutaremos el archivo descargado para proceder a la instalación de R y seguiremos las instrucciones del ejecutable.</p>
 <h3 id="cómo-actualizar-la-instalación-de-r-en-windows">¿Cómo actualizar la instalación de R en Windows?</h3>
 <p><strong>Paso 1</strong>: Verifique su versión de instalación existente dirigiéndose a RStudio y escribiendo la versión en la consola. Esto debería darle la información sobre sus versiones principales y secundarias instaladas de R. Algo como esto:</p>
@@ -2399,14 +2500,45 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>Paso 5: Una vez realizada toda la instalación, cierre su RGui y regrese a RStudio y vuelva a ejecutar la versión del comando para verificar si su instalación de R se ha actualizado o no.</p>
 <p><img src="images/Capture2.PNG" /></p>
 <h3 id="instalar-r-en-mac">Instalar R en Mac</h3>
-<p>Lo primero es descargar el fostware, para ello haremos clic sobre <strong>Download R for (Mac) OS X</strong> y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.</p>
+<p>Lo primero es descargar el software, para ello haremos clic sobre <strong>Download R for (Mac) OS X</strong> y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.</p>
 <figure>
 <img src="images/%C3%ADndice5.png" alt="Instalar la versión 4.1.1 de R para Mac OS 10.13" /><figcaption aria-hidden="true">Instalar la versión 4.1.1 de R para Mac OS 10.13</figcaption>
 </figure>
 <p>Para descargar haremos click sobre <strong>R-4.1.1.pkg</strong> y guardaremos el archivo de instalación para luego ejecutarlo e instalar R.</p>
 <h2 id="instalar-rstudio">Instalar RStudio</h2>
+<p>RStudio es un entorno de desarrollo integrado para el lenguaje de programación R, dedicado a la computación estadística y gráficos. Incluye una consola, editor de sintaxis que apoya la ejecución de código, así como herramientas para el trazado, la depuración y la gestión del espacio de trabajo.</p>
 <p>Primero, debemos descargar RStudio desde su página web (<a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a>) Allí seleccionamos la versión gratuita de RStudio Desktop</p>
 <p><a href="https://www.rstudio.com/products/rstudio/download/"><img src="images/%C3%ADndice6.png" alt="Selección de la versión de RStudio" /></a></p>
+<h3 id="instalar-rstudio-en-ubuntu">Instalar RStudio en Ubuntu</h3>
+<h3 id="a-través-de-la-terminal">A través de la terminal</h3>
+<p><strong>Paso 1:</strong> Abra la terminal (Ctrl + Alt + T) en Ubuntu.</p>
+<p><strong>Paso 2:</strong> actualice la caché de paquetes.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span></code></pre></div>
+</div>
+<p><strong>Paso 3:</strong> Descarga de R Studio en Ubuntu</p>
+<p>Instale el paquete gdebi para instalar paquetes .deb fácilmente.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository universe</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install gdebi-core</span></code></pre></div>
+</div>
+<p><strong>Paso 4:</strong> Vaya a la <a href="https://www.rstudio.com/products/rstudio/download/#download">página de descargas de R Studio</a> y seleccione el último paquete * .deb disponible para Ubuntu 18 / Debian 10.</p>
+<p><strong>Paso 5:</strong> Vaya a la carpeta Descargas en la máquina local.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd Descargas/</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">rstudio-2021.09.0+351-amd64.deb</span></span></code></pre></div>
+</div>
+<p>Paso 6: instalar usando el paquete gdebi.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gdebi rstudio-1.2.5042-amd64.deb</span></code></pre></div>
+</div>
+<p><img src="images/Installing-R-Studio-using-gdebi-package.png" /></p>
+<p>Alternativamente, RStudio también se puede instalar a través del software Ubuntu, pero el uso del enfoque anterior generalmente garantiza que se instale la última versión.</p>
 <h3 id="instalar-rstudio-en-windows">Instalar RStudio en Windows</h3>
 <p>Luego, haremos click en el botón de descarga. Automáticamente se decargará un ejecutable para instalar RStudio. Se requiere de Windows 7 o superior.</p>
 <h3 id="instalar-rstudio-en-mac-os">Instalar RStudio en Mac OS</h3>
@@ -2429,12 +2561,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>La instalación de git en Ubuntu no puede ser más fácil. Sólo hay que abrir un terminal de comandos y ejecutar apt para que se descargue el paquete de los repositorios oficiales y configure el sistema para dejarlo disponible.</p>
 <p>Para ello instalaremos git y verificaremos que puede ejecutarse sin problemas:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># confirmación del comando</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># confirmación del comando</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
 </div>
 <h3 id="instalar-git-para-windows">Instalar Git para Windows</h3>
 <p>Sólo debe descargarse el instalador correspondiente desde la página oficial del proyecto Git y descargar el instalador correspondiente al sistema operativo usado teniendo en cuenta la arquitectura de nuestro sistema: 32 o 64bits.</p>
@@ -2442,8 +2574,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>El instalador para Windows abrirá un asistente que mostrará una serie de opciones durante el proceso. No debe preocuparse y dejar las opciones marcadas por defecto que serán suficientes en la mayoría de las situaciones.</p>
 <p>Una vez terminado, puedes marcar la opción Iniciar Git Bash si quieres abrir una línea de comandos de Bash o si has seleccionado la línea de comandos de Windows que ejecuta Git desde la línea de comandos de Windows. Compruebe la instalación ejecutando git de prueba con:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
 </div>
 <h3 id="instalar-git-para-mac">Instalar Git para MAC</h3>
 <p>Primero te vas a <a href="https://git-scm.com/download/mac">este enlace</a>, en la sección de <strong>Binary Installer</strong>, seleccionas la última versión indicada, en este ejemplo es la <strong>2.33.0</strong></p>
@@ -2459,33 +2591,33 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p><img src="images/git-instalado.webp" /></p>
 <p>Ahora verificamos en la terminal que Git está instalado, usando el comando <strong><code>git --version</code></strong>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
 </div>
 <h3 id="section"></h3>
 <h2 id="configuración-inicial-de-git-recomendada">Configuración inicial de Git recomendada</h2>
 <p>Es recomendado configurar git para empezar a trabajar con él, esto te ayuda a registrar tus cambios y versiones con tu información personal.</p>
 <p>Para establecer la configuración con tu nombre y correo electrónico vamos a usar el comando <code>git config</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.name <span class="st">&quot;Aquí tu nombre&quot;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.emil <span class="st">&quot;AquiVaTuEamil@email.com&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.name <span class="st">&quot;Aquí tu nombre&quot;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.emil <span class="st">&quot;AquiVaTuEamil@email.com&quot;</span></span></code></pre></div>
 </div>
 <p>Para verificar que la configuración se realizó correctamente utiliza este comando.</p>
 <p><code>$ git config –list</code></p>
 <p>Deberá imprimir en la terminal las configuraciones, entre ellas las que acabamos de actualizar.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">core.excludeFiles=~/.gitignore</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">color.interactive=true</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">user.email=AquiVaTuEamil@email.com</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">user.name=Aquí</span> tu nombre</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">core.excludeFiles=~/.gitignore</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ex">color.interactive=true</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ex">user.email=AquiVaTuEamil@email.com</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ex">user.name=Aquí</span> tu nombre</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div>
 </div>
 <h3 id="y-listo-con-esto-ya-deberías-tener-git-instalado-en-tu-sistema-operativo-y-poder-trabajar-en-tus-proyectos.">Y listo, con esto ya deberías tener <strong>git</strong> instalado en tu sistema operativo y poder trabajar en tus proyectos.</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

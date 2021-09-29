@@ -1,7 +1,7 @@
 ---
 title: "Taller sobre construcción de bases de datos"
 description: |
-  En este taller explicaremos los fundamentos basico sobre la contrucción de bases de datos en geociencias y el estado actual de las bases de datos en Chile y la importancia de mantener bases de datos aludables y de acceso abierto
+  En este taller explicaremos los fundamentos basico sobre la contrucción de bases de datos en ciencias ambientales, en particular geociencias, el estado actual de las bases de datos en Chile y la importancia de mantener bases de datos saludables y de acceso abierto y masivo
 ---
 
 ```{r setup, include=FALSE}
