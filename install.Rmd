@@ -35,10 +35,9 @@ Luego debemos seleccionar la versión de R para el sistema operativo que esté u
 
 [![Descargar R](images/%C3%ADndice2.png){width="878"}](https://cran.dcc.uchile.cl/)
 
-### Instalar R en **Ubuntu** 
+### Instalar R en **Ubuntu**
 
-Paquete para la actual R 4.1. release \* están disponibles para la
-mayoría de las versiones de escritorio estables de Ubuntu hasta su fecha de finalización oficial. Sin embargo, solo la última versión de Long Term Support (LTS) es totalmente compatible. A partir del 19 de mayo de 2021, las versiones compatibles son:
+Paquete para la actual R 4.1. release \* están disponibles para la mayoría de las versiones de escritorio estables de Ubuntu hasta su fecha de finalización oficial. Sin embargo, solo la última versión de Long Term Support (LTS) es totalmente compatible. A partir del 19 de mayo de 2021, las versiones compatibles son:
 
 -   Hirsute Hippo (21.04, amd64 only)
 
@@ -50,8 +49,7 @@ mayoría de las versiones de escritorio estables de Ubuntu hasta su fecha de fin
 
 -   Xenial Xerus (16.04; LTS).
 
-Tenga en cuenta que para instalar paquetes de R 4.1, se necesita una entrada nueva y diferente sources.list. Consulte los detalles a
-continuación.\
+Tenga en cuenta que para instalar paquetes de R 4.1, se necesita una entrada nueva y diferente sources.list. Consulte los detalles a continuación.\
 \
 Para versiones anteriores de R, consulte el archivo [corresponding README](https://cran.r-project.org/bin/linux/ubuntu/olderreleasesREADME.html).
 
@@ -59,12 +57,7 @@ Para versiones anteriores de R, consulte el archivo [corresponding README](https
 
 Para paquetes binarios adicionales para R (actualmente más de 4000+), consulte los diferentes PPA de CRAN2deb4ubuntu. Para R 4.1. \*, Esto es <https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+>
 
-El repositorio 'c2d4u' solo está disponible para las versiones LTS. Si
-desea intentar usar el repositorio con una versión que no sea LTS, puede
-editar manualmente la 'c2d4u_team-ubuntu-c2d4u4_0 \_- \*. List' para usar
-focal en lugar de la versión prevista. Este uso del repositorio 'c2d4u'
-no es compatible. Se recomienda encarecidamente una versión LTS para
-utilizar el repositorio 'c2d4u'.
+El repositorio 'c2d4u' solo está disponible para las versiones LTS. Si desea intentar usar el repositorio con una versión que no sea LTS, puede editar manualmente la 'c2d4u_team-ubuntu-c2d4u4_0 \_- \*. List' para usar focal en lugar de la versión prevista. Este uso del repositorio 'c2d4u' no es compatible. Se recomienda encarecidamente una versión LTS para utilizar el repositorio 'c2d4u'.
 
 ### Instalación
 
@@ -106,10 +99,7 @@ o
 deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran40/
 ```
 
-En su archivo /etc/apt/sources.list. Al utilizar
-<https://cloud.r-project.org,> se le redirigirá automáticamente a un
-espejo CRAN cercano. Consulte <https://cran.r-project.org/mirrors.html>
-para obtener la lista actual de espejos CRAN.
+En su archivo /etc/apt/sources.list. Al utilizar <https://cloud.r-project.org,> se le redirigirá automáticamente a un espejo CRAN cercano. Consulte <https://cran.r-project.org/mirrors.html> para obtener la lista actual de espejos CRAN.
 
 Para instalar el sistema R completo, use:
 
@@ -119,9 +109,7 @@ sudo apt-get update
 sudo apt-get install r-base
 ```
 
-Usuarios que necesitan compilar paquetes R desde la fuente [p. Ej. los
-mantenedores de paquetes, o cualquier persona que instale paquetes con
-install.packages ()] también debe instalar el paquete r-base-dev:
+Usuarios que necesitan compilar paquetes R desde la fuente [p. Ej. los mantenedores de paquetes, o cualquier persona que instale paquetes con install.packages ()] también debe instalar el paquete r-base-dev:
 
 ```{bash echo=TRUE, eval = FALSE}
 
@@ -129,11 +117,9 @@ sudo apt-get install r-base-dev
 
 ```
 
-Por lo demás, los paquetes R para Ubuntu se comportan como los de Debian.
-Se puede encontrar información adicional en el archivo README de Debian ubicado en <https://cran.R-project.org/bin/linux/debian/.>\
+Por lo demás, los paquetes R para Ubuntu se comportan como los de Debian. Se puede encontrar información adicional en el archivo README de Debian ubicado en <https://cran.R-project.org/bin/linux/debian/.>\
 \
-La instalación y compilación de R o algunos de sus paquetes pueden requerir
-paquetes de Ubuntu de los repositorios 'backports'. Por lo tanto, se sugiere activar los repositorios de backports con una entrada como:
+La instalación y compilación de R o algunos de sus paquetes pueden requerir paquetes de Ubuntu de los repositorios 'backports'. Por lo tanto, se sugiere activar los repositorios de backports con una entrada como:
 
 ```{bash echo=TRUE, eval = FALSE}
 
@@ -144,10 +130,7 @@ en su archivo /etc/apt/sources.list. Consulte <https://launchpad.net/ubuntu/+arc
 
 ### Usando apt-key
 
-Los archivos de Ubuntu en CRAN están firmados con la clave "Michael
-Rutter marutter\@gmail.com" con el ID de clave 0x51716619e084dab9. Para
-agregar la clave a su sistema con un comando, use (gracias a Brett
-Presnell por la sugerencia):
+Los archivos de Ubuntu en CRAN están firmados con la clave "Michael Rutter marutter\@gmail.com" con el ID de clave 0x51716619e084dab9. Para agregar la clave a su sistema con un comando, use (gracias a Brett Presnell por la sugerencia):
 
 ```{bash echo=TRUE, eval = FALSE}
 
@@ -168,10 +151,7 @@ y luego alimentarlo a apt-key con
 gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
 ```
 
-Algunas personas han informado de dificultades para utilizar este
-enfoque. El problema generalmente está relacionado con un firewall que
-bloquea el puerto 11371. Si el primer comando gpg falla, puede
-intentarlo (gracias a Mischan Toosarani por el consejo):
+Algunas personas han informado de dificultades para utilizar este enfoque. El problema generalmente está relacionado con un firewall que bloquea el puerto 11371. Si el primer comando gpg falla, puede intentarlo (gracias a Mischan Toosarani por el consejo):
 
 ```{bash echo=TRUE, eval = FALSE}
 
@@ -186,10 +166,7 @@ gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
 
 ```
 
-Otro enfoque alternativo es buscar la clave en
-<http://keyserver.ubuntu.com:11371/> y copiar la clave en un archivo de
-texto sin formato, digamos key.txt. Luego, ingrese la clave a apt-key
-con
+Otro enfoque alternativo es buscar la clave en <http://keyserver.ubuntu.com:11371/> y copiar la clave en un archivo de texto sin formato, digamos key.txt. Luego, ingrese la clave a apt-key con
 
 ```{bash echo=TRUE, eval = FALSE}
 
@@ -337,9 +314,7 @@ sudo gdebi rstudio-1.2.5042-amd64.deb
 
 ![](images/Installing-R-Studio-using-gdebi-package.png)
 
-Alternativamente, RStudio también se puede instalar a través del
-software Ubuntu, pero el uso del enfoque anterior generalmente garantiza
-que se instale la última versión.
+Alternativamente, RStudio también se puede instalar a través del software Ubuntu, pero el uso del enfoque anterior generalmente garantiza que se instale la última versión.
 
 ### Instalar RStudio en Windows
 
