@@ -19,7 +19,7 @@ author:
   affiliation_url: https://www.upwell.cl/web/  
 date: "`r Sys.Date()`"
 description: |
-  Bienvenidos a la website del taller sobre bases de datos del Núcleo Milenio UPWELL. `Espero que lo disfruten!`
+  Bienvenidxs a la website del taller sobre bases de datos del Núcleo Milenio UPWELL. `Espero que lo disfruten!`
 site: distill::distill_website
 ---
 
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-## Bienvenidos
+## Bienvenidxs
 
 Gracias por asistir a este curso de uso, manipulación y análisis de bases de datos y meta-datos del proyecto UPWELL
 
