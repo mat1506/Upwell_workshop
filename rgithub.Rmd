@@ -19,13 +19,11 @@ El uso de Git y GitHub junto con RStudio tiene el poder de revolucionar la forma
 
 ## ¿Qué es Git? ¿Qué es GitHub?
 
-Recuerdo cuando estaba empezando a aprender R, Git y GitHub eran cosas de las que había oído hablar, pero que solo entendía vagamente. Tenía la sensación de que se trataba de colaboración y compartir código, pero más allá de eso...
-
-Entonces... ¿qué son Git y GitHub? En primer lugar, son dos cosas separadas:
+ En primer lugar, son dos cosas separadas:
 
 1.  Git es un software de código abierto para el control de versiones. Utilizando Git, puedes hacer cosas como ver todas las versiones anteriores de código que has creado en un proyecto.
 
-2.  GitHub es el servicio más popular (otros incluyen GitLab y BitBucket) para colaborar en código usando Git.
+2.  GitHub es el servicio más popular (otros incluyen GitLab y BitBucket) para colaborar en código y archivos usando Git.
 
 Es posible usar Git sin usar GitHub, aunque la mayoría de la gente combina los dos. Poder tener un registro de todos los cambios que ha realizado en su código tanto localmente como en un sitio web remoto es poderoso.
 
@@ -54,9 +52,12 @@ git --version
 
 ```
 
-## Configurar Git (Editar gitconfig file)
+## Configurar Git (Editar gitconfig file) desde Rstudio
 
-El siguiente paso es configurar Git. Esto se trata en el [Capítulo 7 de Happy Git with R](https://happygitwithr.com/hello-git.html), aunque muestro lo que creo que es un proceso un poco más fácil. Específicamente, sugiero usar la función [edit_git_config() del paquete usethis](https://usethis.r-lib.org/reference/edit.html), que abrirá su [archivo gitconfig](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup). Agregue su nombre y correo electrónico y cierre esto.
+Primero abrímos un nuevo proyecto de Rstudio para configurar Git y Github
+
+El siguiente paso es configurar Git. Esto se trata en el [Capítulo 7 de Happy Git with R](https://happygitwithr.com/hello-git.html), aunque muestro lo que creo que es un proceso un poco más fácil. Específicamente, sugiero usar la función [edit_git_config() del paquete usethis](https://usethis.r-lib.org/reference/edit.html), que abrirá su [archivo gitconfig](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup). Agregue su nombre y correo electrónico y cierre esto (espere las instrucciones del coordinador del workshop)
+
 
 En la consola de RStudio:
 
@@ -66,6 +67,17 @@ library(usethis)
 usethis::edit_git_config()
 # Modificar en el fichero ".gitconfig" los apartados: "name" y "email" 
 # y guardar el fichero
+#Pegar en ".gitconfig"
+#[filter "lfs"]
+#	clean = git-lfs clean -- %f
+#	smudge = git-lfs smudge -- %f
+#	process = git-lfs filter-process
+#	required = true
+#[user]
+#	name = minombredeusuario
+#	email = micorreo@gmail.com
+#[credential]
+#	helper = cache
 
 ```
 
