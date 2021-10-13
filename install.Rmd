@@ -410,34 +410,4 @@ git --version
 
 ### 
 
-## Configuración inicial de Git recomendada
-
-Es recomendado configurar git para empezar a trabajar con él, esto te ayuda a registrar tus cambios y versiones con tu información personal.
-
-Para establecer la configuración con tu nombre y correo electrónico vamos a usar el comando `git config`.
-
-```{bash bash5, echo=TRUE, eval = FALSE}
-
-$ git config --global user.name "Aquí tu nombre"
-
-$ git config --global user.emil "AquiVaTuEamil@email.com"
-
-```
-
-Para verificar que la configuración se realizó correctamente utiliza este comando.
-
-`$ git config –list`
-
-Deberá imprimir en la terminal las configuraciones, entre ellas las que acabamos de actualizar.
-
-```{bash bash6, echo=TRUE, eval = FALSE}
-
-core.excludeFiles=~/.gitignore
-color.interactive=true
-...
-user.email=AquiVaTuEamil@email.com
-user.name=Aquí tu nombre
-...
-```
-
 ### Y listo, con esto ya deberías tener **git** instalado en tu sistema operativo y poder trabajar en tus proyectos.
