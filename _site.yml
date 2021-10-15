@@ -4,6 +4,8 @@ description: |
   Taller bases de datos
 output_dir: "_site"
 creative_commons: CC BY-SA
+base_url: https://upwellworkshop.netlify.app/
+google_analytics: "G-BFRQLSRGYW"
 navbar:
   logo:
     image: images/logo.png
