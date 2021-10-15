@@ -99,6 +99,21 @@ o
 deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran40/
 ```
 
+```{r echo=TRUE, eval = FALSE}
+
+# update indices
+apt update -qq
+# install two helper packages we need
+apt install --no-install-recommends software-properties-common dirmngr
+# add the signing key (by Michael Rutter) for these repos
+# To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc 
+# Fingerprint: 298A3A825C0D65DFD57CBB651716619E084DAB9
+wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed
+add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+
+```
+
 En su archivo /etc/apt/sources.list. Al utilizar <https://cloud.r-project.org,> se le redirigirá automáticamente a un espejo CRAN cercano. Consulte <https://cran.r-project.org/mirrors.html> para obtener la lista actual de espejos CRAN.
 
 Para instalar el sistema R completo, use:
@@ -261,6 +276,8 @@ Para descargar haremos click sobre **R-4.1.1.pkg** y guardaremos el archivo de i
 
 ## 3. Instalar RStudio
 
+Una vez instalado R e instalado
+
 RStudio es un entorno de desarrollo integrado para el lenguaje de programación R, dedicado a la computación estadística y gráficos. Incluye una consola, editor de sintaxis que apoya la ejecución de código, así como herramientas para el trazado, la depuración y la gestión del espacio de trabajo.
 
 Primero, debemos descargar RStudio desde su página web (<https://rstudio.com/products/rstudio/download/>) Allí seleccionamos la versión gratuita de RStudio Desktop
@@ -418,7 +435,7 @@ Latex es un sistema de composición de textos, orientado a la creación de docum
 
 LaTeX está formado por un gran conjunto de macros de TeX, escrito por Leslie Lamport en 1984, con la intención de facilitar el uso del lenguaje de composición tipográfica, TEX, creado por Donald Knuth. Es muy utilizado para la composición de artículos académicos, tesis y libros técnicos, dado que la calidad tipográfica de los documentos realizados en LaTeX, se considera adecuada a las necesidades de una editorial científica de primera línea, muchas de las cuales ya lo emplean.
 
-### Instalación 
+### Instalación
 
 Vamos a instalar algunos paquetes de R para tener una version mínima de Latex que nos permita trabajar con R Markdown y hacer documentos dinamicos e introducirnos a la programaciñon en Latex, para esto instale los siguientes paquetes:
 
