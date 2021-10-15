@@ -68,7 +68,7 @@ El día de la clase, le proporcionaremos un enlace a un proyecto de GitHub Class
 -   Los R packages que vamos a usar;
 
     ```{r echo=TRUE, eval = FALSE}
-install.packages(c("tidyverse","devtools", "tinytex", "rmarkdown", "usethis", "here", "neotoma"))
+install.packages(c("tidyverse","devtools", "tinytex", "rmarkdown", "usethis", "here", "neotoma","Rtools"))
     ```
 
 

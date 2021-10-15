@@ -1,0 +1,22 @@
+---
+title: "Colaborando con git, Github y Rstudio"
+description: |
+  Este artículo es una traducción automática del artículo: https://www.sds.pub/collaborating-with-git-and-github.html
+author:
+  - name: Matías Frugone Álvarez 
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web. 
+
+Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+
+
+
+

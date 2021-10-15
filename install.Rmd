@@ -17,11 +17,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Guía de instalación del sofware R y RStudio
 
-## Introducción
+## 1. Introducción
 
 El objetivo de esta guía es detallar el proceso de instalación de R y su [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment)), RStudio, y familiarizar al usuario con el entorno de trabajo que proporciona RStudio.
 
-## Instalar R
+## 2. Instalar R
 
 Para instalar R nos dirigiremos a la página web de R project. Para ello haremos click en el siguiente enlace: <http://www.r-project.org>.
 
@@ -35,7 +35,7 @@ Luego debemos seleccionar la versión de R para el sistema operativo que esté u
 
 [![Descargar R](images/%C3%ADndice2.png){width="878"}](https://cran.dcc.uchile.cl/)
 
-### Instalar R en **Ubuntu**
+### 2.1 Instalar R en **Ubuntu**
 
 Paquete para la actual R 4.1. release \* están disponibles para la mayoría de las versiones de escritorio estables de Ubuntu hasta su fecha de finalización oficial. Sin embargo, solo la última versión de Long Term Support (LTS) es totalmente compatible. A partir del 19 de mayo de 2021, las versiones compatibles son:
 
@@ -173,7 +173,7 @@ Otro enfoque alternativo es buscar la clave en <http://keyserver.ubuntu.com:1137
 sudo apt-key add key.txt
 ```
 
-## Instalar R en Windows
+### 2.2 Instalar R en Windows
 
 Al hacer clic sobre "Download R for Windows" sremos dirigidos a la página que se reproduce a continuación. Allí haremos clic sobre **install R for the first time**.
 
@@ -251,7 +251,7 @@ Paso 5: Una vez realizada toda la instalación, cierre su RGui y regrese a RStud
 
 ![](images/Capture2.PNG)
 
-### Instalar R en Mac
+### 2.3 Instalar R en Mac
 
 Lo primero es descargar el software, para ello haremos clic sobre **Download R for (Mac) OS X** y se nos dirigirá a la página que se reproduce más abajo. Luego, haremos clic sobre la versión de R en función de la versión del OS de cada uno.
 
@@ -259,7 +259,7 @@ Lo primero es descargar el software, para ello haremos clic sobre **Download R f
 
 Para descargar haremos click sobre **R-4.1.1.pkg** y guardaremos el archivo de instalación para luego ejecutarlo e instalar R.
 
-## Instalar RStudio
+## 3. Instalar RStudio
 
 RStudio es un entorno de desarrollo integrado para el lenguaje de programación R, dedicado a la computación estadística y gráficos. Incluye una consola, editor de sintaxis que apoya la ejecución de código, así como herramientas para el trazado, la depuración y la gestión del espacio de trabajo.
 
@@ -340,7 +340,7 @@ Una vez en RStudio, podemos escribir y ejecutar las órdenes de varias formas:
 
 Como podemos ver, RStudio está (normalmente) dividido en 4 paneles.
 
-## Instalar Git
+## 4. Instalar Git
 
 Git es un sistema de control de versiones. Al ser un sistema de control de versiones, git hará un seguimiento de los archivos fuente que son necesarios para construir un proyecto que estemos editando. De tal manera que se se añade un fichero (conjunto de archivos), se modifica o se borra, git guardará en un registro interno cada uno de los cambios. Esto permite poder consultar el estado del proyecto en una determinada fecha, pudiéndolo recuperar tal y como estaba, aunque se hubieran borrado ficheros. Que sea un sistema distribuido significa que cada copia del proyecto contiene todo el histórico completo, hasta el momento en que se hizo la copia.
 
@@ -408,6 +408,71 @@ git --version
 
 ```
 
-### 
+##### Y listo, con esto ya deberías tener **git** instalado en tu sistema operativo y poder trabajar en tus proyectos.
 
-### Y listo, con esto ya deberías tener **git** instalado en tu sistema operativo y poder trabajar en tus proyectos.
+## 5 Bonus Track
+
+### LaTeX (basico) para R Markdown
+
+Latex es un sistema de composición de textos, orientado a la creación de documentos escritos que presenten una alta calidad tipográfica. Por sus características y posibilidades, es usado de forma especialmente intensa en la generación de artículos y libros científicos que incluyen, entre otros elementos, expresiones matemáticas.
+
+LaTeX está formado por un gran conjunto de macros de TeX, escrito por Leslie Lamport en 1984, con la intención de facilitar el uso del lenguaje de composición tipográfica, TEX, creado por Donald Knuth. Es muy utilizado para la composición de artículos académicos, tesis y libros técnicos, dado que la calidad tipográfica de los documentos realizados en LaTeX, se considera adecuada a las necesidades de una editorial científica de primera línea, muchas de las cuales ya lo emplean.
+
+### Instalación 
+
+Vamos a instalar algunos paquetes de R para tener una version mínima de Latex que nos permita trabajar con R Markdown y hacer documentos dinamicos e introducirnos a la programaciñon en Latex, para esto instale los siguientes paquetes:
+
+#### R Markdown
+
+R Markdown es un formato que permite una fácil creación de documentos, presentaciones dinámicas y informes de R. Markdown es un formato de sintaxis simple para crear documentos en HTML, PDF, y Word. En el siguiente link pueden encontrar información de como se crean estos documentos <http://rmarkdown.rstudio.com>.
+
+```{r echo=TRUE, eval = FALSE}
+
+install.packages('rmarkdown', dependencies = TRUE)
+library(rmarkdown)
+
+```
+
+#### Knitr
+
+**knitr** una herramienta para generación de informes dinámico en R.^[1](https://es.wikipedia.org/wiki/Knitr#cite_note-1)^​^[2](https://es.wikipedia.org/wiki/Knitr#cite_note-2)^​ Es un paquete en el lenguaje de programación [estadístico](https://es.wikipedia.org/wiki/Estad%C3%ADstica "Estadística") [R](https://es.wikipedia.org/wiki/R_(lenguaje_de_programaci%C3%B3n) "R (lenguaje de programación)") que permite integrar R en documentos [LaTeX](https://es.wikipedia.org/wiki/LaTeX "LaTeX"), [LyX](https://es.wikipedia.org/wiki/LyX "LyX"), [HTML](https://es.wikipedia.org/wiki/HTML "HTML"), [Markdown](https://es.wikipedia.org/wiki/Markdown "Markdown"), [AsciiDoc](https://en.wikipedia.org/wiki/en:AsciiDoc "w:en:AsciiDoc"), y [reStructuredText](https://es.wikipedia.org/wiki/ReStructuredText "ReStructuredText"). El propósito de knitr es dar espacio a la [reproducibilidad](https://es.wikipedia.org/wiki/Reproducibilidad "Reproducibilidad") de investigación en R a través de [Programación Literaría.](https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria "Programación literaria") Está bajo la licencia [GNU Licencia Pública General](https://es.wikipedia.org/wiki/GNU_General_Public_License "GNU General Public License").
+
+```{r echo=TRUE, eval = FALSE}
+
+install.packages("knitr", dependencies = TRUE)
+
+```
+
+#### devtools package
+
+El objetivo de devtools es facilitar el desarrollo de paquetes al proporcionar funciones R que simplifican y aceleran las tareas comunes. [R Packages](https://r-pkgs.org/) es un libro basado en este flujo de trabajo.
+
+```{r echo=TRUE, eval = FALSE}
+
+install.packages('devtools')
+devtools::install_github('rstudio/rmarkdown')
+```
+
+#### tinytex package
+
+Si desea crear documentos PDF desde R Markdown, necesitará tener instalada una distribución LaTeX. Aunque hay varias opciones tradicionales que incluyen MiKTeX, MacTeX y TeX Live, recomendamos que los usuarios de R Markdown instalen TinyTeX.
+
+TinyTeX es una distribución LaTeX personalizada basada en TeX Live que tiene un tamaño relativamente pequeño, pero funciona bien en la mayoría de los casos, especialmente para los usuarios de R. La instalación o ejecución de TinyTeX no requiere privilegios de administrador de sistemas.1 Puede instalar TinyTeX con el paquete R tinytex (Xie 2021f):
+
+```{r echo=TRUE, eval = FALSE}
+install.packages("tinytex", dependencies = TRUE)
+tinytex::install_tinytex()
+```
+
+```{r echo=TRUE, eval = FALSE}
+devtools::install_github('yihui/tinytex')
+tinytex::reinstall_tinytex() # reinstall it for a newer version
+```
+
+Tenga en cuenta que 'tinytex' se refiere al paquete R y 'TinyTeX' se refiere a la distribución LaTeX. Hay dos ventajas de usar TinyTeX:
+
+TinyTeX es liviano (en comparación con otras distribuciones de LaTeX), multiplataforma y portátil. Por ejemplo, puede almacenar una copia de TinyTeX en su unidad USB u otros dispositivos portátiles y usarla en otras computadoras con el mismo sistema operativo.
+
+Cuando R Markdown se convierte a PDF, Pandoc convierte primero Markdown en un documento LaTeX intermedio. El paquete R tinytex ha proporcionado funciones auxiliares para compilar documentos LaTeX en PDF (la función principal es tinytex :: latexmk ()). Si usa TinyTeX y se requieren ciertos paquetes de LaTeX pero no están instalados, tinytex intentará instalarlos automáticamente por usted. También intentará compilar el archivo LaTeX una cantidad suficiente de veces para asegurarse de que se resuelvan todas las referencias cruzadas.
+
+Si está interesado en los detalles técnicos, puede consultar el artículo Xie (2019) y la página de preguntas frecuentes en <https://yihui.org/tinytex/faq/.>
