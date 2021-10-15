@@ -5,7 +5,7 @@ description: |
 output_dir: "_site"
 creative_commons: CC BY-SA
 base_url: https://upwellworkshop.netlify.app/
-google_analytics: "G-BFRQLSRGYW"
+google_analytics: "UA-210305568-1"
 navbar:
   logo:
     image: images/logo.png
