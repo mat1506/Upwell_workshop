@@ -193,7 +193,7 @@ sudo apt-key add key.txt
 
 Al hacer clic sobre "Download R for Windows" seremos dirigidos a la página que se reproduce a continuación. Allí haremos clic sobre **install R for the first time**.
 
-[![Figura 4. Instalar R en Windows](images/%C3%ADndice3.png)](https://cran.r-project.org/)
+[![Figura 4. Instalar R en Windows](images/%C3%ADndice3.png){width="1000"}](https://cran.r-project.org/)
 
 En la siguiente ventana, haremos clic sobre **Download R 4.1.1 for Windows** y guardar el archivo de instalación.
 
