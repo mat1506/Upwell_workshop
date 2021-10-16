@@ -49,19 +49,35 @@ Paquete para la actual R 4.1. release \* están disponibles para la mayoría de 
 
 -   Xenial Xerus (16.04; LTS).
 
-Tenga en cuenta que para instalar paquetes de R 4.1, se necesita una entrada nueva y diferente sources.list. Consulte los detalles a continuación.\
+Tenga en cuenta que para instalar paquetes de R 4.xx, se necesita una entrada nueva y diferente sources.list. Consulte los detalles a continuación.\
 \
 Para versiones anteriores de R, consulte el archivo [corresponding README](https://cran.r-project.org/bin/linux/ubuntu/olderreleasesREADME.html).
 
-### Paquetes CRAN adicionales
+#### Paquetes CRAN adicionales
 
 Para paquetes binarios adicionales para R (actualmente más de 4000+), consulte los diferentes PPA de CRAN2deb4ubuntu. Para R 4.1. \*, Esto es <https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+>
 
 El repositorio 'c2d4u' solo está disponible para las versiones LTS. Si desea intentar usar el repositorio con una versión que no sea LTS, puede editar manualmente la 'c2d4u_team-ubuntu-c2d4u4_0 \_- \*. List' para usar focal en lugar de la versión prevista. Este uso del repositorio 'c2d4u' no es compatible. Se recomienda encarecidamente una versión LTS para utilizar el repositorio 'c2d4u'.
 
-### Instalación
+#### Instalación
 
-Para obtener los últimos paquetes de R 4.1, agregue una entrada como
+```{r echo=TRUE, eval = FALSE}
+
+# update indices
+sudo apt update -qq
+# install two helper packages we need
+sudo apt install --no-install-recommends software-properties-common dirmngr
+# add the signing key (by Michael Rutter) for these repos
+# To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc 
+# Fingerprint: 298A3A825C0D65DFD57CBB651716619E084DAB9
+wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed
+sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+
+
+```
+
+Para obtener los últimos paquetes de R 4.x, agregue una entrada como
 
 ```{bash echo=TRUE, eval = FALSE}
 
@@ -99,21 +115,6 @@ o
 deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran40/
 ```
 
-```{r echo=TRUE, eval = FALSE}
-
-# update indices
-apt update -qq
-# install two helper packages we need
-apt install --no-install-recommends software-properties-common dirmngr
-# add the signing key (by Michael Rutter) for these repos
-# To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc 
-# Fingerprint: 298A3A825C0D65DFD57CBB651716619E084DAB9
-wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed
-add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
-
-```
-
 En su archivo /etc/apt/sources.list. Al utilizar <https://cloud.r-project.org,> se le redirigirá automáticamente a un espejo CRAN cercano. Consulte <https://cran.r-project.org/mirrors.html> para obtener la lista actual de espejos CRAN.
 
 Para instalar el sistema R completo, use:
@@ -143,7 +144,7 @@ deb https://<my.favorite.ubuntu.mirror>/ focal-backports main restricted univers
 
 en su archivo /etc/apt/sources.list. Consulte <https://launchpad.net/ubuntu/+archivemirrors> para ver la lista de espejos de Ubuntu.
 
-### Usando apt-key
+#### Usando apt-key
 
 Los archivos de Ubuntu en CRAN están firmados con la clave "Michael Rutter marutter\@gmail.com" con el ID de clave 0x51716619e084dab9. Para agregar la clave a su sistema con un comando, use (gracias a Brett Presnell por la sugerencia):
 
@@ -190,9 +191,9 @@ sudo apt-key add key.txt
 
 ### 2.2 Instalar R en Windows
 
-Al hacer clic sobre "Download R for Windows" sremos dirigidos a la página que se reproduce a continuación. Allí haremos clic sobre **install R for the first time**.
+Al hacer clic sobre "Download R for Windows" seremos dirigidos a la página que se reproduce a continuación. Allí haremos clic sobre **install R for the first time**.
 
-![Figura 4. Instalar R en Windows](images/%C3%ADndice3.png)
+[![Figura 4. Instalar R en Windows](images/%C3%ADndice3.png)](https://cran.r-project.org/)
 
 En la siguiente ventana, haremos clic sobre **Download R 4.1.1 for Windows** y guardar el archivo de instalación.
 
@@ -200,7 +201,7 @@ En la siguiente ventana, haremos clic sobre **Download R 4.1.1 for Windows** y g
 
 Luego, ejecutaremos el archivo descargado para proceder a la instalación de R y seguiremos las instrucciones del ejecutable.
 
-### ¿Cómo actualizar la instalación de R en Windows?
+#### ¿Cómo actualizar la instalación de R en Windows?
 
 **Paso 1**: Verifique su versión de instalación existente dirigiéndose a RStudio y escribiendo la versión en la consola. Esto debería darle la información sobre sus versiones principales y secundarias instaladas de R. Algo como esto:
 
@@ -274,6 +275,45 @@ Lo primero es descargar el software, para ello haremos clic sobre **Download R f
 
 Para descargar haremos click sobre **R-4.1.1.pkg** y guardaremos el archivo de instalación para luego ejecutarlo e instalar R.
 
+#### updateR : actualice su versión R en un abrir y cerrar de ojos (en una Mac)
+
+La función de recuperación de paquetes previamente instalada está
+disponible actualmente solo si se inicia udpater desde base R en lugar
+de IDE como Rstudio. La función de recuperación de paquetes previamente
+instalada está en modo beta y es posible que deba volver a instalar
+manualmente sus paquetes después de actualizar la versión R. Gracias a
+Dios son gratis :)
+
+Instalación\
+\
+updateR no está actualmente en CRAN. Para instalarlo, puede usar el paquete devtools:
+
+```{r echo=TRUE, eval = FALSE}
+
+install.packages("devtools")
+
+devtools::install_github("AndreaCirilloAC/updateR")
+
+```
+
+#### Uso 
+
+Para actualizar R, simplemente ejecute updateR (). Se le 
+pedirá que ingrese la contraseña de administrador en el proceso. La 
+función mostrará la versión a la que se actualizó R cuando finalice.
+
+```{r echo=TRUE, eval = FALSE}
+
+updateR(admin_password = "os_admin_user_password")
+
+```
+
+es decir, solo tendrá que proporcionar la contraseña de usuario administrador. Esta contraseña es necesaria porque algunos de los comandos ejecutados por updateR () se ejecutan como superusuario (para lectores avanzados estamos hablando de nuestro viejo amigo 'sudo').
+
+Al final del proceso de instalación, deberían aparecer esas dos líneas:
+
+everything went smoothly open a Terminal session and run 'R' to assert that latest version was installed
+
 ## 3. Instalar RStudio
 
 Una vez instalado R e instalado
@@ -341,7 +381,7 @@ Luego, haremos click en el botón de descarga. Automáticamente se decargará un
 
 Luego, haremos click en el botón de descarga. Automáticamente se decargará un ejecutable para instalar RStudio. Se requiere de Mac OS High Sierra o superior.
 
-### Entorno de trabajo de RStudio
+## 4. Entorno de trabajo de RStudio
 
 Al abrir RStudio deberíamos ver una pantalla similar a lo que se muestra en la siguiente imagen:
 
@@ -357,7 +397,7 @@ Una vez en RStudio, podemos escribir y ejecutar las órdenes de varias formas:
 
 Como podemos ver, RStudio está (normalmente) dividido en 4 paneles.
 
-## 4. Instalar Git
+## 5. Instalar Git
 
 Git es un sistema de control de versiones. Al ser un sistema de control de versiones, git hará un seguimiento de los archivos fuente que son necesarios para construir un proyecto que estemos editando. De tal manera que se se añade un fichero (conjunto de archivos), se modifica o se borra, git guardará en un registro interno cada uno de los cambios. Esto permite poder consultar el estado del proyecto en una determinada fecha, pudiéndolo recuperar tal y como estaba, aunque se hubieran borrado ficheros. Que sea un sistema distribuido significa que cada copia del proyecto contiene todo el histórico completo, hasta el momento en que se hizo la copia.
 
@@ -437,7 +477,7 @@ LaTeX está formado por un gran conjunto de macros de TeX, escrito por Leslie La
 
 ### Instalación
 
-Vamos a instalar algunos paquetes de R para tener una version mínima de Latex que nos permita trabajar con R Markdown y hacer documentos dinamicos e introducirnos a la programaciñon en Latex, para esto instale los siguientes paquetes:
+Vamos a instalar algunos paquetes de R para tener una version mínima de Latex que nos permitirá trabajar con R Markdown y hacer documentos dinamicos e introducirnos a la programación en Latex, para esto instale los siguientes paquetes:
 
 #### R Markdown
 
@@ -450,7 +490,7 @@ library(rmarkdown)
 
 ```
 
-#### Knitr
+  #### Knitr
 
 **knitr** una herramienta para generación de informes dinámico en R.^[1](https://es.wikipedia.org/wiki/Knitr#cite_note-1)^​^[2](https://es.wikipedia.org/wiki/Knitr#cite_note-2)^​ Es un paquete en el lenguaje de programación [estadístico](https://es.wikipedia.org/wiki/Estad%C3%ADstica "Estadística") [R](https://es.wikipedia.org/wiki/R_(lenguaje_de_programaci%C3%B3n) "R (lenguaje de programación)") que permite integrar R en documentos [LaTeX](https://es.wikipedia.org/wiki/LaTeX "LaTeX"), [LyX](https://es.wikipedia.org/wiki/LyX "LyX"), [HTML](https://es.wikipedia.org/wiki/HTML "HTML"), [Markdown](https://es.wikipedia.org/wiki/Markdown "Markdown"), [AsciiDoc](https://en.wikipedia.org/wiki/en:AsciiDoc "w:en:AsciiDoc"), y [reStructuredText](https://es.wikipedia.org/wiki/ReStructuredText "ReStructuredText"). El propósito de knitr es dar espacio a la [reproducibilidad](https://es.wikipedia.org/wiki/Reproducibilidad "Reproducibilidad") de investigación en R a través de [Programación Literaría.](https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria "Programación literaria") Está bajo la licencia [GNU Licencia Pública General](https://es.wikipedia.org/wiki/GNU_General_Public_License "GNU General Public License").
 

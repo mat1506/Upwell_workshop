@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 El uso de Git y GitHub junto con RStudio tiene el poder de revolucionar la forma en que trabajas en R. Pero configurar todo puede ser un desafío.
 
-## ¿Qué es Git? ¿Qué es GitHub?
+## 1. ¿Qué es Git? ¿Qué es GitHub?
 
 En primer lugar, son dos cosas separadas:
 
@@ -27,13 +27,49 @@ En primer lugar, son dos cosas separadas:
 
 Es posible usar Git sin usar GitHub, aunque la mayoría de la gente combina los dos. Poder tener un registro de todos los cambios que ha realizado en su código tanto localmente como en un sitio web remoto es poderoso.
 
-## ¿Por qué debería usar Git y GitHub?
+### ¿Por qué debería usar Git y GitHub?
 
 1.  **El uso de Git y GitHub sirve como copia de seguridad**.
 
 2.  **El uso de Git y GitHub te permite usar el control de versiones**
 
 3.  **El uso de Git y GitHub permite trabajar en el mismo proyecto al mismo tiempo que los colaboradores.**
+
+## 2. Manual de sobreviviencia con Git Y GitHub en RStudio
+
+Erick Cuevas-Fernández
+
+10 de agosto de 2021
+
+-   Este documento se basa en "Happy Git with R" de Jenny Bryan, los STAT 545 TAs, Jim Hester
+
+-   Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuenta la ubicación de dónde se instaló Git.
+
+    -   Puedes usar en la terminal `which git` (Mac y Linux)
+
+    -   O bien usar en la terminal `where git` (Windows)
+
+-   Recuerda que la terminal (o línea de comandos ó consola ó shell ó bash)
+    es un programa en tu computadora que funciona para correr otros
+    programas. Desde RStudio puedes abrir la **terminal**, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:
+
+    -   *Tools \> Terminal* (abre la terminal dentro del IDE de RStudio)
+
+    -   *Tools \> Shell* (abre una terminal externa a RStudio)
+
+-   La recomendación actual de **GitHub** es usar *HTTPS* porque es la manera más fácil de configurar y tiene operabilidad en multiples redes y plataformas.
+
+    -   Es menos probable que HTTPS sea bloqueado por un firewall.
+
+    -   Una conexión HTTPS permite que `credential.helper` almacene en caché su contraseña. (por tanto puedes configurar tu usuario y contraseña en tu equipo de uso)
+
+    -   Es más sencillo acceder a un repositorio desde cualquier lugar, ya
+        que solo necesita los detalles de su cuenta (no se requieren claves SSH)
+        para escribir en el repositorio.
+
+-   .Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa
+    el ropositorio con un README. Copia el HTTPS URL para clonar el
+    repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/TU-REPOSITORIO.git`.
 
 ## Cómo configurar Git
 
@@ -56,22 +92,25 @@ git --version
 
 Primero abrímos un nuevo proyecto de Rstudio para configurar Git y Github
 
-El siguiente paso es configurar Git. Esto se trata en el [Capítulo 7 de Happy Git with R](https://happygitwithr.com/hello-git.html), aunque muestro lo que creo que es un proceso un poco más fácil. Específicamente, sugiero usar la función [edit_git_config() del paquete usethis](https://usethis.r-lib.org/reference/edit.html), que abrirá su [archivo gitconfig](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup). Agregue su nombre y correo electrónico y cierre esto (espere las instrucciones del coordinador del workshop)
+El siguiente paso es configurar Git. Esto se trata en el [Capítulo 7 de Happy Git with R](https://happygitwithr.com/hello-git.html), aunque muestro lo que creo que es un proceso un poco más fácil. Específicamente, sugiero usar la función [edit_git_config() del paquete usethis](https://usethis.r-lib.org/reference/edit.html), que abrirá su [archivo gitconfig](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup). Agregue su nombre y correo electrónico y cierre esto
 
 En la consola de RStudio:
 
 ```{r echo=TRUE, eval = FALSE}
+
+install.packages(usethis) #instala el paquete usethis
 
 library(usethis)
 usethis::edit_git_config()
 # Modificar en el fichero ".gitconfig" los apartados: "name" y "email" 
 # y guardar el fichero
 #Pegar en ".gitconfig"
+
 #[filter "lfs"]
-#	clean = git-lfs clean -- %f
-#	smudge = git-lfs smudge -- %f
-#	process = git-lfs filter-process
-#	required = true
+#	  clean = git-lfs clean -- %f
+#	  smudge = git-lfs smudge -- %f
+#	  process = git-lfs filter-process
+#	  required = true
 #[user]
 #	name = minombredeusuario
 #	email = micorreo@gmail.com
@@ -88,11 +127,15 @@ En RStudio:
 
 -   Crear un nueva proyecto
 
--   Seleccionar "Nuevo Directorio"
+-   Seleccionar "New Directory"
 
--   Proyecto
+-   Seleccionar "New Project"
+
+-   En crear nuevo proyecto, selecciones:
 
     -   Activar: "Create a git repository"
+
+![](images/Captura%20de%20pantalla%20de%202021-10-16%2000-10-14.png){width="820"}
 
 En la consola de RStudio:
 
@@ -106,6 +149,10 @@ usethis::use_git()
 Y visitar la pestaña: "Git" en RStudio.
 
 ![Git en RStuio](images/images.png "Git en RStuio"){width="826"}
+
+En RStudio ve a *Tools \> Project Options \> Git/SVN*. Dentro de *Version control system*, selecciona *Git*. Y da click a *"Yes"* cuando aparezca *"Confirm New Git Repository?"*.
+
+Si usaste RStudio o *usethis*, el proyecto debería reiniciarse en RStudio. Hazlo tu mismo si hizo git init. RStudio ahora debería tener un panel Git.
 
 ## Ver historial de confirmación
 
@@ -177,6 +224,16 @@ gitcreds::gitcreds_set()
 # introducir el token copiado en el paso anterior
 ```
 
+Y guarde su token en .Renviron
+
+```{r echo=TRUE, eval = FALSE}
+
+usethis::edit_r_environ()
+
+#  GITHUB_TOKEN="MI_TOKEN""
+
+```
+
 ## Cómo conectar proyectos de RStudio con repositorios de GitHub
 
 Ahora que hemos conectado RStudio y GitHub, discutamos cómo hacer que los dos funcionen juntos. La idea básica es que configure los proyectos que cree en RStudio con repositorios GitHub asociados. Cada proyecto de RStudio vive en un solo repositorio de GitHub.
@@ -191,6 +248,7 @@ Para subir un proyecto RStudio en el que se ha configurado las opciones con Git 
 
 ```{r echo=TRUE, eval = FALSE}
 library(usethis)
+usethis::use_git()
 usethis::use_github()
 ```
 
@@ -258,14 +316,11 @@ Volvemos a RStudio:
 
 ¡Ahora está todo configurado para usar Git y GitHub con RStudio!
 
-
 ## Colaborando con git y Github
-Este artículo es una traducción automática del artículo: https://www.sds.pub/collaborating-with-git-and-github.html
+
+Este artículo es una traducción automática del artículo: <https://www.sds.pub/collaborating-with-git-and-github.html>
 
 Cualquiera que haya trabajado alguna vez en cualquier tipo de proyecto de escritura colaborativa (código o de otro tipo) probablemente se ha encontrado con frustraciones del control de versiones. Por ejemplo, podría estar trabajando en algunas revisiones de un documento. Hago algunas modificaciones y se las envío a mi colega. En el momento en que obtienen mi versión, sin embargo, ya está detrás de su versión en otras áreas (por ejemplo, tal vez revisaron su descripción del análisis al mismo tiempo que proporcioné modificaciones al documento en su totalidad). No pueden simplemente aceptar mis ediciones sin perder otros cambios, pero les gustaría incorporar ambos cambios. En muchas situaciones como esta, el control de versiones se maneja mediante convenciones de nomenclatura, por ejemplo, 'full-manuscript_v1.docx' se convierte en 'full-manuscript_v1da.docx' que luego se convierte en 'full-manuscript_v2.docx' hasta que finalmente terminamos con 'full-manuscript_vFinal.docx' que inevitablemente termina como 'full-manuscript_vFinalv2.docx' y así sucesivamente hasta que realmente llamemos al documento completo. Git es un enfoque alternativo para administrar versiones de un documento mediante el seguimiento de los cambios en las líneas de los documentos. Si dos personas están trabajando en el mismo documento, pero editando líneas diferentes, esos cambios se fusionarán automáticamente.
-
-
-
 
 ## Más información
 
@@ -276,5 +331,3 @@ Aquí hay algunos recursos adicionales de Git/GitHub para revisar:
 [Colaboración con git y GitHub](https://www.sds.pub/collaborating-with-git-and-github.html): Este capítulo de los materiales del curso para Social Data Science with R en la Universidad de Oregon cubre los conceptos básicos de Git y GitHub.
 
 [Los materiales de un taller de rstudio::conf de 2019](https://rstudio-conf-2020.github.io/r-for-excel/github.html) titulado "R para usuarios de Excel" cubren "control de versiones y practica un flujo de trabajo con GitHub y RStudio que optimiza el trabajo con nuestro colaborador más importante: Future You".
-
-
