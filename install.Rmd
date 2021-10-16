@@ -317,9 +317,9 @@ Primero, debemos descargar RStudio desde su página web (<https://rstudio.com/pr
 
 [![Selección de la versión de RStudio](images/%C3%ADndice6.png)](https://www.rstudio.com/products/rstudio/download/)
 
-### Instalar RStudio en Ubuntu
+### 3.1 Instalar RStudio en Ubuntu
 
-### A través de la terminal
+#### A través de la terminal
 
 **Paso 1:** Abra la terminal (Ctrl + Alt + T) en Ubuntu.
 
@@ -366,15 +366,15 @@ sudo gdebi rstudio-1.2.5042-amd64.deb
 
 Alternativamente, RStudio también se puede instalar a través del software Ubuntu, pero el uso del enfoque anterior generalmente garantiza que se instale la última versión.
 
-### Instalar RStudio en Windows
+### 3.2 Instalar RStudio en Windows
 
 Luego, haremos click en el botón de descarga. Automáticamente se decargará un ejecutable para instalar RStudio. Se requiere de Windows 7 o superior.
 
-### Instalar RStudio en Mac OS
+### 3.3 Instalar RStudio en Mac OS
 
 Luego, haremos click en el botón de descarga. Automáticamente se decargará un ejecutable para instalar RStudio. Se requiere de Mac OS High Sierra o superior.
 
-## 4. Entorno de trabajo de RStudio
+### 3.4 Entorno de trabajo de RStudio
 
 Al abrir RStudio deberíamos ver una pantalla similar a lo que se muestra en la siguiente imagen:
 
@@ -390,13 +390,13 @@ Una vez en RStudio, podemos escribir y ejecutar las órdenes de varias formas:
 
 Como podemos ver, RStudio está (normalmente) dividido en 4 paneles.
 
-## 5. Instalar Git
+## 4. Instalar Git
 
-#### ¿Qué es Git?
+### 4.1 ¿Qué es Git?
 
 Git es un sistema de control de versiones. Al ser un sistema de control de versiones, git hará un seguimiento de los archivos fuente que son necesarios para construir un proyecto que estemos editando (por ejemplo; un paper o proyecto de investigación). De tal manera que se se añade un fichero/repositorio (conjunto de archivos), se modifica o se borra, git guardará en un registro interno cada uno de los cambios. Esto permite poder consultar el estado del proyecto en una determinada fecha, pudiéndolo recuperar tal y como estaba, aunque se hubieran borrado ficheros. Que sea un sistema distribuido significa que cada copia del proyecto contiene todo el histórico completo, hasta el momento en que se hizo la copia.
 
-### Cómo instalar Git en Ubuntu
+### 4.2 Cómo instalar Git en Ubuntu
 
 La instalación de git en Ubuntu no puede ser más fácil. Sólo hay que abrir un terminal de comandos y ejecutar apt para que se descargue el paquete de los repositorios oficiales y configure el sistema para dejarlo disponible.
 
@@ -412,7 +412,7 @@ git --version
 
 ```
 
-### Instalar Git para Windows
+### 4.3 Instalar Git para Windows
 
 Sólo debe descargar el instalador correspondiente desde la página oficial del proyecto Git y descargar el instalador correspondiente al sistema operativo usado teniendo en cuenta la arquitectura de nuestro sistema: 32 o 64bits.
 
@@ -428,7 +428,7 @@ git --version
 
 ```
 
-### Instalar Git para MAC
+### 4.4 Instalar Git para MAC
 
 Primero te vas a [este enlace](https://git-scm.com/download/mac), en la sección de **Binary Installer**, seleccionas la última versión indicada, en este ejemplo es la **2.33.0**
 
@@ -462,15 +462,15 @@ git --version
 
 Y listo, con esto ya deberías tener **git** instalado en tu sistema operativo y poder trabajar en tus proyectos.
 
-## 6. Bonus Track
+## 5. Bonus Track
 
-### LaTeX (basico) para R Markdown
+### 5.1 LaTeX (basico) para R Markdown
 
 Latex es un sistema de composición de textos, orientado a la creación de documentos escritos que presenten una alta calidad tipográfica. Por sus características y posibilidades, es usado de forma especialmente intensa en la generación de artículos y libros científicos que incluyen, entre otros elementos, expresiones matemáticas.
 
 LaTeX está formado por un gran conjunto de macros de TeX, escrito por Leslie Lamport en 1984, con la intención de facilitar el uso del lenguaje de composición tipográfica, TEX, creado por Donald Knuth. Es muy utilizado para la composición de artículos académicos, tesis y libros técnicos, dado que la calidad tipográfica de los documentos realizados en LaTeX, se considera adecuada a las necesidades de una editorial científica de primera línea, muchas de las cuales ya lo emplean.
 
-### Instalación
+### 5.2 Instalación
 
 Vamos a instalar algunos paquetes de R para tener una version mínima de Latex que nos permitirá trabajar con R Markdown y hacer documentos dinamicos e introducirnos a la programación en Latex. Para realizar esto instale los siguientes paquetes:
 
