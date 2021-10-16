@@ -49,9 +49,7 @@ Erick Cuevas-Fernández
 
     -   O bien usar en la terminal `where git` (Windows)
 
--   Recuerda que la terminal (o línea de comandos ó consola ó shell ó bash)
-    es un programa en tu computadora que funciona para correr otros
-    programas. Desde RStudio puedes abrir la **terminal**, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:
+-   Recuerda que la terminal (o línea de comandos ó consola ó shell ó bash) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la **terminal**, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:
 
     -   *Tools \> Terminal* (abre la terminal dentro del IDE de RStudio)
 
@@ -63,13 +61,9 @@ Erick Cuevas-Fernández
 
     -   Una conexión HTTPS permite que `credential.helper` almacene en caché su contraseña. (por tanto puedes configurar tu usuario y contraseña en tu equipo de uso)
 
-    -   Es más sencillo acceder a un repositorio desde cualquier lugar, ya
-        que solo necesita los detalles de su cuenta (no se requieren claves SSH)
-        para escribir en el repositorio.
+    -   Es más sencillo acceder a un repositorio desde cualquier lugar, ya que solo necesita los detalles de su cuenta (no se requieren claves SSH) para escribir en el repositorio.
 
--   .Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa
-    el ropositorio con un README. Copia el HTTPS URL para clonar el
-    repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/TU-REPOSITORIO.git`.
+-   .Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/TU-REPOSITORIO.git`.
 
 ## Cómo configurar Git
 

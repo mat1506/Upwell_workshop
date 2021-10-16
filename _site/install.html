@@ -2333,7 +2333,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#instalar-git-para-windows">Instalar Git para Windows</a></li>
 <li><a href="#instalar-git-para-mac">Instalar Git para MAC</a></li>
 </ul></li>
-<li><a href="#bonus-track">5 Bonus Track</a>
+<li><a href="#bonus-track">6. Bonus Track</a>
 <ul>
 <li><a href="#latex-basico-para-r-markdown">LaTeX (basico) para R Markdown</a></li>
 <li><a href="#instalación-1">Instalación</a></li>
@@ -2591,7 +2591,8 @@ updateR no está actualmente en CRAN. Para instalarlo, puede usar el paquete dev
 </ul>
 <p>Como podemos ver, RStudio está (normalmente) dividido en 4 paneles.</p>
 <h2 id="instalar-git">5. Instalar Git</h2>
-<p>Git es un sistema de control de versiones. Al ser un sistema de control de versiones, git hará un seguimiento de los archivos fuente que son necesarios para construir un proyecto que estemos editando. De tal manera que se se añade un fichero (conjunto de archivos), se modifica o se borra, git guardará en un registro interno cada uno de los cambios. Esto permite poder consultar el estado del proyecto en una determinada fecha, pudiéndolo recuperar tal y como estaba, aunque se hubieran borrado ficheros. Que sea un sistema distribuido significa que cada copia del proyecto contiene todo el histórico completo, hasta el momento en que se hizo la copia.</p>
+<h4 id="qué-es-git">¿Qué es Git?</h4>
+<p>Git es un sistema de control de versiones. Al ser un sistema de control de versiones, git hará un seguimiento de los archivos fuente que son necesarios para construir un proyecto que estemos editando (por ejemplo; un paper o proyecto de investigación). De tal manera que se se añade un fichero/repositorio (conjunto de archivos), se modifica o se borra, git guardará en un registro interno cada uno de los cambios. Esto permite poder consultar el estado del proyecto en una determinada fecha, pudiéndolo recuperar tal y como estaba, aunque se hubieran borrado ficheros. Que sea un sistema distribuido significa que cada copia del proyecto contiene todo el histórico completo, hasta el momento en que se hizo la copia.</p>
 <h3 id="cómo-instalar-git-en-ubuntu">Cómo instalar Git en Ubuntu</h3>
 <p>La instalación de git en Ubuntu no puede ser más fácil. Sólo hay que abrir un terminal de comandos y ejecutar apt para que se descargue el paquete de los repositorios oficiales y configure el sistema para dejarlo disponible.</p>
 <p>Para ello instalaremos git y verificaremos que puede ejecutarse sin problemas:</p>
@@ -2604,10 +2605,10 @@ updateR no está actualmente en CRAN. Para instalarlo, puede usar el paquete dev
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
 </div>
 <h3 id="instalar-git-para-windows">Instalar Git para Windows</h3>
-<p>Sólo debe descargarse el instalador correspondiente desde la página oficial del proyecto Git y descargar el instalador correspondiente al sistema operativo usado teniendo en cuenta la arquitectura de nuestro sistema: 32 o 64bits.</p>
+<p>Sólo debe descargar el instalador correspondiente desde la página oficial del proyecto Git y descargar el instalador correspondiente al sistema operativo usado teniendo en cuenta la arquitectura de nuestro sistema: 32 o 64bits.</p>
 <p><a href="https://git-scm.com/"><img src="images/Captura%20de%20pantalla%20de%202021-09-27%2016-34-10.png" title="Instalar Git para Windows" width="890" alt="Instalar Git para Windows" /></a></p>
 <p>El instalador para Windows abrirá un asistente que mostrará una serie de opciones durante el proceso. No debe preocuparse y dejar las opciones marcadas por defecto que serán suficientes en la mayoría de las situaciones.</p>
-<p>Una vez terminado, puedes marcar la opción Iniciar Git Bash si quieres abrir una línea de comandos de Bash o si has seleccionado la línea de comandos de Windows que ejecuta Git desde la línea de comandos de Windows. Compruebe la instalación ejecutando git de prueba con:</p>
+<p>Una vez terminado, puedes marcar la opción Iniciar Git Bash si quieres abrir una línea de comandos de Bash o si has seleccionado la línea de comandos de Windows que ejecuta Git desde la línea de comandos de Windows o utilizando el terminal en Rstudio. Compruebe la instalación ejecutando git de prueba con:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
@@ -2629,13 +2630,13 @@ updateR no está actualmente en CRAN. Para instalarlo, puede usar el paquete dev
 <div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
 </div>
-<h5 id="y-listo-con-esto-ya-deberías-tener-git-instalado-en-tu-sistema-operativo-y-poder-trabajar-en-tus-proyectos.">Y listo, con esto ya deberías tener <strong>git</strong> instalado en tu sistema operativo y poder trabajar en tus proyectos.</h5>
-<h2 id="bonus-track">5 Bonus Track</h2>
+<p>Y listo, con esto ya deberías tener <strong>git</strong> instalado en tu sistema operativo y poder trabajar en tus proyectos.</p>
+<h2 id="bonus-track">6. Bonus Track</h2>
 <h3 id="latex-basico-para-r-markdown">LaTeX (basico) para R Markdown</h3>
 <p>Latex es un sistema de composición de textos, orientado a la creación de documentos escritos que presenten una alta calidad tipográfica. Por sus características y posibilidades, es usado de forma especialmente intensa en la generación de artículos y libros científicos que incluyen, entre otros elementos, expresiones matemáticas.</p>
 <p>LaTeX está formado por un gran conjunto de macros de TeX, escrito por Leslie Lamport en 1984, con la intención de facilitar el uso del lenguaje de composición tipográfica, TEX, creado por Donald Knuth. Es muy utilizado para la composición de artículos académicos, tesis y libros técnicos, dado que la calidad tipográfica de los documentos realizados en LaTeX, se considera adecuada a las necesidades de una editorial científica de primera línea, muchas de las cuales ya lo emplean.</p>
 <h3 id="instalación-1">Instalación</h3>
-<p>Vamos a instalar algunos paquetes de R para tener una version mínima de Latex que nos permitirá trabajar con R Markdown y hacer documentos dinamicos e introducirnos a la programación en Latex, para esto instale los siguientes paquetes:</p>
+<p>Vamos a instalar algunos paquetes de R para tener una version mínima de Latex que nos permitirá trabajar con R Markdown y hacer documentos dinamicos e introducirnos a la programación en Latex. Para realizar esto instale los siguientes paquetes:</p>
 <h4 id="r-markdown">R Markdown</h4>
 <p>R Markdown es un formato que permite una fácil creación de documentos, presentaciones dinámicas y informes de R. Markdown es un formato de sintaxis simple para crear documentos en HTML, PDF, y Word. En el siguiente link pueden encontrar información de como se crean estos documentos <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2646,7 +2647,7 @@ updateR no está actualmente en CRAN. Para instalarlo, puede usar el paquete dev
 </div>
 </div>
 <p>#### Knitr</p>
-<p><strong>knitr</strong> una herramienta para generación de informes dinámico en R.<sup><a href="https://es.wikipedia.org/wiki/Knitr#cite_note-1">1</a></sup>​<sup><a href="https://es.wikipedia.org/wiki/Knitr#cite_note-2">2</a></sup>​ Es un paquete en el lenguaje de programación <a href="https://es.wikipedia.org/wiki/Estad%C3%ADstica" title="Estadística">estadístico</a> <a href="https://es.wikipedia.org/wiki/R_(lenguaje_de_programaci%C3%B3n)" title="R (lenguaje de programación)">R</a> que permite integrar R en documentos <a href="https://es.wikipedia.org/wiki/LaTeX" title="LaTeX">LaTeX</a>, <a href="https://es.wikipedia.org/wiki/LyX" title="LyX">LyX</a>, <a href="https://es.wikipedia.org/wiki/HTML" title="HTML">HTML</a>, <a href="https://es.wikipedia.org/wiki/Markdown" title="Markdown">Markdown</a>, <a href="https://en.wikipedia.org/wiki/en:AsciiDoc" title="w:en:AsciiDoc">AsciiDoc</a>, y <a href="https://es.wikipedia.org/wiki/ReStructuredText" title="ReStructuredText">reStructuredText</a>. El propósito de knitr es dar espacio a la <a href="https://es.wikipedia.org/wiki/Reproducibilidad" title="Reproducibilidad">reproducibilidad</a> de investigación en R a través de <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria" title="Programación literaria">Programación Literaría.</a> Está bajo la licencia <a href="https://es.wikipedia.org/wiki/GNU_General_Public_License" title="GNU General Public License">GNU Licencia Pública General</a>.</p>
+<p><strong>knitr</strong> una herramienta para generación de informes dinámico en R.​ Es un paquete en el lenguaje de programación <a href="https://es.wikipedia.org/wiki/Estad%C3%ADstica" title="Estadística">estadístico</a> <a href="https://es.wikipedia.org/wiki/R_(lenguaje_de_programaci%C3%B3n)" title="R (lenguaje de programación)">R</a> que permite integrar R en documentos <a href="https://es.wikipedia.org/wiki/LaTeX" title="LaTeX">LaTeX</a>, <a href="https://es.wikipedia.org/wiki/LyX" title="LyX">LyX</a>, <a href="https://es.wikipedia.org/wiki/HTML" title="HTML">HTML</a>, <a href="https://es.wikipedia.org/wiki/Markdown" title="Markdown">Markdown</a>, <a href="https://en.wikipedia.org/wiki/en:AsciiDoc" title="w:en:AsciiDoc">AsciiDoc</a>, y <a href="https://es.wikipedia.org/wiki/ReStructuredText" title="ReStructuredText">reStructuredText</a>. El propósito de knitr es dar espacio a la <a href="https://es.wikipedia.org/wiki/Reproducibilidad" title="Reproducibilidad">reproducibilidad</a> de investigación en R a través de <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria" title="Programación literaria">Programación Literaría.</a> Está bajo la licencia <a href="https://es.wikipedia.org/wiki/GNU_General_Public_License" title="GNU General Public License">GNU Licencia Pública General</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"knitr"</span>, dependencies <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -2664,7 +2665,7 @@ updateR no está actualmente en CRAN. Para instalarlo, puede usar el paquete dev
 </div>
 <h4 id="tinytex-package">tinytex package</h4>
 <p>Si desea crear documentos PDF desde R Markdown, necesitará tener instalada una distribución LaTeX. Aunque hay varias opciones tradicionales que incluyen MiKTeX, MacTeX y TeX Live, recomendamos que los usuarios de R Markdown instalen TinyTeX.</p>
-<p>TinyTeX es una distribución LaTeX personalizada basada en TeX Live que tiene un tamaño relativamente pequeño, pero funciona bien en la mayoría de los casos, especialmente para los usuarios de R. La instalación o ejecución de TinyTeX no requiere privilegios de administrador de sistemas.1 Puede instalar TinyTeX con el paquete R tinytex (Xie 2021f):</p>
+<p>TinyTeX es una distribución LaTeX personalizada basada en TeX Live que tiene un tamaño relativamente pequeño, pero funciona bien en la mayoría de los casos, especialmente para los usuarios de R. La instalación o ejecución de TinyTeX no requiere privilegios de administrador de sistemas. Puede instalar TinyTeX con el paquete R tinytex (Xie 2021f):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tinytex"</span>, dependencies <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
