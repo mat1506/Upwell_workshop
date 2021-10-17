@@ -2521,39 +2521,32 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4 id="botones-pushpull-atenuados-en-rstudio">4.3.3 Botones Push/Pull atenuados en RStudio</h4>
 <p>¿Está seguro de que su repositorio local está rastreando un repositorio remoto, por ejemplo, un repositorio de GitHub? En un shell con directorio de trabajo configurado en el repositorio local de Git, ingrese estos comandos:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git remote <span class="at">-v</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git remote <span class="at">-v</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code></pre></div>
 </div>
 <p>Queremos ver que fetch y push estén configurados en URL remotas que apuntan al repositorio remoto. Tenga en cuenta también que el repositorio de GitHub es un remoto llamado <code>origen</code>, en lo que respecta a su repositorio local. Esto es típico y, aunque creo que <code>github</code> es un nombre muy superior, el <code>origen</code> es una convención tan fuerte que lo sigo.</p>
 <p>Si descubre que todavía necesita configurar un control remoto, obtenga la URL HTTPS o SSH, según corresponda, para su repositorio GitHub. Esto es fácil de obtener en su portapapeles desde la página GitHub del repositorio. Haz esto en el shell:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/brereton/myrepo.git</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/brereton/myrepo.git</span></code></pre></div>
 </div>
 <p>Descargue todos los archivos del repositorio GitHub en línea y haga frente a cualquier conflicto.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span></code></pre></div>
 </div>
 <p>Llame a <code>git remote -v</code> nuevamente. Una vez que pueda probar que su control remoto GitHub está configurado correctamente, puede pasar al siguiente paso.</p>
 <p>¿Estás seguro de que la sucursal actual está <em>rastreando</em> una sucursal en el control remoto? En ese mismo shell, en su repositorio, haga esto:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git branch <span class="at">-vv</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> master b8e03e3 [origin/master] line added locally</span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git branch <span class="at">-vv</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> master b8e03e3 [origin/master] line added locally</span></code></pre></div>
 </div>
 <p>Lo anterior muestra la confirmación exitosa de que la rama <code>master</code> local está rastreando <code>origin/master</code>, es decir, la rama principal en GitHub. Si no ve el bit <code>[origin/master]</code>, eso es un problema. Por cierto, <code>git branch -r</code> es otra forma útil de examinar las ramas de seguimiento remoto. (Si está trabajando con una rama que no sea <code>master</code>, ajuste todo en consecuencia).</p>
 <p>Al conectar un repositorio local a un nuevo repositorio de GitHub, mucha gente recuerda agregar el control remoto GitHub, pero también se olvida de consolidar esta relación de seguimiento para las sucursales relevantes.</p>
 <p>Si descubres que la rama <code>master</code> local todavía no está siguiendo ’master` en GitHub, corrige eso de la siguiente manera:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin master</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin master</span></code></pre></div>
 </div>
 <p>Esto es equivalente a <code>git push -u origin master</code>, pero transmite más acerca de lo que está haciendo.</p>
 <p>Llame <code>git branch -vv</code> o <code>git branch -r</code> nuevamente para confirmar que la rama <code>master</code> en GitHub es la rama ascendente o de seguimiento para la rama<code>master</code> local.</p>
@@ -2561,8 +2554,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>¿Obtiene este error en RStudio?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">error:</span> unable to read askpass response from <span class="st">&#39;rpostback-askpass&#39;</span></span></code></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">error:</span> unable to read askpass response from <span class="st">&#39;rpostback-askpass&#39;</span></span></code></pre></div>
 </div>
 <p>Abra el shell: <em>Tools &gt; Shell</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2635,7 +2627,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span>
 <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_git.html'>use_git</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>#hacer un commit</span>
 <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_github.html'>use_github</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>#pedira nombre de usuario y token (ver usethis::edit_r_environ())</span>
 </code></pre>
 </div>
 </div>
@@ -2647,10 +2641,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>Para bajar un repositorio creado en Github a un proyecto local en RStudio, se tienen que realizar los siguientes pasos:</p>
 <ul>
 <li><p>Crear un nuevo repositorio en nuestra cuenta de Github (o utilizar uno ya existente): pulsar el botón “Create repository”.</p></li>
-<li><p>Copiar al portapapeles la primera dirección que aparece (pulsando el botón de la derecha). Coincide con la dirección url que aparece en la barra del navegador.</p></li>
-<li><p>En RStudio seleccionamos crear “New project”, elegimos “Version Control” y luego seleccionamos “Git”.</p></li>
+<li><p>Copiar al portapapeles (<code>clonar</code>) la primera dirección que aparece (pulsando el botón de la derecha). Coincide con la dirección url que aparece en la barra del navegador.</p></li>
+<li><p>En RStudio seleccionamos crear “New project”, elegimos <code>"Version Control"</code> y luego seleccionamos “Git”.</p></li>
 <li><p>Introducimos en el primer cuadro de texto la url copiada anteriormente.</p></li>
-<li><p>Pulsamos “Create Project”.</p></li>
+<li><p>Pulsamos <code>"Create Project"</code>.</p></li>
 <li><p>A continuación podrá consultarse la pestaña “Git” y ver la información asociada al repositorio descargado.</p></li>
 </ul>
 <h2 id="flujo-de-trabajo-general">9. Flujo de trabajo general</h2>
@@ -2659,14 +2653,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>Empujar significa enviar cualquier cambio en su código de RStudio a GitHub. Para hacer esto, primero tenemos que comprometernos. Después de confirmar, ahora tenemos un botón (la flecha hacia arriba) en RStudio que podemos usar para enviar nuestro código a GitHub.</p>
 <p>En RStudio:</p>
 <ul>
-<li><p>Creamos un nuevo fichero de script R o un fichero Rmd y lo grabamos.</p></li>
+<li><p>Creamos un nuevo archivo (“fichero”) en “File”; un script R o un archivo .Rmd y lo guradamos.</p></li>
 <li><p>Se pulsa en la pestaña “Git” sobre el botón de “commit”.</p></li>
 <li><p>Marcamos todos los ficheros sobre los checks de “Staged”, rellenamos la descripción del commit y pulsamos sobre el botón de “commit”.</p></li>
 <li><p>Después de hacer el commit, pulsamos sobre el botón “Push” para subir los cambios a Github.</p></li>
 <li><p>A continuación puede comprobarse en la página de Github del repositorio que se han actualizado los últimos ficheros considerados en el último commit.</p></li>
 </ul>
 <h3 id="pull-descargar-desde-github">9.2 Pull (Descargar desde Github)</h3>
-<p>Lo opuesto a empujar es tirar. Utilizando el botón de flecha hacia abajo, RStudio va al repositorio de GitHub, toma el código más reciente y lo lleva a su editor local. (<a href="https://medium.com/better-programming/six-rules-for-good-git-hygiene-5006cf9e9e2#:~:text=Always%20Pull%20Before%20a%20Push&amp;text=Before%20you%20try%20to%20push,sync%20with%20the%20remote%20repository.">Tirar regularmente es extremadamente importante si estás colaborando</a>, aunque si eres el único que trabaja en un proyecto de RStudio y un repositorio GitHub asociado, sabes que tu código local coincide con lo que está en GitHub, por lo que es menos importante.)</p>
+<p>Lo opuesto a empujar es tirar (Pull). Utilizando el botón de flecha hacia abajo, RStudio va al repositorio de GitHub, toma el código más reciente y lo lleva a su editor local. (<a href="https://medium.com/better-programming/six-rules-for-good-git-hygiene-5006cf9e9e2#:~:text=Always%20Pull%20Before%20a%20Push&amp;text=Before%20you%20try%20to%20push,sync%20with%20the%20remote%20repository.">Tirar regularmente es extremadamente importante si estás colaborando</a>, aunque si eres el único que trabaja en un proyecto de RStudio y un repositorio GitHub asociado, sabes que tu código local coincide con lo que está en GitHub, por lo que es menos importante.)</p>
 <p>En la página de Github de nuestro repositorio:</p>
 <ul>
 <li><p>Editamos uno de los ficheros de nuestro repositorio pulsando sobre el icono de un lápiz (a la derecha).</p></li>

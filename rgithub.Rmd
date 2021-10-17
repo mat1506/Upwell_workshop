@@ -261,13 +261,9 @@ Vaya [aquí](http://www.troubleshooters.com/linux/prepostpath.htm) para obtener 
 ¿Está seguro de que su repositorio local está rastreando un repositorio remoto, por ejemplo, un repositorio de GitHub? En un shell con directorio de trabajo configurado en el repositorio local de Git, ingrese estos comandos:
 
 ```{bash echo=TRUE, eval = FALSE}
-
-
 brereton@2021-mbp myrepo $ git remote -v 
 origin  https://github.com/jennybc/myrepo (fetch)
 origin  https://github.com/jennybc/myrepo (push)
-
-
 ```
 
 Queremos ver que fetch y push estén configurados en URL remotas que apuntan al repositorio remoto. Tenga en cuenta también que el repositorio de GitHub es un remoto llamado `origen`, en lo que respecta a su repositorio local. Esto es típico y, aunque creo que `github` es un nombre muy superior, el `origen` es una convención tan fuerte que lo sigo.
@@ -275,19 +271,13 @@ Queremos ver que fetch y push estén configurados en URL remotas que apuntan al 
 Si descubre que todavía necesita configurar un control remoto, obtenga la URL HTTPS o SSH, según corresponda, para su repositorio GitHub. Esto es fácil de obtener en su portapapeles desde la página GitHub del repositorio. Haz esto en el shell:
 
 ```{bash echo=TRUE, eval = FALSE}
-
-
 git remote add origin https://github.com/brereton/myrepo.git
-
-
 ```
 
 Descargue todos los archivos del repositorio GitHub en línea y haga frente a cualquier conflicto.
 
 ```{bash echo=TRUE, eval = FALSE}
-
 git pull origin master
-
 ```
 
 Llame a `git remote -v` nuevamente. Una vez que pueda
@@ -298,10 +288,8 @@ puede pasar al siguiente paso.
 
 ```{bash echo=TRUE, eval = FALSE}
 
-
 brereton@2021-mbp myrepo $ git branch -vv
 * master b8e03e3 [origin/master] line added locally
-
 
 ```
 
@@ -313,9 +301,7 @@ Si descubres que la rama `master` local todavía no está siguiendo 'master\` en
 
 ```{bash echo=TRUE, eval = FALSE}
 
-
 git push --set-upstream origin master
-
 
 ```
 
@@ -329,9 +315,7 @@ Llame `git branch -vv` o `git branch -r` nuevamente para confirmar que la rama `
 
 ```{bash echo=TRUE, eval = FALSE}
 
-
 error: unable to read askpass response from 'rpostback-askpass'
-
 
 ```
 
@@ -439,7 +423,9 @@ Para subir un proyecto RStudio en el que se ha configurado las opciones con Git 
 ```{r echo=TRUE, eval = FALSE}
 library(usethis)
 usethis::use_git()
+#hacer un commit
 usethis::use_github()
+#pedira nombre de usuario y token (ver usethis::edit_r_environ())
 ```
 
 -   Se realizará un proceso que activará la página web de Github con el repositorio asociado al proyecto que se acaba de crear en RStudio.
@@ -452,13 +438,13 @@ Para bajar un repositorio creado en Github a un proyecto local en RStudio, se ti
 
 -   Crear un nuevo repositorio en nuestra cuenta de Github (o utilizar uno ya existente): pulsar el botón "Create repository".
 
--   Copiar al portapapeles la primera dirección que aparece (pulsando el botón de la derecha). Coincide con la dirección url que aparece en la barra del navegador.
+-   Copiar al portapapeles (`clonar`) la primera dirección que aparece (pulsando el botón de la derecha). Coincide con la dirección url que aparece en la barra del navegador.
 
--   En RStudio seleccionamos crear "New project", elegimos "Version Control" y luego seleccionamos "Git".
+-   En RStudio seleccionamos crear "New project", elegimos `"Version Control"` y luego seleccionamos "Git".
 
 -   Introducimos en el primer cuadro de texto la url copiada anteriormente.
 
--   Pulsamos "Create Project".
+-   Pulsamos `"Create Project"`.
 
 -   A continuación podrá consultarse la pestaña "Git" y ver la información asociada al repositorio descargado.
 
@@ -472,7 +458,7 @@ Empujar significa enviar cualquier cambio en su código de RStudio a GitHub. Par
 
 En RStudio:
 
--   Creamos un nuevo fichero de script R o un fichero Rmd y lo grabamos.
+-   Creamos un nuevo archivo ("fichero") en "File"; un script R o un archivo .Rmd y lo guradamos.
 
 -   Se pulsa en la pestaña "Git" sobre el botón de "commit".
 
@@ -484,7 +470,7 @@ En RStudio:
 
 ### 9.2 Pull (Descargar desde Github)
 
-Lo opuesto a empujar es tirar. Utilizando el botón de flecha hacia abajo, RStudio va al repositorio de GitHub, toma el código más reciente y lo lleva a su editor local. ([Tirar regularmente es extremadamente importante si estás colaborando](https://medium.com/better-programming/six-rules-for-good-git-hygiene-5006cf9e9e2#:~:text=Always%20Pull%20Before%20a%20Push&text=Before%20you%20try%20to%20push,sync%20with%20the%20remote%20repository.), aunque si eres el único que trabaja en un proyecto de RStudio y un repositorio GitHub asociado, sabes que tu código local coincide con lo que está en GitHub, por lo que es menos importante.)
+Lo opuesto a empujar es tirar (Pull). Utilizando el botón de flecha hacia abajo, RStudio va al repositorio de GitHub, toma el código más reciente y lo lleva a su editor local. ([Tirar regularmente es extremadamente importante si estás colaborando](https://medium.com/better-programming/six-rules-for-good-git-hygiene-5006cf9e9e2#:~:text=Always%20Pull%20Before%20a%20Push&text=Before%20you%20try%20to%20push,sync%20with%20the%20remote%20repository.), aunque si eres el único que trabaja en un proyecto de RStudio y un repositorio GitHub asociado, sabes que tu código local coincide con lo que está en GitHub, por lo que es menos importante.)
 
 En la página de Github de nuestro repositorio:
 
