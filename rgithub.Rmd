@@ -3,7 +3,7 @@ title: "Cómo usar Git/GitHub con RStudio"
 description: |
   Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/
 author:
-  - name: Matías Frugone Álvarez (de David February 13, 2021)
+  - name: Matías Frugone Álvarez (modificado de David February 13, 2021)
   
 date: "`r Sys.Date()`"
 output: distill::distill_article
@@ -34,8 +34,6 @@ Es posible usar Git sin usar GitHub, aunque la mayoría de la gente combina los 
 2.  **El uso de Git y GitHub te permite usar el control de versiones**
 
 3.  **El uso de Git y GitHub permite trabajar en el mismo proyecto al mismo tiempo que los colaboradores.**
-
--   `TU-REPOSITORIO.git`.
 
 ## 2. Cómo configurar Git
 
