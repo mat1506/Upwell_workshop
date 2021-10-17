@@ -35,41 +35,13 @@ Es posible usar Git sin usar GitHub, aunque la mayoría de la gente combina los 
 
 3.  **El uso de Git y GitHub permite trabajar en el mismo proyecto al mismo tiempo que los colaboradores.**
 
-## 2. Manual de sobreviviencia con Git Y GitHub en RStudio
+-   `TU-REPOSITORIO.git`.
 
-Erick Cuevas-Fernández
-
-10 de agosto de 2021
-
--   Este documento se basa en "Happy Git with R" de Jenny Bryan, los STAT 545 TAs, Jim Hester
-
--   Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuenta la ubicación de dónde se instaló Git.
-
-    -   Puedes usar en la terminal `which git` (Mac y Linux)
-
-    -   O bien usar en la terminal `where git` (Windows)
-
--   Recuerda que la terminal (o línea de comandos ó consola ó shell ó bash) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la **terminal**, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:
-
-    -   *Tools \> Terminal* (abre la terminal dentro del IDE de RStudio)
-
-    -   *Tools \> Shell* (abre una terminal externa a RStudio)
-
--   La recomendación actual de **GitHub** es usar *HTTPS* porque es la manera más fácil de configurar y tiene operabilidad en multiples redes y plataformas.
-
-    -   Es menos probable que HTTPS sea bloqueado por un firewall.
-
-    -   Una conexión HTTPS permite que `credential.helper` almacene en caché su contraseña. (por tanto puedes configurar tu usuario y contraseña en tu equipo de uso)
-
-    -   Es más sencillo acceder a un repositorio desde cualquier lugar, ya que solo necesita los detalles de su cuenta (no se requieren claves SSH) para escribir en el repositorio.
-
--   .Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/TU-REPOSITORIO.git`.
-
-## 3. Cómo configurar Git
+## 2. Cómo configurar Git
 
 Ahora que tienes un poco más de comprensión de lo que son Git y GitHub, hablemos de cómo configurar todo. Gran parte de lo que compartiré proviene del excelente libro [Happy Git with R](http://happygitwithr.com/) de Jenny Bryan y Jim Hester. Sin embargo, en el momento de escribir este artículo (febrero de 2021), algunas cosas han cambiado con respecto a las credenciales. Adorno lo que creo que es el consejo más actualizado para configurar todo.
 
-### 3.1 Configurar Git (Editar gitconfig file) desde Rstudio
+### 2.1 Configurar Git (Editar gitconfig file) desde Rstudio
 
 Primero abrímos un nuevo proyecto de Rstudio para configurar Git y Github
 
@@ -100,15 +72,15 @@ usethis::edit_git_config(user.name = "TU_NOMBRE_USUARIO", user.email = "TU@mail.
 
 ```
 
-## 4. Conectar RStudio y GitHub
+## 3. Conectar RStudio y GitHub
 
 El proceso hasta ahora nos ha permitido usar Git localmente. Pero, ¿qué pasa si queremos conectarnos a GitHub? ¿Cómo lo hacemos?
 
-### 4.1 Regístrate en GitHub
+### 3.1 Regístrate en GitHub
 
 El primer paso es [registrarse para obtener una cuenta (gratuita) de GitHub](https://github.com/join).
 
-### 4.2 Crear un token de acceso personal (PAT) en GitHub
+### 3.2 Crear un token de acceso personal (PAT) en GitHub
 
 Una vez que se haya registrado, deberá habilitar RStudio para hablar con GitHub. El proceso para hacerlo ha cambiado recientemente (aquí es donde veo la mayor diferencia importante con Happy Git con R). La mejor manera de conectar RStudio y GitHub es usando su nombre de usuario y un token de acceso personal (PAT). Para generar un token de acceso personal, use la función [create_github_token() de usethis](https://usethis.r-lib.org/reference/github-token.html). Esto lo llevará a la página correspondiente en el sitio web de GitHub, donde le dará un nombre a su token y lo copiará (¡no lo pierda porque nunca volverá a aparecer!).
 
@@ -125,7 +97,7 @@ usethis::create_github_token()
 
 -   Copiar el token que aparece en Github (luego se utilizará en el siguiente paso).
 
-### 4.3 Almacenar token de acceso personal para conectar RStudio y GitHub
+### 3.3 Almacenar token de acceso personal para conectar RStudio y GitHub
 
 Ahora que ha creado un token de acceso personal, debemos almacenarlo para que RStudio pueda acceder a él y sepa conectarse a su cuenta de GitHub. La función [gitcreds_set() del paquete gitcreds](https://gitcreds.r-lib.org/reference/gitcreds_get.html) te ayudará aquí. Ingresará su nombre de usuario de GitHub y el token de acceso personal como contraseña (NO su contraseña de GitHub, como pensé inicialmente). Una vez que haya hecho todo esto, ¡habrá conectado RStudio a GitHub!
 
@@ -156,6 +128,215 @@ Reinicia R y verifica la configuración.
 usethis::git_sitrep()
 
 ```
+
+## 4. Manual de sobreviviencia con Git Y GitHub en RStudio
+
+Erick Cuevas-Fernández
+
+10 de agosto de 2021
+
+-   Este documento se basa en "Happy Git with R" de Jenny Bryan, los STAT 545 TAs, Jim Hester
+
+### 4.1 Encuentre a Git usted mismo
+
+RStudio sólo puede actuar como un GUI front-end para Git, si Git se ha instalado correctamente **RStudio puede encontrarlo**.
+
+Una prueba básica para la instalación exitosa de Git es simplemente introducir `git`
+en el shell. Si recibe una queja sobre que Git no se encuentra, significa que la instalación no tuvo éxito o que no se encuentra, es decir, no está en su `PATH`.
+
+Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuenta la ubicación de dónde se instaló Git.
+
+-   Puedes usar en la terminal `which git` (Mac y Linux)
+
+-   O bien usar en la terminal `where git` (Windows)
+
+-   Recuerda que la terminal (o línea de comandos ó consola ó shell ó bash) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la **terminal**, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:
+
+    -   *Tools \> Terminal* (abre la terminal dentro del IDE de RStudio)
+
+    -   *Tools \> Shell* (abre una terminal externa a RStudio)
+
+-   La recomendación actual de **GitHub** es usar *HTTPS* porque es la manera más fácil de configurar y tiene operabilidad en multiples redes y plataformas.
+
+    -   Es menos probable que HTTPS sea bloqueado por un firewall.
+
+    -   Una conexión HTTPS permite que `credential.helper` almacene en caché su contraseña. (por tanto puedes configurar tu usuario y contraseña en tu equipo de uso)
+
+    -   Es más sencillo acceder a un repositorio desde cualquier lugar, ya que solo necesita los detalles de su cuenta (no se requieren claves SSH) para escribir en el repositorio.
+
+-   .Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/`
+
+### 4.2 Dígale a RStudio dónde encontrar a Git
+
+Si Git parece estar instalado y se puede encontrar, inicie RStudio. Salga y vuelva a iniciar RStudio si **hay alguna duda** sobre si abrió RStudio antes o después de instalar Git. HÁGALO.
+
+Desde RStudio, vaya a *Tools\> Global Options\> Git/SVN* y asegúrese de que la casilla \* Git executable \* apunte a ... el ejecutable de Git. Debe leer algo como:
+
+-   `/usr/bin/git` (Mac, Linux)
+
+-   `C:/Program Files (x86)/Git/bin/git.exe` (Windows)
+
+Aquí hay un [screenshot](http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png) de alguien que hace esto en un computador con Linux.
+
+![](images/Captura%20de%20pantalla%20de%202021-10-17%2011-27-46.png){width="1020"}
+
+-   **ATENCIÓN**: En Windows, **NO** use `C:/Program Files (x86)/Git/cmd/git.exe`. `bin` en el path está BIEN, ¡SÍ! `cmd` en el path está MAL, ¡NO!
+
+-   **ATENCIÓN**: En Windows, **NO** use `git-bash.exe`. Algo que termine en `git.exe` está BIEN, ¡SÍ! `git-bash.exe` está MAL, ¡NO!
+
+-   A veces, se han tenido problemas para navegar hasta el directorio necesario en Mac OS, una vez que se ha hecho clic en "Browse" y trabajando con una ventana deL Finder. El atajo de teclado es "command + shift + g" invocará "Go To Folder", donde podrá escribir o pegar cualquier ruta que desee.
+
+**Reinicie RStudio si realiza cambios.** HÁGALO
+
+Siga los pasos de arriba para ver si RStudio y git se están comunicando ahora.
+
+¿No está contento?
+
+-   Se ha visto esta ayuda: con su Proyecto abierto, vaya a
+    "Tools\>Project Options ...". Si está disponible, haga clic en "Git/SVN"
+    y seleccione "Git" en el menú desplegable Sistema de control de
+    versiones. Responda "yes" a la ventana emergente "Confirm New Git
+    Repository". Responda "yes" a la ventana emergente "Confirm Restart
+    RStudio".
+
+-   Si instaló Git a través de GitHub para Windows, es posible que el
+    ejecutable de Git esté realmente bien oculto. Obtenga ayuda o instale
+    Git de otra manera.
+
+-   Su `PATH` probablemente no está configurado correctamente y/o debe reinstalar Git y controlar/notificar a dónde va. Lea más en [15](https://mamaciasq.github.io/git-con-r/troubleshooting.html#troubleshooting).
+
+-   Pida ayuda.
+
+### 4.3 Problemas y soluciones RStudio, Git, GitHub
+
+Problemas que se han visto y posibles soluciones.
+
+Si experimenta algún problema nuevo y, sobre todo, encuentra la solución correspondiente, [se apreciará mucho saber de usted!](https://github.com/jennybc/happy-git-with-r/issues)
+
+#### 4.3.1 El panel de Git de RStudio desaparece en Mac OS
+
+Después de una actualización de Mac OS, es posible que deba activar las
+herramientas de línea de comandos de Xcode para solicitarle lo que
+necesita, es decir, volver a instalar o volver a aceptar el acuerdo de
+licencia. Hemos visto que esto provoca que el panel de RStudio Git
+desaparezca en un sistema donde estaba funcionando anteriormente. Use
+comandos como estos a continuación para hacerle cosquillas a Xcode:
+
+```{bash echo=TRUE, eval = FALSE}
+
+xcode-select --install
+
+```
+
+o
+
+```{bash echo=TRUE, eval = FALSE}
+git config --global --list
+
+```
+
+Luego **reinicie RStudio**.
+
+#### 4.3.2 PATH disfuncional
+
+Es bastante seguro de que la mayoría de los casos en los que RStudio *no* detecta automáticamente el ejecutable de Git provienen de problemas con el `PATH`. Este es el conjunto de directorios donde la computadora buscará ejecutables, como Git (hoy) o `make`. Ciertos métodos de instalación de Git, especialmente en Windows y/o sistemas operativos más antiguos, tienen una mayor tendencia a poner Git en una ubicación no convencional o dejar de agregar el directorio correspondiente al `PATH`.
+
+¿Cómo ver su `PATH`?
+
+En el shell:
+
+```{bash echo=TRUE, eval = FALSE}
+
+echo $PATH
+```
+
+Eche un buen vistazo a eso. Vea el punto anterior sobre cómo encontrar su ejecutable Git o reinstalarlo mientras está **completamente despierto**. ¿El directorio de host está en su `PATH`? ¿No? **Arréglelo**
+
+Vaya [aquí](http://www.troubleshooters.com/linux/prepostpath.htm) para obtener instrucciones sobre qué poner en su `.bash_profile` para añadir un directorio al `PATH`.
+
+#### 4.3.3 Botones Push/Pull atenuados en RStudio
+
+¿Está seguro de que su repositorio local está rastreando un repositorio remoto, por ejemplo, un repositorio de GitHub? En un shell con directorio de trabajo configurado en el repositorio local de Git, ingrese estos comandos:
+
+```{bash echo=TRUE, eval = FALSE}
+
+brereton@2021-mbp myrepo $ git remote -v 
+origin  https://github.com/jennybc/myrepo (fetch)
+origin  https://github.com/jennybc/myrepo (push)
+
+
+```
+
+Queremos ver que fetch y push estén configurados en URL remotas que apuntan al repositorio remoto. Tenga en cuenta también que el repositorio de GitHub es un remoto llamado `origen`, en lo que respecta a su repositorio local. Esto es típico y, aunque creo que `github` es un nombre muy superior, el `origen` es una convención tan fuerte que lo sigo.
+
+Si descubre que todavía necesita configurar un control remoto, obtenga la URL HTTPS o SSH, según corresponda, para su repositorio GitHub. Esto es fácil de obtener en su portapapeles desde la página GitHub del repositorio. Haz esto en el shell:
+
+```{bash echo=TRUE, eval = FALSE}
+
+git remote add origin https://github.com/brereton/myrepo.git
+
+```
+
+Descargue todos los archivos del repositorio GitHub en línea y haga frente a cualquier conflicto.
+
+```{bash echo=TRUE, eval = FALSE}
+
+git pull origin master
+
+```
+
+Llame a `git remote -v` nuevamente. Una vez que pueda
+probar que su control remoto GitHub está configurado correctamente,
+puede pasar al siguiente paso.
+
+¿Estás seguro de que la sucursal actual está *rastreando* una sucursal en el control remoto? En ese mismo shell, en su repositorio, haga esto:
+
+```{bash echo=TRUE, eval = FALSE}
+
+brereton@2021-mbp myrepo $ git branch -vv
+* master b8e03e3 [origin/master] line added locally
+
+```
+
+Lo anterior muestra la confirmación exitosa de que la rama `master` local está rastreando `origin/master`, es decir, la rama principal en GitHub. Si no ve el bit `[origin/master]`, eso es un problema. Por cierto, `git branch -r` es otra forma útil de examinar las ramas de seguimiento remoto. (Si está trabajando con una rama que no sea `master`, ajuste todo en consecuencia).
+
+Al conectar un repositorio local a un nuevo repositorio de GitHub, mucha gente recuerda agregar el control remoto GitHub, pero también se olvida de consolidar esta relación de seguimiento para las sucursales relevantes.
+
+Si descubres que la rama `master` local todavía no está siguiendo 'master\` en GitHub, corrige eso de la siguiente manera:
+
+```{bash echo=TRUE, eval = FALSE}
+
+git push --set-upstream origin master
+
+```
+
+Esto es equivalente a `git push -u origin master`, pero transmite más acerca de lo que está haciendo.
+
+Llame `git branch -vv` o `git branch -r` nuevamente para confirmar que la rama `master` en GitHub es la rama ascendente o de seguimiento para la rama`master` local.
+
+#### 4.3.4 Falla en el push a nivel de RStudio
+
+¿Obtiene este error en RStudio?
+
+```{bash echo=TRUE, eval = FALSE}
+
+error: unable to read askpass response from 'rpostback-askpass'
+
+```
+
+Abra el shell: *Tools \> Shell*.
+
+```{bash echo=TRUE, eval = FALSE}
+
+git push -u origin master
+
+```
+
+#### 4.3.5 Se rumora que tiene algún repositorio de Git dentro de otro repositorio de Git
+
+No cree un repositorio de Git dentro de otro repositorio de Git. Simplemente no lo haga.
+
+Si tiene una necesidad real de esto, lo que es realmente raro, la forma correcta de hacerlo es a través de [submódulos](http://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
 ## 5. Inicializar un repositorio Git
 
