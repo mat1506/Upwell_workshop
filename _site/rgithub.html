@@ -2326,7 +2326,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#crear-un-token-de-acceso-personal-pat-en-github">3.2 Crear un token de acceso personal (PAT) en GitHub</a></li>
 <li><a href="#almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github">3.3 Almacenar token de acceso personal para conectar RStudio y GitHub</a></li>
 </ul></li>
-<li><a href="#manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual de sobreviviencia con Git Y GitHub en RStudio</a>
+<li><a href="#manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual de sobreviviencia con Git y GitHub en RStudio</a>
 <ul>
 <li><a href="#encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted mismo</a></li>
 <li><a href="#dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a RStudio dónde encontrar a Git</a></li>
@@ -2421,7 +2421,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"gitcreds"</span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-lib/gitcreds'>gitcreds</a></span><span class='op'>)</span>
-<span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='st'>"Tu_PAT"</span><span class='op'>)</span>
+<span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># Ante la pregunta: "Enter password or token"</span>
 <span class='co'># introducir el token copiado en el paso anterior</span>
 </code></pre>
@@ -2443,11 +2443,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </code></pre>
 </div>
 </div>
-<h2 id="manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual de sobreviviencia con Git Y GitHub en RStudio</h2>
+<p>Si todo ha salido bien salte al <strong>apartado 5</strong> del manú</p>
+<h2 id="manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual de sobreviviencia con Git y GitHub en RStudio</h2>
 <p>Erick Cuevas-Fernández</p>
 <p>10 de agosto de 2021</p>
 <ul>
-<li>Este documento se basa en “Happy Git with R” de Jenny Bryan, los STAT 545 TAs, Jim Hester</li>
+<li>Este documento se basa en “Happy Git with R” de Jenny Bryan y los STAT 545 TAs, Jim Hester</li>
 </ul>
 <h3 id="encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted mismo</h3>
 <p>RStudio sólo puede actuar como un GUI front-end para Git, si Git se ha instalado correctamente <strong>RStudio puede encontrarlo</strong>.</p>
@@ -2456,10 +2457,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <ul>
 <li><p>Puedes usar en la terminal <code>which git</code> (Mac y Linux)</p></li>
 <li><p>O bien usar en la terminal <code>where git</code> (Windows)</p></li>
-<li><p>Recuerda que la terminal (o línea de comandos ó consola ó shell ó bash) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la <strong>terminal</strong>, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:</p>
+<li><p>Recuerda que la terminal (o línea de comandos ó consola ó <code>shell</code> ó <code>bash</code>) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la <strong>terminal</strong>, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:</p>
 <ul>
-<li><p><em>Tools &gt; Terminal</em> (abre la terminal dentro del IDE de RStudio)</p></li>
-<li><p><em>Tools &gt; Shell</em> (abre una terminal externa a RStudio)</p></li>
+<li><p><em><code>Tools &gt; Terminal</code></em> (abre la terminal dentro del IDE de RStudio)</p></li>
+<li><p><em><code>Tools &gt; Shell</code></em>(abre una terminal externa a RStudio)</p></li>
 </ul></li>
 <li><p>La recomendación actual de <strong>GitHub</strong> es usar <em>HTTPS</em> porque es la manera más fácil de configurar y tiene operabilidad en multiples redes y plataformas.</p>
 <ul>
@@ -2467,11 +2468,11 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><p>Una conexión HTTPS permite que <code>credential.helper</code> almacene en caché su contraseña. (por tanto puedes configurar tu usuario y contraseña en tu equipo de uso)</p></li>
 <li><p>Es más sencillo acceder a un repositorio desde cualquier lugar, ya que solo necesita los detalles de su cuenta (no se requieren claves SSH) para escribir en el repositorio.</p></li>
 </ul></li>
-<li><p>.Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la <em>terminal</em> <code>git clone https://github.com/TU-USUARIO/</code></p></li>
+<li><p>Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la <em>terminal</em> <code>git clone https://github.com/TU-USUARIO/</code></p></li>
 </ul>
 <h3 id="dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a RStudio dónde encontrar a Git</h3>
 <p>Si Git parece estar instalado y se puede encontrar, inicie RStudio. Salga y vuelva a iniciar RStudio si <strong>hay alguna duda</strong> sobre si abrió RStudio antes o después de instalar Git. HÁGALO.</p>
-<p>Desde RStudio, vaya a <em>Tools&gt; Global Options&gt; Git/SVN</em> y asegúrese de que la casilla * Git executable * apunte a … el ejecutable de Git. Debe leer algo como:</p>
+<p>Desde RStudio, vaya a <em><code>Tools&gt; Global Options&gt; Git/SVN</code></em> y asegúrese de que la casilla * Git executable * apunte a … el ejecutable de Git. Debe leer algo como:</p>
 <ul>
 <li><p><code>/usr/bin/git</code> (Mac, Linux)</p></li>
 <li><p><code>C:/Program Files (x86)/Git/bin/git.exe</code> (Windows)</p></li>
@@ -2503,7 +2504,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 <p>o</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div>
 </div>
 <p>Luego <strong>reinicie RStudio</strong>.</p>
 <h4 id="path-disfuncional">4.3.2 PATH disfuncional</h4>
@@ -2520,15 +2522,17 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>¿Está seguro de que su repositorio local está rastreando un repositorio remoto, por ejemplo, un repositorio de GitHub? En un shell con directorio de trabajo configurado en el repositorio local de Git, ingrese estos comandos:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git remote <span class="at">-v</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git remote <span class="at">-v</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code></pre></div>
 </div>
 <p>Queremos ver que fetch y push estén configurados en URL remotas que apuntan al repositorio remoto. Tenga en cuenta también que el repositorio de GitHub es un remoto llamado <code>origen</code>, en lo que respecta a su repositorio local. Esto es típico y, aunque creo que <code>github</code> es un nombre muy superior, el <code>origen</code> es una convención tan fuerte que lo sigo.</p>
 <p>Si descubre que todavía necesita configurar un control remoto, obtenga la URL HTTPS o SSH, según corresponda, para su repositorio GitHub. Esto es fácil de obtener en su portapapeles desde la página GitHub del repositorio. Haz esto en el shell:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/brereton/myrepo.git</span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/brereton/myrepo.git</span></code></pre></div>
 </div>
 <p>Descargue todos los archivos del repositorio GitHub en línea y haga frente a cualquier conflicto.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2539,15 +2543,17 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>¿Estás seguro de que la sucursal actual está <em>rastreando</em> una sucursal en el control remoto? En ese mismo shell, en su repositorio, haga esto:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git branch <span class="at">-vv</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> master b8e03e3 [origin/master] line added locally</span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git branch <span class="at">-vv</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> master b8e03e3 [origin/master] line added locally</span></code></pre></div>
 </div>
 <p>Lo anterior muestra la confirmación exitosa de que la rama <code>master</code> local está rastreando <code>origin/master</code>, es decir, la rama principal en GitHub. Si no ve el bit <code>[origin/master]</code>, eso es un problema. Por cierto, <code>git branch -r</code> es otra forma útil de examinar las ramas de seguimiento remoto. (Si está trabajando con una rama que no sea <code>master</code>, ajuste todo en consecuencia).</p>
 <p>Al conectar un repositorio local a un nuevo repositorio de GitHub, mucha gente recuerda agregar el control remoto GitHub, pero también se olvida de consolidar esta relación de seguimiento para las sucursales relevantes.</p>
 <p>Si descubres que la rama <code>master</code> local todavía no está siguiendo ’master` en GitHub, corrige eso de la siguiente manera:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin master</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin master</span></code></pre></div>
 </div>
 <p>Esto es equivalente a <code>git push -u origin master</code>, pero transmite más acerca de lo que está haciendo.</p>
 <p>Llame <code>git branch -vv</code> o <code>git branch -r</code> nuevamente para confirmar que la rama <code>master</code> en GitHub es la rama ascendente o de seguimiento para la rama<code>master</code> local.</p>
@@ -2555,12 +2561,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>¿Obtiene este error en RStudio?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">error:</span> unable to read askpass response from <span class="st">&#39;rpostback-askpass&#39;</span></span></code></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">error:</span> unable to read askpass response from <span class="st">&#39;rpostback-askpass&#39;</span></span></code></pre></div>
 </div>
 <p>Abra el shell: <em>Tools &gt; Shell</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin master</span></code></pre></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin master</span></code></pre></div>
 </div>
 <h4 id="se-rumora-que-tiene-algún-repositorio-de-git-dentro-de-otro-repositorio-de-git">4.3.5 Se rumora que tiene algún repositorio de Git dentro de otro repositorio de Git</h4>
 <p>No cree un repositorio de Git dentro de otro repositorio de Git. Simplemente no lo haga.</p>
@@ -2569,12 +2577,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>Ahora que ha instalado y configurado Git, puede usarlo localmente. La <a href="https://usethis.r-lib.org/reference/use_git.html">función use_git()</a> agregará un repositorio Git (a menudo denominado “repositorio”) a un proyecto RStudio existente. Aquí crearé un nuevo proyecto y luego inicializaré un repositorio de Git.</p>
 <p>En RStudio:</p>
 <ul>
-<li><p>Crear un nueva proyecto</p></li>
-<li><p>Seleccionar “New Directory”</p></li>
-<li><p>Seleccionar “New Project”</p></li>
+<li><p>Crear un <code>Nuevo Proyecto</code> en el menu <code>File</code></p></li>
+<li><p>Seleccionar <code>"New Directory"</code></p></li>
+<li><p>Seleccionar <code>"New Project"</code></p></li>
 <li><p>En crear nuevo proyecto, selecciones:</p>
 <ul>
-<li>Activar: “Create a git repository”</li>
+<li>Activar: <code>"Create a git repository"</code></li>
 </ul></li>
 </ul>
 <p><img src="images/Captura%20de%20pantalla%20de%202021-10-16%2000-10-14.png" width="820" /></p>
@@ -2588,11 +2596,11 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </code></pre>
 </div>
 </div>
-<p>Y visitar la pestaña: “Git” en RStudio.</p>
+<p>Y visitar la pestaña: <code>"Git"</code> en RStudio.</p>
 <figure>
 <img src="images/images.png" title="Git en RStuio" width="826" alt="Git en RStuio" /><figcaption aria-hidden="true">Git en RStuio</figcaption>
 </figure>
-<p>En RStudio ve a <em>Tools &gt; Project Options &gt; Git/SVN</em>. Dentro de <em>Version control system</em>, selecciona <em>Git</em>. Y da click a <em>“Yes”</em> cuando aparezca <em>“Confirm New Git Repository?”</em>.</p>
+<p>En RStudio ve a <em><code>Tools &gt; Project Options &gt; Git/SVN</code></em>. Dentro de <em>Version control system</em>, selecciona <em>Git</em>. Y da click a <em>“Yes”</em> cuando aparezca <em>“Confirm New Git Repository?”</em>.</p>
 <p>Si usaste RStudio o <em>usethis</em>, el proyecto debería reiniciarse en RStudio. Hazlo tu mismo si hizo git init. RStudio ahora debería tener un panel Git.</p>
 <h2 id="ver-historial-de-confirmación">6. Ver historial de confirmación</h2>
 <p>Ahora que mi proyecto RStudio tiene un repositorio Git asociado, veré una pestaña adicional en la parte superior derecha: la pestaña Git. Desde aquí, puedo ver todo el historial de cambios en mi código a lo largo del tiempo (¡todavía no muchos!).</p>
@@ -2601,14 +2609,15 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><p>Visitar la pestaña: “Git” de RStudio</p></li>
 <li><p>Pulsar el icono del reloj para ver el historial de “Commit” realizados para ver el “Initial Commit”.</p></li>
 </ul>
+<p><img src="images/Captura%20de%20pantalla%20de%202021-10-17%2013-08-07.png" width="1200" /></p>
 <h2 id="haga-una-consolidación-o-confirmación-commit-y-vea-más-historia">7. Haga una consolidación o confirmación (commit) y vea más historia</h2>
-<p>Git no realiza un seguimiento automático de los cambios de la manera en que lo hace una herramienta como Google Docs. En su lugar, tienes que decirle a Git: Hice cambios y quiero que mantengas un registro de ellos. Decirle a Git esto se llama hacer una confirmación y puedes hacerlo desde RStudio.</p>
-<p>Cada confirmación tiene un mensaje de confirmación, lo que es útil porque, cuando miras tu historial de código, ves lo que hiciste en cada momento (es decir, en cada confirmación). RStudio tiene una herramienta integrada para ver su historial de código. Puede hacer clic en cualquier confirmación para ver qué cambió, en relación con la confirmación anterior. Se agregaron líneas en verde; se eliminaron líneas en rojo.</p>
-<p>En RStudio:</p>
+<p>Git no realiza un seguimiento automático de los cambios de la manera en que lo hace una herramienta como Google Docs. En su lugar, tienes que decirle a Git: hice cambios y quiero que mantengas un registro de ellos. Decirle a Git esto se llama hacer una confirmación (commit) y puedes hacerlo desde RStudio.</p>
+<p>Cada confirmación tiene un mensaje de confirmación, lo que es útil porque, cuando miras tu historial de código, ves lo que hiciste en cada momento (es decir, en cada confirmación o commit). RStudio tiene una herramienta integrada para ver su historial de código. Puede hacer clic en cualquier confirmación para ver qué cambió, en relación con la confirmación anterior. Se agregaron líneas en verde; se eliminaron líneas en rojo.</p>
+<p>Un ejemplo practico, en RStudio realice lo siguiente:</p>
 <ul>
-<li><p>Crear un fichero de script R: “test.R” y grabarlo.</p></li>
-<li><p>Visite la pestaña “Git” de RStudio y pulse sobre el botón de “commit” para confirmar la creación del fichero: “test.R”.</p></li>
-<li><p>En el panel del commit añada un texto que lo defina.</p></li>
+<li><p>Crear un archivo de script R: llámelo “test.R” y guardelo.</p></li>
+<li><p>Visite la pestaña “Git” de RStudio y pulse sobre el botón de “commit” para confirmar la creación del archivo (fichero): “test.R”.</p></li>
+<li><p>En el panel del commit añada un texto que lo defina, por ejemplo; Mi primer script R.</p></li>
 <li><p>Haga varios cambios en el fichero “test.R” y haga en cada uno de ellos de nuevo un “commit”.</p></li>
 <li><p>Revise luego la historia de los cambios que se han producido en el historial (pulsar el icono del reloj).</p>
 <ul>

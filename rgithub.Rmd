@@ -104,7 +104,7 @@ En la consola de RStudio:
 ```{r echo=TRUE, eval = FALSE}
 install.packages("gitcreds")
 library(gitcreds)
-gitcreds::gitcreds_set("Tu_PAT")
+gitcreds::gitcreds_set()
 # Ante la pregunta: "Enter password or token"
 # introducir el token copiado en el paso anterior
 ```
@@ -127,13 +127,15 @@ usethis::git_sitrep()
 
 ```
 
-## 4. Manual de sobreviviencia con Git Y GitHub en RStudio
+Si todo ha salido bien salte al **apartado 5** del manú
+
+## 4. Manual de sobreviviencia con Git y GitHub en RStudio
 
 Erick Cuevas-Fernández
 
 10 de agosto de 2021
 
--   Este documento se basa en "Happy Git with R" de Jenny Bryan, los STAT 545 TAs, Jim Hester
+-   Este documento se basa en "Happy Git with R" de Jenny Bryan y los STAT 545 TAs, Jim Hester
 
 ### 4.1 Encuentre a Git usted mismo
 
@@ -148,11 +150,11 @@ Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuen
 
 -   O bien usar en la terminal `where git` (Windows)
 
--   Recuerda que la terminal (o línea de comandos ó consola ó shell ó bash) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la **terminal**, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:
+-   Recuerda que la terminal (o línea de comandos ó consola ó `shell` ó `bash`) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la **terminal**, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:
 
-    -   *Tools \> Terminal* (abre la terminal dentro del IDE de RStudio)
+    -   *`Tools > Terminal`* (abre la terminal dentro del IDE de RStudio)
 
-    -   *Tools \> Shell* (abre una terminal externa a RStudio)
+    -   *`Tools > Shell`*(abre una terminal externa a RStudio)
 
 -   La recomendación actual de **GitHub** es usar *HTTPS* porque es la manera más fácil de configurar y tiene operabilidad en multiples redes y plataformas.
 
@@ -162,13 +164,13 @@ Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuen
 
     -   Es más sencillo acceder a un repositorio desde cualquier lugar, ya que solo necesita los detalles de su cuenta (no se requieren claves SSH) para escribir en el repositorio.
 
--   .Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/`
+-   Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/`
 
 ### 4.2 Dígale a RStudio dónde encontrar a Git
 
 Si Git parece estar instalado y se puede encontrar, inicie RStudio. Salga y vuelva a iniciar RStudio si **hay alguna duda** sobre si abrió RStudio antes o después de instalar Git. HÁGALO.
 
-Desde RStudio, vaya a *Tools\> Global Options\> Git/SVN* y asegúrese de que la casilla \* Git executable \* apunte a ... el ejecutable de Git. Debe leer algo como:
+Desde RStudio, vaya a *`Tools> Global Options> Git/SVN`* y asegúrese de que la casilla \* Git executable \* apunte a ... el ejecutable de Git. Debe leer algo como:
 
 -   `/usr/bin/git` (Mac, Linux)
 
@@ -229,6 +231,7 @@ xcode-select --install
 o
 
 ```{bash echo=TRUE, eval = FALSE}
+
 git config --global --list
 
 ```
@@ -246,6 +249,7 @@ En el shell:
 ```{bash echo=TRUE, eval = FALSE}
 
 echo $PATH
+
 ```
 
 Eche un buen vistazo a eso. Vea el punto anterior sobre cómo encontrar su ejecutable Git o reinstalarlo mientras está **completamente despierto**. ¿El directorio de host está en su `PATH`? ¿No? **Arréglelo**
@@ -257,6 +261,7 @@ Vaya [aquí](http://www.troubleshooters.com/linux/prepostpath.htm) para obtener 
 ¿Está seguro de que su repositorio local está rastreando un repositorio remoto, por ejemplo, un repositorio de GitHub? En un shell con directorio de trabajo configurado en el repositorio local de Git, ingrese estos comandos:
 
 ```{bash echo=TRUE, eval = FALSE}
+
 
 brereton@2021-mbp myrepo $ git remote -v 
 origin  https://github.com/jennybc/myrepo (fetch)
@@ -271,7 +276,9 @@ Si descubre que todavía necesita configurar un control remoto, obtenga la URL H
 
 ```{bash echo=TRUE, eval = FALSE}
 
+
 git remote add origin https://github.com/brereton/myrepo.git
+
 
 ```
 
@@ -291,8 +298,10 @@ puede pasar al siguiente paso.
 
 ```{bash echo=TRUE, eval = FALSE}
 
+
 brereton@2021-mbp myrepo $ git branch -vv
 * master b8e03e3 [origin/master] line added locally
+
 
 ```
 
@@ -304,7 +313,9 @@ Si descubres que la rama `master` local todavía no está siguiendo 'master\` en
 
 ```{bash echo=TRUE, eval = FALSE}
 
+
 git push --set-upstream origin master
+
 
 ```
 
@@ -318,7 +329,9 @@ Llame `git branch -vv` o `git branch -r` nuevamente para confirmar que la rama `
 
 ```{bash echo=TRUE, eval = FALSE}
 
+
 error: unable to read askpass response from 'rpostback-askpass'
+
 
 ```
 
@@ -326,7 +339,9 @@ Abra el shell: *Tools \> Shell*.
 
 ```{bash echo=TRUE, eval = FALSE}
 
+
 git push -u origin master
+
 
 ```
 
@@ -342,32 +357,36 @@ Ahora que ha instalado y configurado Git, puede usarlo localmente. La [función 
 
 En RStudio:
 
--   Crear un nueva proyecto
+-   Crear un `Nuevo Proyecto` en el menu `File`
 
--   Seleccionar "New Directory"
+-   Seleccionar `"New Directory"`
 
--   Seleccionar "New Project"
+-   Seleccionar `"New Project"`
 
 -   En crear nuevo proyecto, selecciones:
 
-    -   Activar: "Create a git repository"
+    -   Activar: `"Create a git repository"`
 
 ![](images/Captura%20de%20pantalla%20de%202021-10-16%2000-10-14.png){width="820"}
 
 En la consola de RStudio:
 
 ```{r echo=TRUE, eval = FALSE}
+
+
 library(usethis)
 usethis::use_git()
 # Elegir siempre la opción: 1
 # Y ante la ventana, seleccionar: "Save"
+
+
 ```
 
-Y visitar la pestaña: "Git" en RStudio.
+Y visitar la pestaña: `"Git"` en RStudio.
 
 ![Git en RStuio](images/images.png "Git en RStuio"){width="826"}
 
-En RStudio ve a *Tools \> Project Options \> Git/SVN*. Dentro de *Version control system*, selecciona *Git*. Y da click a *"Yes"* cuando aparezca *"Confirm New Git Repository?"*.
+En RStudio ve a *`Tools > Project Options > Git/SVN`*. Dentro de *Version control system*, selecciona *Git*. Y da click a *"Yes"* cuando aparezca *"Confirm New Git Repository?"*.
 
 Si usaste RStudio o *usethis*, el proyecto debería reiniciarse en RStudio. Hazlo tu mismo si hizo git init. RStudio ahora debería tener un panel Git.
 
@@ -381,19 +400,21 @@ En RStudio:
 
 -   Pulsar el icono del reloj para ver el historial de "Commit" realizados para ver el "Initial Commit".
 
+![](images/Captura%20de%20pantalla%20de%202021-10-17%2013-08-07.png){width="1200"}
+
 ## 7. Haga una consolidación o confirmación (commit) y vea más historia
 
-Git no realiza un seguimiento automático de los cambios de la manera en que lo hace una herramienta como Google Docs. En su lugar, tienes que decirle a Git: Hice cambios y quiero que mantengas un registro de ellos. Decirle a Git esto se llama hacer una confirmación y puedes hacerlo desde RStudio.
+Git no realiza un seguimiento automático de los cambios de la manera en que lo hace una herramienta como Google Docs. En su lugar, tienes que decirle a Git: hice cambios y quiero que mantengas un registro de ellos. Decirle a Git esto se llama hacer una confirmación (commit) y puedes hacerlo desde RStudio.
 
-Cada confirmación tiene un mensaje de confirmación, lo que es útil porque, cuando miras tu historial de código, ves lo que hiciste en cada momento (es decir, en cada confirmación). RStudio tiene una herramienta integrada para ver su historial de código. Puede hacer clic en cualquier confirmación para ver qué cambió, en relación con la confirmación anterior. Se agregaron líneas en verde; se eliminaron líneas en rojo.
+Cada confirmación tiene un mensaje de confirmación, lo que es útil porque, cuando miras tu historial de código, ves lo que hiciste en cada momento (es decir, en cada confirmación o commit). RStudio tiene una herramienta integrada para ver su historial de código. Puede hacer clic en cualquier confirmación para ver qué cambió, en relación con la confirmación anterior. Se agregaron líneas en verde; se eliminaron líneas en rojo.
 
-En RStudio:
+Un ejemplo practico, en RStudio realice lo siguiente:
 
--   Crear un fichero de script R: "test.R" y grabarlo.
+-   Crear un archivo de script R: llámelo "test.R" y guardelo.
 
--   Visite la pestaña "Git" de RStudio y pulse sobre el botón de "commit" para confirmar la creación del fichero: "test.R".
+-   Visite la pestaña "Git" de RStudio y pulse sobre el botón de "commit" para confirmar la creación del archivo (fichero): "test.R".
 
--   En el panel del commit añada un texto que lo defina.
+-   En el panel del commit añada un texto que lo defina, por ejemplo; Mi primer script R.
 
 -   Haga varios cambios en el fichero "test.R" y haga en cada uno de ellos de nuevo un "commit".
 
