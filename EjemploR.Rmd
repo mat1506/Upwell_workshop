@@ -1,0 +1,117 @@
+---
+title: "Un pequeño ejemplo con R"
+description: |
+  Realizaremos una figura estratigrafica
+author:
+  - name: Matías Frugone Álavarez 
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Instalar los paquetes necesarios
+
+```{r echo=TRUE, eval = TRUE}
+
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(dplyr)
+
+```
+
+
+{ggplot2} es una implementación de Grammar of Graphics de Wilkinson (2006), pero no es necesario leer los libros para comenzar a usarlo. Si volvemos a los datos de Star Wars (contenidos en dplyr) y deseamos dibujar una gráfica de barras del género, las siguientes líneas son suficientes:
+
+
+```{r}
+ggplot(starwars, aes(gender)) +
+  geom_bar()
+```
+
+
+El primer argumento de la función son los datos (llamados starwars en este ejemplo), y luego la función aes (). Esta función es donde enumera las variables que desea asignar a la estética de las funciones geoms. En la segunda línea, verá que usamos la función geom_bar (). Esta función crea una gráfica de barras de la variable de género. Puede obtener diferentes tipos de gráficos utilizando diferentes funciones geom_. También puede proporcionar el argumento aes () a la función geom _ * ():
+
+```{r}
+ggplot(starwars) +
+  geom_bar(aes(gender))
+```
+
+
+La diferencia entre estos dos enfoques es que cuando especificas la estética en la función ggplot (), todas las funciones geom _ * () que siguen heredarán esta estética. Esto es útil si desea evitar escribir el mismo código una y otra vez, pero puede ser problemático si necesita especificar una estética diferente para diferentes funciones geom _ * (). Esto quedará claro en un ejemplo posterior.
+
+Puede agregar opciones a sus gráficos, por ejemplo, puede cambiar el sistema de coordenadas en su gráfico de barras:
+
+```{r}
+ggplot(starwars, aes(gender)) +
+  geom_bar() +
+  coord_flip()
+```
+
+
+## Scatter plots
+
+
+Los diagramas de dispersión son muy útiles, especialmente si está tratando de averiguar la relación entre dos variables. Por ejemplo, hagamos un diagrama de dispersión de la altura frente al peso de los personajes de Star Wars:
+
+```{r}
+starwars %>%
+  filter(!str_detect(name, "Jabba")) %>%
+  ggplot() +
+    geom_point(aes(height, mass))
+```
+
+
+## Density
+
+```{r}
+starwars %>%
+  filter(gender %in% c("feminine", "masculine")) %>%
+  ggplot(aes(height, fill = gender)) +
+  geom_density()
+```
+
+
+## Facets
+
+En algunos casos, tiene una variable de factor que separa los datos que desea representar en diferentes categorías. Si desea tener un gráfico por categoría, puede usar la función facet_grid (). Sin embargo, tenga cuidado, esta función no toma una variable como argumento, sino una fórmula, de ahí el símbolo ~ en el siguiente código:
+
+```{r}
+starwars %>%
+  rowwise() %>%
+  mutate(n_films = length(films)) %>%
+  mutate(more_1 = case_when(n_films == 1 ~ "Exactly one movie",
+                            n_films != 1 ~ "More than 1 movie")) %>%
+  mutate(human = case_when(species == "Human" ~ "Human",
+                           species != "Human" ~ "Not Human")) %>%
+  filter(gender %in% c("feminine", "masculine"), !is.na(human)) %>%
+  ggplot(aes(height, fill = gender)) +
+  facet_grid(human ~ more_1) +
+  geom_density()
+
+
+```
+
+Podemos agregar una línea de regresión a este diagrama de dispersión:
+
+```{r}
+starwars %>%
+  filter(!str_detect(name, "Jabba")) %>%
+  ggplot() +
+    geom_point(aes(height, mass, size = birth_year, colour = gender)) +
+    geom_smooth(aes(height, mass), method  = "lm")
+```
+
+De forma predeterminada, geom_smooth () realiza una regresión no paramétrica llamada LOESS (suavizado del diagrama de dispersión estimado localmente), que es más flexible. También es posible tener una línea de regresión por género:
+
+```{r}
+starwars %>%
+  filter(!str_detect(name, "Jabba")) %>%
+  ggplot() +
+    geom_point(aes(height, mass, size = birth_year, colour = gender)) +
+    geom_smooth(aes(height, mass, colour = gender))
+```
+

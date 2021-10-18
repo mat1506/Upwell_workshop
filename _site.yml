@@ -19,6 +19,8 @@ navbar:
       href: install.html
     - text: "Git/GitHub con R"
       href: rgithub.html
+    - text: "Exemplo con R"
+      href: EjemploR.html  
       
 cookie_consent:
   style: simple
