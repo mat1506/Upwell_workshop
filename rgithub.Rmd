@@ -141,8 +141,7 @@ Erick Cuevas-Fernández
 
 RStudio sólo puede actuar como un GUI front-end para Git, si Git se ha instalado correctamente **RStudio puede encontrarlo**.
 
-Una prueba básica para la instalación exitosa de Git es simplemente introducir `git`
-en el shell. Si recibe una queja sobre que Git no se encuentra, significa que la instalación no tuvo éxito o que no se encuentra, es decir, no está en su `PATH`.
+Una prueba básica para la instalación exitosa de Git es simplemente introducir `git` en el shell. Si recibe una queja sobre que Git no se encuentra, significa que la instalación no tuvo éxito o que no se encuentra, es decir, no está en su `PATH`.
 
 Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuenta la ubicación de dónde se instaló Git.
 
@@ -164,7 +163,7 @@ Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuen
 
     -   Es más sencillo acceder a un repositorio desde cualquier lugar, ya que solo necesita los detalles de su cuenta (no se requieren claves SSH) para escribir en el repositorio.
 
--   Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el ropositorio con un README. Copia el HTTPS URL para clonar el repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/`
+-   Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el repositorio con un README. Copia el HTTPS URL para clonar el repositorio en la *terminal* `git clone https://github.com/TU-USUARIO/`
 
 ### 4.2 Dígale a RStudio dónde encontrar a Git
 
@@ -192,16 +191,9 @@ Siga los pasos de arriba para ver si RStudio y git se están comunicando ahora.
 
 ¿No está contento?
 
--   Se ha visto esta ayuda: con su Proyecto abierto, vaya a
-    "Tools\>Project Options ...". Si está disponible, haga clic en "Git/SVN"
-    y seleccione "Git" en el menú desplegable Sistema de control de
-    versiones. Responda "yes" a la ventana emergente "Confirm New Git
-    Repository". Responda "yes" a la ventana emergente "Confirm Restart
-    RStudio".
+-   Se ha visto esta ayuda: con su Proyecto abierto, vaya a "Tools\>Project Options ...". Si está disponible, haga clic en "Git/SVN" y seleccione "Git" en el menú desplegable Sistema de control de versiones. Responda "yes" a la ventana emergente "Confirm New Git Repository". Responda "yes" a la ventana emergente "Confirm Restart RStudio".
 
--   Si instaló Git a través de GitHub para Windows, es posible que el
-    ejecutable de Git esté realmente bien oculto. Obtenga ayuda o instale
-    Git de otra manera.
+-   Si instaló Git a través de GitHub para Windows, es posible que el ejecutable de Git esté realmente bien oculto. Obtenga ayuda o instale Git de otra manera.
 
 -   Su `PATH` probablemente no está configurado correctamente y/o debe reinstalar Git y controlar/notificar a dónde va. Lea más en [15](https://mamaciasq.github.io/git-con-r/troubleshooting.html#troubleshooting).
 
@@ -215,12 +207,7 @@ Si experimenta algún problema nuevo y, sobre todo, encuentra la solución corre
 
 #### 4.3.1 El panel de Git de RStudio desaparece en Mac OS
 
-Después de una actualización de Mac OS, es posible que deba activar las
-herramientas de línea de comandos de Xcode para solicitarle lo que
-necesita, es decir, volver a instalar o volver a aceptar el acuerdo de
-licencia. Hemos visto que esto provoca que el panel de RStudio Git
-desaparezca en un sistema donde estaba funcionando anteriormente. Use
-comandos como estos a continuación para hacerle cosquillas a Xcode:
+Después de una actualización de Mac OS, es posible que deba activar las herramientas de línea de comandos de Xcode para solicitarle lo que necesita, es decir, volver a instalar o volver a aceptar el acuerdo de licencia. Hemos visto que esto provoca que el panel de RStudio Git desaparezca en un sistema donde estaba funcionando anteriormente. Use comandos como estos a continuación para hacerle cosquillas a Xcode:
 
 ```{bash echo=TRUE, eval = FALSE}
 
@@ -280,9 +267,7 @@ Descargue todos los archivos del repositorio GitHub en línea y haga frente a cu
 git pull origin master
 ```
 
-Llame a `git remote -v` nuevamente. Una vez que pueda
-probar que su control remoto GitHub está configurado correctamente,
-puede pasar al siguiente paso.
+Llame a `git remote -v` nuevamente. Una vez que pueda probar que su control remoto GitHub está configurado correctamente, puede pasar al siguiente paso.
 
 ¿Estás seguro de que la sucursal actual está *rastreando* una sucursal en el control remoto? En ese mismo shell, en su repositorio, haga esto:
 
@@ -329,7 +314,7 @@ git push -u origin master
 
 ```
 
-#### 4.3.5 Se rumora que tiene algún repositorio de Git dentro de otro repositorio de Git
+#### 4.3.5 Se rumorea que tiene algún repositorio de Git dentro de otro repositorio de Git
 
 No cree un repositorio de Git dentro de otro repositorio de Git. Simplemente no lo haga.
 
@@ -496,9 +481,7 @@ Volvemos a RStudio:
 
 Este artículo es una traducción automática del artículo: <https://www.sds.pub/collaborating-with-git-and-github.html>
 
-Cualquiera que haya trabajado alguna vez en cualquier tipo de proyecto de escritura colaborativa (código o de otro tipo) probablemente se ha encontrado con frustraciones del control de versiones. Por ejemplo, podría estar trabajando en algunas revisiones de un documento. Hago algunas modificaciones y se las envío a mi colega. En el momento en que obtienen mi versión, sin embargo, ya está detrás de su versión en otras áreas (por ejemplo, tal vez revisaron su descripción del análisis al mismo tiempo que proporcioné modificaciones al documento en su totalidad). No pueden simplemente aceptar mis ediciones sin perder otros cambios, pero les gustaría incorporar ambos cambios. En muchas situaciones como esta, el control de versiones se maneja mediante convenciones de nomenclatura, por ejemplo, 'full-manuscript_v1.docx' se convierte en 'full-manuscript_v1da.docx' que luego se convierte en 'full-manuscript_v2.docx' hasta que finalmente terminamos con 'full-manuscript_vFinal.docx' que inevitablemente termina como 'full-manuscript_vFinalv2.docx' y así sucesivamente hasta que realmente llamemos al documento completo. Git es un enfoque alternativo para administrar versiones de un documento mediante el seguimiento de los cambios en las líneas de los documentos. Si dos personas están trabajando en el mismo documento, pero editando líneas diferentes, esos cambios se fusionarán automáticamente. Sin embargo, fundamentalmente, no se pierde nada y la historia completa del proyecto se almacena desde su creación inicial hasta las etapas finales. Git se creó inicialmente para desarrolladores de software, pero
-abogamos por su uso para una gama más amplia de aplicaciones, incluidos
-documentos dinámicos. (es decir, cualquier cosa producida a través de RMarkdown). Desde nuestro punto de vista, la curva de aprendizaje de git es engañosamente empinada. A menudo vemos que las discusiones sobre git son simples (por ejemplo, 'aprenda estos cinco comandos para trabajar con git') con poca instrucción explícita dedicada al tema. Más bien, es una habilidad que se presume que uno 'adquirirá' en el camino. Si bien hay excepciones a esto (por ejemplo, el maravilloso libro Happy Git y GitHub para el usuario de Jenny Bryan), sentimos que es importante cubrir el tema de manera explícita.
+Cualquiera que haya trabajado alguna vez en cualquier tipo de proyecto de escritura colaborativa (código o de otro tipo) probablemente se ha encontrado con frustraciones del control de versiones. Por ejemplo, podría estar trabajando en algunas revisiones de un documento. Hago algunas modificaciones y se las envío a mi colega. En el momento en que obtienen mi versión, sin embargo, ya está detrás de su versión en otras áreas (por ejemplo, tal vez revisaron su descripción del análisis al mismo tiempo que proporcioné modificaciones al documento en su totalidad). No pueden simplemente aceptar mis ediciones sin perder otros cambios, pero les gustaría incorporar ambos cambios. En muchas situaciones como esta, el control de versiones se maneja mediante convenciones de nomenclatura, por ejemplo, 'full-manuscript_v1.docx' se convierte en 'full-manuscript_v1da.docx' que luego se convierte en 'full-manuscript_v2.docx' hasta que finalmente terminamos con 'full-manuscript_vFinal.docx' que inevitablemente termina como 'full-manuscript_vFinalv2.docx' y así sucesivamente hasta que realmente llamemos al documento completo. Git es un enfoque alternativo para administrar versiones de un documento mediante el seguimiento de los cambios en las líneas de los documentos. Si dos personas están trabajando en el mismo documento, pero editando líneas diferentes, esos cambios se fusionarán automáticamente. Sin embargo, fundamentalmente, no se pierde nada y la historia completa del proyecto se almacena desde su creación inicial hasta las etapas finales. Git se creó inicialmente para desarrolladores de software, pero abogamos por su uso para una gama más amplia de aplicaciones, incluidos documentos dinámicos. (es decir, cualquier cosa producida a través de RMarkdown). Desde nuestro punto de vista, la curva de aprendizaje de git es engañosamente empinada. A menudo vemos que las discusiones sobre git son simples (por ejemplo, 'aprenda estos cinco comandos para trabajar con git') con poca instrucción explícita dedicada al tema. Más bien, es una habilidad que se presume que uno 'adquirirá' en el camino. Si bien hay excepciones a esto (por ejemplo, el maravilloso libro Happy Git y GitHub para el usuario de Jenny Bryan), sentimos que es importante cubrir el tema de manera explícita.
 
 ### 10.1 Colaborando
 
@@ -508,19 +491,11 @@ Para agregar colaboradores a un repositorio, vaya a Settings -\> Manage Access -
 
 ![](images/manage-access-github.png){width="1005"}
 
-Luego, puede buscar personas por su nombre de usuario de GitHub, correo electrónico o su nombre / apellido. Una vez que se envía una invitación,
-la persona debe aceptar la invitación y luego tendrá acceso push al
-repositorio. Los colaboradores generalmente deben reservarse para
-personas que tienen roles continuos en el proyecto, con contribuciones
-directas. Las pequeñas correcciones de errores, etc., se pueden manejar
-con forks (bifurcaciones) de repositorio (descritas a continuación).
+Luego, puede buscar personas por su nombre de usuario de GitHub, correo electrónico o su nombre / apellido. Una vez que se envía una invitación, la persona debe aceptar la invitación y luego tendrá acceso push al repositorio. Los colaboradores generalmente deben reservarse para personas que tienen roles continuos en el proyecto, con contribuciones directas. Las pequeñas correcciones de errores, etc., se pueden manejar con forks (bifurcaciones) de repositorio (descritas a continuación).
 
 ### 10.2 Branching
 
-La ramificación es un marco realmente poderoso para trabajar con git, y le sugerimos que se sienta cómodo lo antes posible. Cuando crea una rama, crea efectivamente una copia paralela de todo el repositorio. Puede realizar los cambios que desee en esa rama y estar seguro de que no romperá nada en la rama principal porque está completamente separada. Una vez que haya creado lo que sea en lo que estaba trabajando en su rama, y ​​haya decidido con sus colaboradores que debería ser parte de la rama principal, puede fusionarlo. Alternativamente, puede decidir que no quiere para hacer esos cambios, y luego puede simplemente tirar la rama a la basura y seguir adelante sin ninguna interrupción en la main branch. Como regla general, debe intentar nunca realizar cambios directamente en la rama principal. En su lugar, cree branches, realice cambios allí y luego combínelas. Esto ayuda a garantizar que los cambios se
-implementen en la main branch de una manera planificada, y puede
-usar sistemas de revisión con sus colegas para asegurarse de que todos
-estén en sintonía.
+La ramificación es un marco realmente poderoso para trabajar con git, y le sugerimos que se sienta cómodo lo antes posible. Cuando crea una rama, crea efectivamente una copia paralela de todo el repositorio. Puede realizar los cambios que desee en esa rama y estar seguro de que no romperá nada en la rama principal porque está completamente separada. Una vez que haya creado lo que sea en lo que estaba trabajando en su rama, y ​​haya decidido con sus colaboradores que debería ser parte de la rama principal, puede fusionarlo. Alternativamente, puede decidir que no quiere para hacer esos cambios, y luego puede simplemente tirar la rama a la basura y seguir adelante sin ninguna interrupción en la main branch. Como regla general, debe intentar nunca realizar cambios directamente en la rama principal. En su lugar, cree branches, realice cambios allí y luego combínelas. Esto ayuda a garantizar que los cambios se implementen en la main branch de una manera planificada, y puede usar sistemas de revisión con sus colegas para asegurarse de que todos estén en sintonía.
 
 ## Más información
 
