@@ -40,16 +40,6 @@ knitr::include_url("slides/index.html")
 
 \
 
-## Video de la primera  sección de instalación
-
-<div>
-<p style = 'text-align:center;'>
-<iframe width="600" height = "420"
-src="https://youtu.be/8vfutTLRx-A">
-</iframe>
-</div>
-</p>
-
 ## Pre-requisitos
 
 ### Esencial

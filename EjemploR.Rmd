@@ -105,13 +105,3 @@ starwars %>%
     geom_smooth(aes(height, mass), method  = "lm")
 ```
 
-De forma predeterminada, geom_smooth () realiza una regresión no paramétrica llamada LOESS (suavizado del diagrama de dispersión estimado localmente), que es más flexible. También es posible tener una línea de regresión por género:
-
-```{r}
-starwars %>%
-  filter(!str_detect(name, "Jabba")) %>%
-  ggplot() +
-    geom_point(aes(height, mass, size = birth_year, colour = gender)) +
-    geom_smooth(aes(height, mass, colour = gender))
-```
-
