@@ -45,7 +45,7 @@ knitr::include_url("slides/index.html")
 <div>
 <p style = 'text-align:center;'>
 <iframe width="600" height = "420"
-src="https://uai-cl.zoom.us/rec/play/CYIKWo9tpyRQ7PKiLJ6e6hvp533qm1eGz0kcDXdXYTVwmYrImBuLXuBtiu1VH1TT36kGBWr0FUcBwv-i.ApaxVScMjExVTVr8?continueMode=true&_x_zm_rtaid=-bYsTXkiQQimHnjFuhjFxQ.1634578145447.94a8368cc966e8d22ded3f8613a5b534&_x_zm_rhtaid=257">
+src="https://youtu.be/8vfutTLRx-A">
 </iframe>
 </div>
 </p>
