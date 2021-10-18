@@ -40,7 +40,7 @@ knitr::include_url("slides/index.html")
 
 \
 
-## Video de la primera seción de instalación
+## Video de la primera  sección de instalación
 
 <div>
 <p style = 'text-align:center;'>
