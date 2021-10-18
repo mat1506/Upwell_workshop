@@ -430,7 +430,7 @@ usethis::use_github()
 
 -   Se realizará un proceso que activará la página web de Github con el repositorio asociado al proyecto que se acaba de crear en RStudio.
 
-### 8.2 GitHub primero
+### 8.2 GitHub Primero
 
 La forma más sencilla de usar RStudio y GitHub juntos es crear un repositorio en GitHub primero. Cree el repositorio y, a continuación, cuando inicie un nuevo proyecto en RStudio, utilice la opción de control de versiones, introduzca la URL de su repositorio y listo.
 
@@ -514,6 +514,13 @@ repositorio. Los colaboradores generalmente deben reservarse para
 personas que tienen roles continuos en el proyecto, con contribuciones
 directas. Las pequeñas correcciones de errores, etc., se pueden manejar
 con forks (bifurcaciones) de repositorio (descritas a continuación).
+
+### 10.2 Branching
+
+La ramificación es un marco realmente poderoso para trabajar con git, y le sugerimos que se sienta cómodo lo antes posible. Cuando crea una rama, crea efectivamente una copia paralela de todo el repositorio. Puede realizar los cambios que desee en esa rama y estar seguro de que no romperá nada en la rama principal porque está completamente separada. Una vez que haya creado lo que sea en lo que estaba trabajando en su rama, y ​​haya decidido con sus colaboradores que debería ser parte de la rama principal, puede fusionarlo. Alternativamente, puede decidir que no quiere para hacer esos cambios, y luego puede simplemente tirar la rama a la basura y seguir adelante sin ninguna interrupción en la main branch. Como regla general, debe intentar nunca realizar cambios directamente en la rama principal. En su lugar, cree branches, realice cambios allí y luego combínelas. Esto ayuda a garantizar que los cambios se
+implementen en la main branch de una manera planificada, y puede
+usar sistemas de revisión con sus colegas para asegurarse de que todos
+estén en sintonía.
 
 ## Más información
 

@@ -2338,7 +2338,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github">8. Cómo conectar proyectos de RStudio con repositorios de GitHub</a>
 <ul>
 <li><a href="#rstudio-primero">8.1 RStudio Primero</a></li>
-<li><a href="#github-primero">8.2 GitHub primero</a></li>
+<li><a href="#github-primero">8.2 GitHub Primero</a></li>
 </ul></li>
 <li><a href="#flujo-de-trabajo-general">9. Flujo de trabajo general</a>
 <ul>
@@ -2348,6 +2348,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#colaborando-con-git-y-github">10. Colaborando con Git y Github</a>
 <ul>
 <li><a href="#colaborando">10.1 Colaborando</a></li>
+<li><a href="#branching">10.2 Branching</a></li>
 </ul></li>
 <li><a href="#más-información">Más información</a></li>
 </ul></li>
@@ -2639,7 +2640,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <ul>
 <li>Se realizará un proceso que activará la página web de Github con el repositorio asociado al proyecto que se acaba de crear en RStudio.</li>
 </ul>
-<h3 id="github-primero">8.2 GitHub primero</h3>
+<h3 id="github-primero">8.2 GitHub Primero</h3>
 <p>La forma más sencilla de usar RStudio y GitHub juntos es crear un repositorio en GitHub primero. Cree el repositorio y, a continuación, cuando inicie un nuevo proyecto en RStudio, utilice la opción de control de versiones, introduzca la URL de su repositorio y listo.</p>
 <p>Para bajar un repositorio creado en Github a un proyecto local en RStudio, se tienen que realizar los siguientes pasos:</p>
 <ul>
@@ -2686,6 +2687,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>Para agregar colaboradores a un repositorio, vaya a Settings -&gt; Manage Access -&gt; Invite a collaborato</p>
 <p><img src="images/manage-access-github.png" width="1005" /></p>
 <p>Luego, puede buscar personas por su nombre de usuario de GitHub, correo electrónico o su nombre / apellido. Una vez que se envía una invitación, la persona debe aceptar la invitación y luego tendrá acceso push al repositorio. Los colaboradores generalmente deben reservarse para personas que tienen roles continuos en el proyecto, con contribuciones directas. Las pequeñas correcciones de errores, etc., se pueden manejar con forks (bifurcaciones) de repositorio (descritas a continuación).</p>
+<h3 id="branching">10.2 Branching</h3>
+<p>La ramificación es un marco realmente poderoso para trabajar con git, y le sugerimos que se sienta cómodo lo antes posible. Cuando crea una rama, crea efectivamente una copia paralela de todo el repositorio. Puede realizar los cambios que desee en esa rama y estar seguro de que no romperá nada en la rama principal porque está completamente separada. Una vez que haya creado lo que sea en lo que estaba trabajando en su rama, y ​​haya decidido con sus colaboradores que debería ser parte de la rama principal, puede fusionarlo. Alternativamente, puede decidir que no quiere para hacer esos cambios, y luego puede simplemente tirar la rama a la basura y seguir adelante sin ninguna interrupción en la main branch. Como regla general, debe intentar nunca realizar cambios directamente en la rama principal. En su lugar, cree branches, realice cambios allí y luego combínelas. Esto ayuda a garantizar que los cambios se implementen en la main branch de una manera planificada, y puede usar sistemas de revisión con sus colegas para asegurarse de que todos estén en sintonía.</p>
 <h2 id="más-información">Más información</h2>
 <p>Si estás buscando aprender más y aún no te he ganado la idea de que deberías echar un vistazo a Happy Git with R, <a href="http://happygitwithr.com/">déjame intentarlo una vez más</a>. Es el mejor libro para ayudarte a guiarte a medida que profundizas en el uso de Git/GitHub en tu trabajo de R.</p>
 <p>Aquí hay algunos recursos adicionales de Git/GitHub para revisar:</p>
