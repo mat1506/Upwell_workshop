@@ -1030,10 +1030,10 @@ class: left, top
 
 3. Crear una rama Upstream
   - git remote add upstream [el url oficial]
-  - git remote -v (para ver las nuevas ver)
+  - git remote -v (para ver las nuevas v.)
   - git fetch upstream 
-  - git rebase upstream/master
-  - git push origin master --force
+  - git rebase upstream/main
+  - git push origin main --force
 
 4. Hacer los cambios y Push los cambios
 
