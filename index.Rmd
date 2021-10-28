@@ -98,5 +98,5 @@ Matías
 ### Slides
 
 
--   [15:00 Parctico con Git y GitHub](slides/Git_GitHub.html)
+-   [15:00 Practicó con Git y GitHub](slides/Git_GitHub.html)
 
