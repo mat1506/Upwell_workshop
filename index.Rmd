@@ -96,3 +96,7 @@ Matías
 ## Links
 
 ### Slides
+
+
+-   [15:00 Parctico con Git y GitHub](slides/Git_GitHub.html)
+

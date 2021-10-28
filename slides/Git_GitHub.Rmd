@@ -1,0 +1,1073 @@
+---
+title: "Taller Git y GitHub"
+subtitle: "Herramientas informáticas para trabajos colaborativos"
+author: "Matías Frugone-Álvarez"
+institute: "UPWELL, Santiago, Chile"
+date: "2021/08/23 (updated: `r Sys.Date()`)"
+output:
+   xaringan::moon_reader:
+    includes:
+      in_header:
+        - 'toc.html'     
+    toc: true
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    self_contained: false # if true, fonts will be stored locally
+    seal: false 
+    lib_dir: libs
+    nature:
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+
+```{r meta, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_general(
+    description = "Herramientas informáticas para trabajos colaborativos",
+    generator = "xaringan and remark.js"
+  ) %>% 
+  meta_name("github-repo" = "mat1506/Upwell_workshop") %>% 
+  meta_social(
+    title = "Herramientas informáticas para proyectos Colaborativos",
+    url = "https://github.com/mat1506/Upwell_workshop/slides/Git_GitHub.html#1",
+    og_type = "website",
+    og_author = "Matías Frugone-Álvarez",
+  )
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 3)
+library(ymlthis)
+library(tidyverse)
+library(xaringanExtra)
+xaringanExtra::use_panelset()
+xaringanExtra::use_editable(expires = 1)
+xaringanExtra::style_panelset_tabs(font_family = "Roboto")
+xaringanExtra::use_share_again()
+xaringanExtra::use_tile_view()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_scribble()
+xaringanExtra::use_animate_css()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+```
+
+
+```{r broadcast, echo=FALSE}
+xaringanExtra::use_broadcast()
+```
+
+name: portada
+class: center, middle
+background-image: url(images/pngegg.png)
+background-color: #cccccc;
+background-size: 31%
+background-position: 50% 20%
+
+class: title-slide, center, bottom
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+---
+class:inverse, toc, top, middle,
+
+background-image: url(images/pngegg2.png)
+background-color: #cccccc;
+background-size: 31%
+background-position: 90% 20%
+
+# Tabla de Contenido
+
+### 1. Fundamentos de Git
+### 2. Fundamentos de GitHub
+### 3. Fundamentos básicos sobre construcción de bases de datos
+
+---
+class: inverse, middle, center
+
+background-image: url(images/Git-Logo-White.png)
+background-color: #cccccc;
+background-size: 30%
+background-position: 85% 16%
+
+# 1. Fundamentos de Git 
+---
+
+# ¿Qué es un control de versiones, y por qué debería importarte?
+
+
+Un control de versiones es un sistema que registra los cambios realizados en un archivo o conjunto de archivos a lo largo del tiempo, de modo que puedas recuperar versiones específicas más adelante. 
+
+<br>
+Si eres diseñador gráfico, de web o administrador de cualquier proyecto y quieres mantener cada versión (es algo que sin duda vas a querer), usar un sistema de control de versiones (VCS por sus siglas en inglés) es una decisión muy acertada.
+
+<br>
+Dicho sistema te permite regresar a versiones anteriores de tus archivos o proyecto completo, comparar cambios a lo largo del tiempo, ver quién modificó por última vez, ver quién introdujo un problema y cuándo, y mucho más.
+
+---
+class: inverse, middle, center
+
+background-image: url(images/Git-Logo-White.png)
+background-color: #cccccc;
+background-size: 30%
+background-position: 85% 16%
+
+# 1.1 Métodos de control de versiones 
+---
+
+name: Gitlocal
+class: left, middle,slide_left
+background-image: url(images/gitlocal.png)
+background-color: #cccccc;
+background-size: 45%
+background-position: 90% 50%
+
+.pull-left[
+
+## - Sistema control de versiones local (VCSL)
+
+]
+
+---
+
+name: Gitcentral
+class: left, middle,slide_left
+background-image: url(images/gitcentral.png)
+background-color: #cccccc;
+background-size: 45%
+background-position: 90% 50%
+
+.pull-left[
+
+## - Sistema control de versiones centralizado (CVCS)
+
+]
+
+---
+
+name: Gitdistribuido
+class: left, middle,slide_left
+background-image: url(images/distributed.png)
+background-color: #cccccc;
+background-size: 45%
+background-position: 90% 50%
+
+.pull-left[
+## - Sistemas de Control de Versiones Distribuidos (DVCS; como Git, Mercurial, Bazaar o Darcs)
+
+]
+
+---
+
+class: center, top
+
+
+# ¿Qué es Git?
+
+
+<img src="images/GIT.png" width="950px" height="450px" style="border-radius: 5%;"/>
+  
+
+---
+
+class: inverse, slide_left
+
+# Tres Estados de Git
+
+
+## 1 **Confirmado (committed)** : significa que los datos están almacenados de manera segura en tu base de datos local. 
+
+<br>
+
+## 2 **Modificado (modified)** : significa que has modificado el archivo pero todavía no lo has confirmado a tu base de datos.
+
+<br>
+
+## 3 **Preparado (staged)** : significa que has marcado un archivo modificado en su versión actual para que vaya en tu próxima confirmación.
+
+---
+
+class: middle
+
+# Las tres secciones principales de un proyecto de Git
+
+ 
+- El **directorio de Git (Git directory)** es donde se almacenan los metadatos y la base de datos de objetos para tu proyecto. Es la parte más importante de Git, y es lo que se copia cuando clonas un repositorio desde otra computadora.
+
+- El **directorio de trabajo (working directory)** es una copia de una versión del proyecto. Estos archivos se sacan de la base de datos comprimida en el directorio de Git, y se colocan en disco para que los puedas usar o modificar.
+
+- El **área de preparación (staging area)** es un archivo, generalmente contenido en tu directorio de Git, que almacena información acerca de lo que va a ir en tu próxima confirmación.
+  
+---
+
+class: highlight-last-item
+
+## El flujo de trabajo básico en Git es algo así:
+
+<br>
+
+1. **Modificas** una serie de archivos en tu directorio de trabajo.
+
+2. **Preparas** los archivos, añadiéndolos a tu área de preparación.
+
+3. **Confirmas** los cambios, lo que toma los archivos tal y como están en el área de preparación y almacena esa copia instantánea de manera permanente en tu directorio de Git.
+
+<br>
+
+Si una **versión concreta** de un archivo está en el **directorio de Git**, se considera confirmada **(committed)**. Si ha sufrido cambios desde que se obtuvo del repositorio, pero ha sido añadida al **área de preparación**, está preparada **(staged)**. Y si ha sufrido cambios desde que se obtuvo del repositorio, pero no se ha preparado, está modificada **(modified)**.
+
+---
+
+class: inverse, center, top
+
+
+# ¿Qué es Git en pocas palabras?
+
+
+<img src="images/areas.png" width="950px" height="450px" style="border-radius: 5%;"/>
+  
+
+---
+class: inverse, middle, center
+
+background-image: url(images/Git-Logo-White.png)
+background-color: #cccccc;
+background-size: 30%
+background-position: 85% 16%
+
+# 1.2 Control de Versiones - La Línea de Comandos 
+
+---
+
+Si quieres comprobar tu configuración, puedes usar el **comando git config --list** para mostrar todas las propiedades que Git ha configurado:
+
+.panelset[
+.panel[.panel-name[Configuración]
+
+```{r, engine='bash', count_lines,echo=TRUE, eval = FALSE}
+$ git config --list
+
+```
+]
+
+.panel[.panel-name[Resultado]
+
+```{r, engine='bash', count_lines1,echo=TRUE, eval = FALSE}
+user.name=John Doe
+user.email=johndoe@example.com
+color.status=auto
+color.branch=auto
+color.interactive=auto
+color.diff=auto
+
+```
+]
+
+.panel[.panel-name[Clave específica]
+
+```{r, engine='bash', count_lines2, echo=TRUE, eval = FALSE}
+$ git config user.name
+
+```
+]
+.panel[.panel-name[Nombre]
+
+```{r, engine='bash', count_lines3, echo=TRUE, eval = FALSE}
+John Doe
+
+```
+]
+]
+
+---
+
+# ¿Cómo obtener ayuda?
+
+Si alguna vez necesitas ayuda usando Git, existen tres formas de ver la página del manual (manpage) para cualquier comando de Git:
+
+.panelset[
+.panel[.panel-name[Help]
+
+```{r, engine='bash', count_lines4,echo=TRUE, eval = FALSE}
+$ git help <verb>
+$ git <verb> --help
+$ man git-<verb>
+
+```
+]
+
+.panel[.panel-name[comando config]
+
+```{r, engine='bash', count_lines5,echo=TRUE, eval = FALSE}
+$ git help config
+```
+]
+]
+
+---
+
+## Obteniendo un repositorio Git
+
+Puedes obtener un proyecto Git de dos maneras.
+
+.panelset[
+.panel[.panel-name[Inicializando un repositorio]
+
+```{r, engine='bash', count_lines14,echo=TRUE, eval = FALSE}
+$ git init
+
+#Esto crea un subdirectorio nuevo llamado .git,
+# el cual contiene todos los archivos necesarios del repositorio – un
+# esqueleto de un repositorio de Git.
+```
+]
+
+.panel[.panel-name[Clonando un repositorio existente]
+
+```{r, engine='bash', count_lines15,echo=TRUE, eval = FALSE}
+# Si deseas obtener una copia de un repositorio Git existente
+# — por ejemplo, un proyecto en el que te gustaría contribuir — 
+# el comando que necesitas es git clone.
+
+$ git clone [url]
+
+# Puedes clonar un repositorio con git clone [url]. 
+# Por ejemplo, si quieres clonar la librería de Git llamada libgit2:
+
+$ git clone https://github.com/libgit2/libgit2
+
+```
+]
+.panel[.panel-name[Protocolos]
+
+Git te permite usar distintos protocolos de transferencia. El ejemplo anterior usa el protocolo https://, pero también puedes utilizar git:// o usuario@servidor:ruta/del/repositorio.git que utiliza el protocolo de transferencia SSH. 
+
+]
+]
+
+---
+class: middle
+## Guardando cambios en el Repositorio
+
+El siguiente paso es realizar algunos cambios y **confirmar instantáneas de esos cambios en el repositorio** cada vez que el proyecto alcance un estado que quieras conservar.
+
+Recuerda que cada archivo de tu repositorio puede tener dos estados: **rastreados y sin rastrear**. 
+
+Los archivos rastreados (tracked files en inglés) son todos aquellos archivos que estaban en la última instantánea del proyecto; pueden ser archivos sin modificar, modificados o preparados. Los archivos sin rastrear son todos los demás - cualquier otro archivo en tu directorio de trabajo que no estaba en tu última instantánea y que no está en el área de preparación (staging area). **Cuando clonas por primera vez un repositorio, todos tus archivos estarán rastreados y sin modificar pues acabas de sacarlos y aun no han sido editados.**
+
+---
+class: inverse, middle, center
+## Guardando cambios en el Repositorio
+
+
+<img src="images/lifecycle.png" width="980px" height="400px" style="border-radius: 5%;"/>
+
+---
+
+## Revisando el Estado de tus Archivos
+
+La herramienta principal para determinar qué archivos están en qué estado es el comando git status.
+
+.panelset[
+.panel[.panel-name[Status]
+
+```{r, engine='bash', count_lines114,echo=TRUE, eval = FALSE}
+$ git status
+
+```
+]
+
+.panel[.panel-name[Resultado]
+
+```{r, engine='bash', count_lines115,echo=TRUE, eval = FALSE}
+
+# Si ejecutas este comando ($ git status) inmediatamente después
+# de clonar un repositorio, deberías ver algo como esto:
+
+On branch master
+nothing to commit, working directory clean
+
+```
+]
+.panel[.panel-name[Qué Significa?]
+
+Esto significa que tienes un directorio de trabajo limpio - en otras palabras, que no hay archivos rastreados y modificados. Además, Git no encuentra archivos sin rastrear, de lo contrario aparecerían listados aquí. Finalmente, el comando te indica en cuál rama estás y te informa que no ha variado con respecto a la misma rama en el servidor. Por ahora, la rama siempre será “master”, que es la rama por defecto 
+]
+]
+
+---
+
+## Realizando un cambio de tus Archivos
+
+Supongamos que añades un nuevo archivo a tu proyecto, un simple README. Si el archivo no existía antes y ejecutas git status, verás el archivo sin rastrear de la siguiente manera:
+
+.panelset[
+.panel[.panel-name[README]
+
+```{r, engine='bash', count_lines214,echo=TRUE, eval = FALSE}
+$ echo 'My Project' > README
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+    README
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+```
+]
+
+.panel[.panel-name[Qué Significa?]
+
+Puedes ver que el archivo README está sin rastrear porque aparece debajo del encabezado “Untracked files” (“Archivos no rastreados” en inglés) en la salida. Sin rastrear significa que Git ve archivos que no tenías en el commit anterior. Git no los incluirá en tu próximo commit a menos que se lo indiques explícitamente. Se comporta así para evitar incluir accidentalmente archivos binarios o cualquier otro archivo que no quieras incluir. Como tú sí quieres incluir README, debes comenzar a rastrearlo.
+]
+]
+
+---
+
+## Rastrear Archivos Nuevos
+
+Para comenzar a rastrear un archivo debes usar el comando git add. Para comenzar a rastrear el archivo README, puedes ejecutar lo siguiente:
+
+.panelset[
+.panel[.panel-name[add README]
+
+```{r, engine='bash', count_lines314,echo=TRUE, eval = FALSE}
+$ git add README
+```
+]
+
+.panel[.panel-name[Ver status]
+
+```{r, engine='bash', count_lines414,echo=TRUE, eval = FALSE}
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    new file:   README
+```
+
+]
+.panel[.panel-name[Qué Significa?]
+
+Puedes ver que está siendo rastreado porque aparece luego del encabezado “Cambios a ser confirmados” (“Changes to be committed” en inglés). Si confirmas **commit** en este punto, se guardará en el historial la versión del archivo correspondiente al instante en que ejecutaste git add.
+]
+]
+
+---
+
+## Preparar Archivos Modificados
+
+.panelset[
+.panel[.panel-name[CONTRIBUTING]
+
+```{r, engine='bash', count_lines312,echo=TRUE, eval = FALSE}
+echo 'My Project' > CONTRIBUTING.md
+$ git status
+```
+]
+
+.panel[.panel-name[add]
+
+```{r, engine='bash', count_lines412,echo=TRUE, eval = FALSE}
+$ git add CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    new file:   README
+    modified:   CONTRIBUTING.md
+```
+
+]
+.panel[.panel-name[Un pequeño cambio]
+Ambos archivos están preparados y formarán parte de tu próxima confirmación. En este momento, supongamos que recuerdas que debes hacer un pequeño cambio en CONTRIBUTING.md antes de confirmarlo. Abres de nuevo el archivo, lo cambias y ahora estás listos para confirmar. Sin embargo, ejecutemos git status una vez más:
+]
+.panel[.panel-name[Status]
+```{r, engine='bash', count_lines012,echo=TRUE, eval = FALSE}
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    new file:   README
+    modified:   CONTRIBUTING.md
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md
+```
+
+]
+.panel[.panel-name[¡¿Pero qué…​?!]
+Ahora CONTRIBUTING.md aparece como preparado y como no preparado. ¿Cómo es posible? Resulta que Git prepara un archivo de acuerdo al estado que tenía cuando ejecutas el comando git add. Si confirmas ahora, se confirmará la versión de CONTRIBUTING.md que tenías la última vez que ejecutaste git add y no la versión que ves ahora en tu directorio de trabajo al ejecutar git status. Si modificas un archivo luego de ejecutar git add, deberás ejecutar git add de nuevo para preparar la última versión del archivo:
+]
+.panel[.panel-name[Y..]
+```{r ,engine='bash', count_lines002,echo=TRUE, eval = FALSE}
+$ git add CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    new file:   README
+    modified:   CONTRIBUTING.md
+```
+
+]
+]
+
+---
+
+## Estado Abreviado
+
+Si bien es cierto que la salida de git status es bastante explícita, también es verdad que es muy extensa. Git ofrece una opción para obtener un estado abreviado, de manera que puedas ver tus cambios de una forma más compacta.
+
+.panelset[
+.panel[.panel-name[git status -s]
+
+```{r, engine='bash', count_lines300,echo=TRUE, eval = FALSE}
+$ git status -s
+```
+]
+
+.panel[.panel-name[git status --short]
+
+```{r, engine='bash', count_lines400,echo=TRUE, eval = FALSE}
+$ git status --short
+
+```
+
+]
+.panel[.panel-name[Qué Significa?]
+
+Los archivos nuevos que no están rastreados tienen un ?? a su lado, los archivos que están preparados tienen una A y los modificados una M. El estado aparece en dos columnas - la columna de la izquierda indica el estado preparado y la columna de la derecha indica el estado sin preparar.
+]
+]
+
+---
+
+## Ver los Cambios Preparados y No Preparados
+
+Si el comando git status es muy impreciso para ti - quieres ver exactamente que ha cambiado, no solo cuáles archivos lo han hecho - puedes usar el comando git diff. Git diff te muestra las líneas exactas que fueron añadidas y eliminadas, es decir, el parche.
+
+.panelset[
+.panel[.panel-name[git diff]
+
+```{r, engine='bash', count_lines1200,echo=TRUE, eval = FALSE}
+$ git diff
+```
+]
+
+.panel[.panel-name[Qué Significa?]
+
+Este comando compara lo que tienes en tu directorio de trabajo con lo que está en el área de preparación. El resultado te indica los cambios que has hecho pero que aun no has preparado.
+
+Si quieres ver lo que has preparado y será incluido en la próxima confirmación, puedes usar git diff --staged. Este comando compara tus cambios preparados con la última instantánea confirmada.
+
+]
+.panel[.panel-name[git diff --staged]
+
+```{r, engine='bash', count_lines1201,echo=TRUE, eval = FALSE}
+ git diff --staged
+```
+
+]
+.panel[.panel-name[Qué Significa?]
+
+Es importante resaltar que al llamar a git diff sin parámetros no verás los cambios desde tu última confirmación - solo verás los cambios que aun no están preparados. Esto puede ser confuso porque si preparas todos tus cambios, git diff no te devolverá ninguna salida.
+]
+]
+
+---
+## Confirmar tus Cambios
+
+Ahora que tu área de preparación está como quieres, puedes confirmar tus cambios. Recuerda que cualquier cosa que no esté preparada - cualquier archivo que hayas creado o modificado y que no hayas agregado con git add desde su edición - no será confirmado. Se mantendrán como archivos modificados en tu disco.
+
+.panelset[
+.panel[.panel-name[git commit]
+
+```{r, engine='bash', count_lines1900,echo=TRUE, eval = FALSE}
+$ git commit
+```
+]
+
+.panel[.panel-name[Qué Significa?]
+
+Al hacerlo, arrancará el editor de tu preferencia. (El editor se establece a través de la variable de ambiente $EDITOR de tu terminal - usualmente es vim o emacs, aunque puedes configurarlo con el editor que quieras usando el comando git config --global core.editor.
+El editor mostrará el siguiente texto (este ejemplo usa Vim):
+]
+.panel[.panel-name[commit message]
+
+```{r, engine='bash', count_lines1901,echo=TRUE, eval = FALSE}
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#	new file:   README
+#	modified:   CONTRIBUTING.md
+~
+".git/COMMIT_EDITMSG" 9L, 283C
+```
+
+]
+.panel[.panel-name[Qué Significa?]
+Es importante resaltar que al llamar a git diff sin parámetros no verás los cambios desde tu última confirmación - solo verás los cambios que aun no están preparados. Esto puede ser confuso porque si preparas todos tus cambios, git diff no te devolverá ninguna salida.
+]
+]
+
+---
+## Confirmación directa
+
+Otra alternativa es escribir el mensaje de confirmación directamente en el comando commit utilizando la opción -m:
+
+.panelset[
+.panel[.panel-name[git commit -m]
+
+```{r ,engine='bash', count_lines1880,echo=TRUE, eval = FALSE}
+$ git commit -m "Story 182: Fix benchmarks for speed"
+
+[master 463dc4f] Story 182: Fix benchmarks for speed
+ 2 files changed, 2 insertions(+)
+ create mode 100644 README
+```
+]
+
+.panel[.panel-name[Qué Significa?]
+
+¡Has creado tu primera confirmación (o commit)! Puedes ver que la confirmación te devuelve una salida descriptiva: indica cuál rama has confirmado (master), que checksum SHA-1 tiene el commit (463dc4f), cuántos archivos han cambiado y estadísticas sobre las líneas añadidas y eliminadas en el commit.
+]
+.panel[.panel-name[git commit -a]
+
+```{r, engine='bash', count_lines1991,echo=TRUE, eval = FALSE}
+$ git commit -a -m 'added new benchmarks'
+[master 83e38c7] added new benchmarks
+ 1 file changed, 5 insertions(+), 0 deletions(-)
+```
+
+]
+.panel[.panel-name[Qué Significa?]
+Si quieres saltarte el área de preparación, Git te ofrece un atajo sencillo. Añadiendo la opción -a al comando git commit harás que Git prepare automáticamente todos los archivos rastreados antes de confirmarlos, ahorrándote el paso de git add:
+]
+]
+
+---
+class: inverse, middle, center
+
+background-image: url(images/Git-Logo-White.png)
+background-color: #cccccc;
+background-size: 30%
+background-position: 85% 16%
+
+# 1.3 Fundamentos de Git - Trabajar con Remotos 
+
+---
+class:inverse, toc, top, middle,
+
+background-image: url(images/gitremoto.png)
+background-color: #cccccc;
+background-size: 16%
+background-position: 80% 10%
+
+# Ver Tus Remotos
+
+Los repositorios remotos son versiones de tu proyecto que están **hospedadas en Internet o en cualquier otra red**. Colaborar con otras personas implica gestionar estos repositorios remotos enviando y trayendo datos de ellos cada vez que necesites compartir tu trabajo. 
+
+---
+## Ver Tus Remotos
+
+Para ver los remotos que tienes configurados, debes ejecutar el comando git remote. Si has clonado tu repositorio, deberías ver al menos **origin** - este es el nombre que por defecto Git le da al servidor del que has clonado:
+
+.panelset[
+.panel[.panel-name[git remote]
+
+```{r ,engine='bash', count_lines1770,echo=TRUE, eval = FALSE}
+$ git remote
+origin
+```
+]
+
+.panel[.panel-name[git remote -v]
+
+```{r ,engine='bash', count_lines1670,echo=TRUE, eval = FALSE}
+$ git remote -v
+origin	https://github.com/schacon/ticgit (fetch)
+origin	https://github.com/schacon/ticgit (push)
+
+```
+
+]
+
+.panel[.panel-name[Más de un remoto]
+Si tienes más de un remoto, el comando los listará todos. Por ejemplo, un repositorio con múltiples remotos para trabajar con distintos colaboradores podría verse de la siguiente manera.
+]
+.panel[.panel-name[Colaboradores]
+```{r, engine='bash', count_lines0991,echo=TRUE, eval = FALSE}
+$ cd grit
+$ git remote -v
+bakkdoor  https://github.com/bakkdoor/grit (fetch)
+bakkdoor  https://github.com/bakkdoor/grit (push)
+cho45     https://github.com/cho45/grit (fetch)
+cho45     https://github.com/cho45/grit (push)
+defunkt   https://github.com/defunkt/grit (fetch)
+defunkt   https://github.com/defunkt/grit (push)
+```
+
+]
+.panel[.panel-name[Colaboradores]
+Esto significa que podemos traer contribuciones de cualquiera de estos usuarios fácilmente. Es posible que también tengamos permisos para enviar datos a algunos, aunque no podemos saberlo desde aquí.
+]
+]
+
+---
+## Añadir Repositorios Remotos
+
+Para añadir un remoto nuevo y asociarlo a un nombre que puedas referenciar fácilmente, ejecuta git remote add [nombre] [url]:
+
+.panelset[
+.panel[.panel-name[git remote add]
+
+```{r ,engine='bash', count_lines1330,echo=TRUE, eval = FALSE}
+$ git remote
+origin
+$ git remote add pb https://github.com/paulboone/ticgit
+$ git remote -v
+origin	https://github.com/schacon/ticgit (fetch)
+origin	https://github.com/schacon/ticgit (push)
+pb	https://github.com/paulboone/ticgit (fetch)
+pb	https://github.com/paulboone/ticgit (push)
+```
+]
+
+.panel[.panel-name[Usar el nombre un remoto]
+A partir de ahora puedes usar el nombre pb en la línea de comandos en lugar de la URL entera. Por ejemplo, si quieres traer toda la información que tiene Paul pero tú aún no tienes en tu repositorio, puedes ejecutar git fetch pb:
+]
+.panel[.panel-name[git fetch pb]
+```{r, engine='bash', count_lines2991,echo=TRUE, eval = FALSE}
+$ git fetch pb
+remote: Counting objects: 43, done.
+remote: Compressing objects: 100% (36/36), done.
+remote: Total 43 (delta 10), reused 31 (delta 5)
+Unpacking objects: 100% (43/43), done.
+From https://github.com/paulboone/ticgit
+ * [new branch]      master     -> pb/master
+ * [new branch]      ticgit     -> pb/ticgit
+```
+
+]
+.panel[.panel-name[Rama maestra]
+La rama maestra de Paul ahora es accesible localmente con el nombre pb/master - puedes combinarla con alguna de tus ramas, o puedes crear una rama local en ese punto si quieres inspeccionarla. 
+]
+]
+---
+
+## Traer, Combinar y Enviar a Tus Remotos
+
+Para añadir un remoto nuevo y asociarlo a un nombre que puedas referenciar fácilmente, ejecuta git remote add [nombre] [url]:
+
+.panelset[
+.panel[.panel-name[Obtener]
+Para obtener datos de tus proyectos remotos puedes ejecutar:
+
+```{r ,engine='bash', count_lines4330,echo=TRUE, eval = FALSE}
+git fetch [remote-name]
+```
+]
+
+.panel[.panel-name[Combinar]
+Si has configurado una rama para que rastree una rama remota, puedes usar el comando **git pull** para traer y combinar automáticamente la rama remota con tu rama actual. 
+
+```{r, engine='bash', count_lines2981,echo=TRUE, eval = FALSE}
+$ git pull
+```
+
+]
+.panel[.panel-name[Enviar]
+Cuando tienes un proyecto que quieres compartir, debes enviarlo a un servidor. El comando para hacerlo es simple: git push [nombre-remoto] [nombre-rama]. 
+
+```{r, engine='bash', count_lines5981,echo=TRUE, eval = FALSE}
+$ git push origin master
+```
+]
+.panel[.panel-name[Inspeccionar]
+Si quieres ver más información acerca de un remoto en particular, puedes ejecutar el comando git remote show [nombre-remoto].
+
+```{r, engine='bash', count_lines5681,echo=TRUE, eval = FALSE}
+$ git remote show origin
+```
+]
+]
+---
+class: inverse, middle, center
+
+background-image: url(images/Git-Logo-White.png)
+background-color: #cccccc;
+background-size: 28%
+background-position: 85% 16%
+
+# 1.4 Fundamentos de Git -Ramificaciones 
+
+---
+
+# ¿Qué es una rama?
+
+
+## Cuando hablamos de ramificaciones, significa que tú has tomado la rama principal de desarrollo (master) y a partir de ahí has continuado trabajando sin seguir la rama principal de desarrollo.
+
+---
+
+# ¿Por qué esto es tan importante?
+
+
+## - Permite la colaboración increíblemente rápida
+
+## - Permite el avance o el retroceso entre ramas
+
+## - Permite crear y unir ramas entre sí
+
+---
+class: slide_left
+
+# ¿Cómo funciona?
+
+#### En cada ***commit***, Git almacena una instantánea de tu trabajo preparado. Dicha instantánea contiene además metadatos con el autor y el mensaje explicativo, y uno o varios apuntadores a las confirmaciones (commit) que sean padres directos de esta (un padre en los casos de confirmación normal, y múltiples padres en los casos de estar confirmando una fusión (merge) de dos o más ramas).
+
+---
+class: slide_left
+
+# Un ejemplo
+
+#### Vamos a generar tres archivos que prepararemos (stage) y los confirmaremos (commit). 
+
+```{r ,engine='bash', count_lines772,echo=TRUE, eval = FALSE}
+$ git add README test.rb LICENSE
+$ git commit -m 'initial commit of my project'
+```
+
+#### En este momento, el repositorio de Git contendrá cinco objetos:
+---
+class: center
+
+# Un ejemplo
+
+ El repositorio de Git contendrá cinco objetos: un "blob" para cada uno de los tres archivos, un árbol con la lista de contenidos del directorio (más sus respectivas relaciones con los "blobs"), y una confirmación de cambios (commit) apuntando a la raíz de ese árbol y conteniendo el resto de metadatos pertinentes.
+
+<img src="images/blobs.png" width="850px" height="350px" style="border-radius: 2%;"/>
+---
+class: center
+
+# Un ejemplo
+
+Si haces más cambios y vuelves a confirmar, la siguiente confirmación guardará un apuntador a su confirmación precedente.
+
+<img src="images/blobs2.png" width="950px" height="380px" style="border-radius: 2%;"/>
+---
+class: center
+
+# ¿Qué es una rama?
+
+Una rama Git es simplemente un apuntador móvil apuntando a una de esas confirmaciones. La rama por defecto de Git es la rama master. Con la primera confirmación de cambios que realicemos, se creará esta rama principal master apuntando a dicha confirmación. En cada confirmación de cambios que realicemos, la rama irá avanzando automáticamente.
+
+<img src="images/blobs3.png" width="820px" height="355px" style="border-radius: 2%;"/>
+
+---
+class: center
+
+# Crear una Rama Nueva
+
+####¿Qué sucede cuando creas una nueva rama? Bueno…​, simplemente se crea un nuevo apuntador para que lo puedas mover libremente.
+
+<img src="images/blobs4.png" width="820px" height="350px" style="border-radius: 2%;"/>
+
+---
+class: inverse, slide_left
+
+# Crear una Rama Nueva
+
+## Por ejemplo, supongamos que quieres crear una rama nueva denominada "testing". Para ello, usarás el comando git branch:
+
+```{r ,engine='bash', count_lines8872,echo=TRUE, eval = FALSE}
+$ git branch testing
+```
+
+
+<img src="images/blobs4.png" width="800px" height="300px" style="border-radius: 2%;"/>
+
+---
+class: slide_left
+
+# Crear una Rama Nueva
+
+#### Y, ¿cómo sabe Git en qué rama estás en este momento? Pues…​, mediante un apuntador especial denominado HEAD. 
+
+<img src="images/blobs5.png" width="850px" height="340px" style="border-radius: 2%;"/>
+
+---
+
+class: slide_left
+
+# Cambiar de Rama
+
+ Para saltar de una rama a otra, tienes que utilizar el comando git checkout. Hagamos una prueba, saltando a la rama testing recién creada: 
+
+```{r ,engine='bash', count_lines0172,echo=TRUE, eval = FALSE}
+$ git checkout testing
+```
+
+
+<img src="images/blobs6.png" width="690px" height="280px" style="border-radius: 2%;"/>
+
+---
+
+class: slide_left
+
+# ¿Cuál es el significado de todo esto?
+
+Bueno..., lo veremos tras realizar otra confirmación de cambios: 
+
+```{r ,engine='bash', count_lines0173,echo=TRUE, eval = FALSE}
+git commit -a -m 'made a change'
+```
+
+La rama testing avanza
+
+<img src="images/blobs7.png" width="690px" height="280px" style="border-radius: 2%;"/>
+
+---
+
+class: slide_left
+
+# Mientras
+
+... la rama master permanece en la confirmación donde estaba cuando lanzaste el comando git checkout para saltar. Volvamos ahora a la rama master:
+
+```{r ,engine='bash', count_lines0174,echo=TRUE, eval = FALSE}
+$ git checkout master
+```
+
+
+<img src="images/blobs8.png" width="690px" height="280px" style="border-radius: 2%;"/>
+
+---
+class: slide_left
+
+# Haz algunos cambios más y confírmalos:
+
+```{r ,engine='bash', count_lines0164,echo=TRUE, eval = FALSE}
+git commit -a -m 'made other changes'
+```
+
+
+Ahora el historial de tu proyecto diverge (ver Los registros de las ramas divergen). Has creado una rama y saltado a ella, has trabajado sobre ella; has vuelto a la rama original, y has trabajado también sobre ella. Los cambios realizados en ambas sesiones de trabajo están aislados en ramas independientes: puedes saltar libremente de una a otra según estimes oportuno. Y todo ello simplemente con tres comandos: git branch, git checkout y git commit.
+
+---
+class: center
+
+# Tres comandos: git branch, git checkout y git commit.
+
+<img src="images/blobs9.png" width="890px" height="500px" style="border-radius: 2%;"/>
+---
+
+class: inverse, middle, center
+
+background-image: url(images/Github-Octocat-Robot.png)
+background-color: #cccccc;
+background-size: 23%
+background-position: 50% 6%
+
+# 2. Fundamentos de GitHub 
+
+---
+
+class: center, top
+
+
+# Participando en Proyectos: Bifurcación (fork) 
+
+## Podemos bifurcar un proyecto, enviar tus propios cambios a tu copia y luego remitir esos cambios al repositorio original para su aprobación; creando lo que se llama un Pull Request
+  
+
+---
+
+class: center, top
+
+
+# Para bifurcar un proyecto, visita la página del mismo y pulsa sobre el botón “Fork” del lado superior derecho de la página.
+
+
+<img src="images/forkbutton.png" width="400px" height="200px" style="border-radius: 5%;"/>
+  
+
+---
+
+class: left, top
+
+
+# El Flujo de Trabajo en GitHub
+
+
+### Receta: FORK + Upstream + Pull Request
+
+1. Forkear un Repo
+
+2. Clonar el Repo a nuestro PC
+
+3. Crear una rama Upstream
+  - git remote add upstream [el url oficial]
+  - git remote -v (para ver las nuevas ver)
+  - git fetch upstream (aqui trae lo nuevo del repo origen)
+  - git rabase upstream/master
+  - git puch origin master --force
+
+4. Hacer los cambios y Push los cambios
+
+5. Hacer Pull Request
+
+---
+
+class: left, top
+
+<img src="images/bitmap.png" width="900px" height="600px" style="border-radius: 5%;"/>
+
+---
+
+class: center, top
+
+
+También puedes ir a la página “Branches” en https://github.com/<user>/<project>/branches para localizar la rama y abrir el Pull Request desde ahí.
+
+
+<img src="images/blink-02-pr.png" width="800px" height="500px" style="border-radius: 5%;"/>
+  
+---
+
+class: center, top
+
+
+Si pulsamos en el botón verde, veremos una pantalla que permite crear un título y una descripción para darle al propietario original una buena razón para tener en cuenta nuestro cambio. 
+
+
+<img src="images/blink-03-pull-request-open.png" width="800px" height="500px" style="border-radius: 5%;"/>
+---
+
+class: center, top
+
+# Cuando seleccionas el botón Create pull request, el propietario del proyecto que has bifurcado recibirá una notificación de que alguien sugiere un cambio junto a un enlace donde está toda la información.
+
+---
