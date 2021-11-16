@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Matías Frugone-Álvarez" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <meta name="description" content="Herramientas informáticas para trabajos colaborativos"/>
+    <meta name="generator" content="xaringan and remark.js"/>
+    <meta name="github-repo" content="mat1506/Upwell_workshop"/>
+    <meta name="twitter:title" content="Herramientas informáticas para proyectos Colaborativos"/>
+    <meta name="twitter:description" content="Herramientas informáticas para trabajos colaborativos"/>
+    <meta name="twitter:url" content="https://github.com/mat1506/Upwell_workshop/slides/Git_GitHub.html#1"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta property="og:title" content="Herramientas informáticas para proyectos Colaborativos"/>
+    <meta property="og:description" content="Herramientas informáticas para trabajos colaborativos"/>
+    <meta property="og:url" content="https://github.com/mat1506/Upwell_workshop/slides/Git_GitHub.html#1"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="Matías Frugone-Álvarez"/>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xedc3f07ec944ce599b86e36736177df","expires":1}</script>
+    <script src="libs/himalaya/himalaya.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <link href="libs/editable/editable.css" rel="stylesheet" />
+    <script src="libs/editable/editable.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/peerjs/peerjs.min.js"></script>
+    <script src="libs/tiny.toast/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast/broadcast.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link href="libs/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+    </script>
+
+    <script>
+    $(document).ready(function() {
+      var h2 = $( ":not(.toc) > h2" );
+      var items = h2.map(
+        function(){return $(this).text()}
+        ).get()
+      items.shift(); // Remove first item (title)
+      items.pop();   // Remove last item (spurious???)
+      var item_list = items.join("</li><li>");
+      var toc = "<ul><li>" + item_list + "</li></ul>";
+      $(".toc > h2").after(toc);
+      
+    });
+    </script>
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+
+
+name: portada
+class: center, middle
+background-image: url(images/r_rollercoaster.png)
+background-color: #cccccc;
+background-size: 50%
+background-position: 50% 20%
+
+class: title-slide, center, bottom
+
+# Introducción a R
+
+## Herramientas informáticas para trabajos colaborativos
+
+### Matías Frugone-Álvarez
+
+---
+class:inverse, toc, top, middle,
+
+background-image: url(images/stormyr.gif)
+background-color: #cccccc;
+background-size: 31%
+background-position: 90% 20%
+
+# Tabla de Contenido
+
+### 1. Higiene de bases de datos
+### 2. Tipos de datos en R
+### 3. Plot en R
+
+---
+class: inverse, middle, center
+
+background-image: url(images/rainbowr.gif)
+background-color: #cccccc;
+background-size: 30%
+background-position: 90% 5%
+
+# 1. Higiene de bases de datos
+---
+
+# ¿Por qué es importante la higiene de datos?
+
+## La mayoría de artículos científicos **NO** son reproducibles 
+
+
+## La inmensa mayoría de artículos científicos NO entregan los datos o son prácticamente imposibles de obtener.
+
+---
+class: bottom, center
+
+background-image: url(images/environmental_data.png)
+background-color: #cccccc;
+background-size: 100%
+background-position: 50% 50%
+
+---
+class: bottom, center
+
+background-image: url(images/data_cowboy.png)
+background-color: #cccccc;
+background-size: 70%
+background-position: 50% 0%
+
+# Planifique la gestión de datos de su investigación
+---
+class: bottom, center
+
+background-image: url(images/tidydata_2.jpg)
+background-color: #cccccc;
+background-size: 75%
+background-position: 50% 0%
+
+## Planifique la estructura de datos de su investigación  
+
+---
+class: bottom, center
+
+background-image: url(images/tidydata_3.jpg)
+background-color: #cccccc;
+background-size: 100%
+background-position: 50% 50%
+---
+class: bottom, center
+
+background-image: url(images/tidydata_1.jpg)
+background-color: #cccccc;
+background-size: 100%
+background-position: 50% 50%
+---
+
+name: Gitlocal
+class: left, middle,slide_left
+background-image: url(images/unnamed.jpg)
+background-color: #cccccc;
+background-size: 45%
+background-position: 90% 50%
+
+.pull-left[
+
+## Formatos de datos:
+  - .csv: comma separated values.
+  - .tsv: tab separated values.
+  - .txt: no formatting specified.
+  - .json: 'notación de objeto de JavaScript'
+
+## Missing values
+  - Por lo general, la mejor solución es dejarlo en blanco.
+  - NA or NULL son una buena opción
+  - NUNCA use 0. Evite números como -999
+  - No cree su propio código para los valores faltantes
+
+]
+
+---
+class: inverse, middle, center
+
+background-image: url(images/exploder.gif)
+background-color: #cccccc;
+background-size: 25%
+background-position: 90% 5%
+
+# 2. Tipos de datos en R
+---
+
+ESTABLECE EL DIRECTORIO DE TRABAJO:
+
+.panelset[
+.panel[.panel-name[Directorio]
+
+
+```r
+
+#Ver donde estamos
+
+getwd()
+
+```
+]
+
+.panel[.panel-name[Definir directorio]
+
+
+```r
+
+#ESTABLECE EL DIRECTORIO DE TRABAJO
+
+setwd("/Dropbox/Curso_Upwell_2017/Session_1/Session_1.2")
+
+```
+]
+
+.panel[.panel-name[Help!!]
+
+
+```r
+#página web de ayuda
+help.start() 
+
+#busca funciones relacionadas
+help.search("Irregularly Time-Series") 
+
+#busca en la lista de distribución de R y en los manuales
+RSiteSearch("regression") 
+
+#muestra la ayuda de una función específica
+help(lm) 
+
+#muestra la ayuda de una libería
+help(package = "stats") 
+
+```
+]
+.panel[.panel-name[Demostración]
+
+
+```r
+
+#nos muestra el ejemplo de una función concreta
+example(lm) 
+
+#demostraciones
+demo(persp)
+demo(graphics)
+
+```
+]
+]
+
+---
+
+# Los tipos de datos básicos en R
+
+R tiene 5 clases atómicas básicas de datos
+
+.panelset[
+.panel[.panel-name[Tipos de datos]
+
+#### R tiene 5 clases atómicas básicas de datos
+
+
+ - logical (e.g., TRUE, FALSE)
+ - integer (e.g,, 2L, as.integer(3))
+ - numeric (real or decimal) (e.g, 2, 2.0, pi)
+ - complex (e.g, 1 + 0i, 1 + 4i)
+ - character (e.g, "a", "swc")
+
+]
+
+.panel[.panel-name[Numeric]
+
+
+```r
+x&lt;-10.5
+x
+mode(x)
+```
+]
+.panel[.panel-name[Character]
+
+
+```r
+#SIEMPRE entre comillas
+y&lt;-"perro"
+y
+mode(y)
+class(y)
+```
+]
+.panel[.panel-name[Integer]
+
+
+```r
+x=c(1L,3L,-2L)
+x
+class(x)
+```
+]
+.panel[.panel-name[Factor]
+
+
+```r
+x=factor(c("a","a","casa"))
+x
+class(x)
+```
+]
+]
+
+---
+
+## Tipo Matiz y Data Frame
+
+La diferencias entre ambas, es que las matrices almacenan un unico tipo de datos, mientras que los data frames pueden contener distintos tipos de datos.
+.panelset[
+.panel[.panel-name[Matrix]
+
+
+```r
+# matrix class:
+x=c(1,3,-2)
+y=c(2,0,7)
+z=cbind(x,y)
+z
+class(z)
+```
+]
+
+.panel[.panel-name[Data frame]
+
+
+```r
+#data.frame class:
+x=c(1,3,-2)
+y=c("a","a","b")
+z=data.frame(x,y)
+z
+class(z)
+
+```
+]
+
+.panel[.panel-name[Valores Perdidos]
+
+
+```r
+#Inf infinito and NaN not a Number
+
+Inf/Inf
+
+x&lt;-c(1:18,NA) #NA -&gt; Not Available
+x
+x&lt;-c(1:18,NaN) #NaN -&gt; Not a Number
+x
+mean(x)
+mean(x, na.rm=T)
+
+```
+]
+.panel[.panel-name[Otros]
+
+
+```r
+
+#REDONDEANDO NÚMEROS
+round(5.9, digits=0)
+round(5.9, 0) #no hace falta poner el nombre del parámetro!!
+
+#valor absoluto
+abs(-5.9)
+
+```
+]
+]
+
+---
+
+## Estructuras de Datos
+
+.panelset[
+.panel[.panel-name[VECTOR]
+
+
+```r
+z&lt;-c(1, 2, 3, 4, 5, 6)
+z
+z&lt;-1:12
+z
+z&lt;-seq(1, 12, 2)
+is.vector(z)
+length(z)
+```
+]
+
+.panel[.panel-name[FUNCIONES A VECTORES]
+
+
+```r
+max(z)
+min(z)
+sum(z)
+mean(z)
+median(z)
+range(z)
+z&lt;-c(2, 1, 5, 4, 3, 6)
+sort(z)
+?sort
+z&lt;-c(1,3,-2)
+sum(c(1,3,-2))
+mean(c(1,3,-2))
+```
+]
+.panel[.panel-name[FUNCIONES A VECTORES]
+
+
+```r
+#Variance and Std. Dev.
+var(c(1,3,-2))
+sd(c(1,3,-2))
+#Minimum and Maximum
+min(c(1,3,-2))
+max(c(1,3,-2))
+```
+]
+]
+
+---
+
+## Estructura de Datos
+
+.panelset[
+.panel[.panel-name[DATA FRAME]
+
+
+```r
+#INSTALANDO PAQUETES
+install.packages(c("car","relimp"), dep=TRUE)
+#CARGANDO PAQUETES
+library(car)
+library(relimp)
+#cargamos una tabla de ejemplo que ya está en R
+data(cars)
+cars
+is.data.frame(cars)
+```
+]
+
+.panel[.panel-name[Hoja de cálculo]
+
+
+```r
+#lo vemos como una hoja de cálculo
+showData(cars)
+View(cars)
+#para editar datos
+fix(cars)
+```
+
+]
+
+.panel[.panel-name[Estructura interna]
+
+
+```r
+#vemos la estructura del dataframe, fíjate en los que empiezan con $
+str(cars) 
+#accedemos a las columnas por separado
+cars$speed
+cars$dist
+#accedemos a la fila 10
+cars[10,]
+#accedemos a varias filas
+cars[5:15,]
+#seleccionamos un subset (nuevo objeto) con una condición sobre una variable
+cars2&lt;-cars[which(dist &lt; 60), ]
+cars2
+```
+]
+.panel[.panel-name[Estructura interna]
+
+
+```r
+#CREAR UN DATA FRAME:definimos las columnas o vectores
+x&lt;-c(10, 20, 40, 80)
+y&lt;-c("s","s","n","n")
+#las unimos en un data frame
+xy&lt;-data.frame(x, y)
+#ponemos nombre a las variable o columnas
+names(xy)&lt;-c("valor","factor")
+#Combine as columns
+cbind(x,y)
+#Combine as rows
+rbind(x,y)
+```
+]
+]
+
+---
+class: inverse, middle, center
+
+background-image: url(images/heartyr.gif)
+background-color: #cccccc;
+background-size: 25%
+background-position: 90% 5%
+
+# 3. Grafícos en R
+---
+
+## Probability Density Function (PDF)
+
+.panelset[
+.panel[.panel-name[PDF]
+
+
+```r
+# standard normal density function
+?dnorm
+dnorm(-4)
+dnorm(-2)
+dnorm(0)
+dnorm(2)
+dnorm(4)
+```
+]
+
+.panel[.panel-name[Plot]
+
+
+```r
+x=seq(-4,4,by=.1)
+plot(x,dnorm(x),type="l",
+     ,col="blue",
+     lwd=3,
+     main="Normal Density Function",
+     xlab="x",ylab="f(x)",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
+#dnorm(x,mean=1,sd=sqrt(2))
+```
+
+]
+.panel[.panel-name[Output]
+&lt;img src="Introduction_R_files/figure-html/count_lines012-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+]
+.panel[.panel-name[Output]
+&lt;img src="Introduction_R_files/figure-html/count_lines01200-1.png" width="576" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Cumulative Distribution Function (CDF)
+
+.panelset[
+.panel[.panel-name[CDF]
+
+
+```r
+# standard normal density function
+?pnorm
+pnorm(-4)
+pnorm(-2)
+pnorm(0)
+pnorm(2)
+pnorm(4)
+```
+]
+
+.panel[.panel-name[Plot]
+
+
+```r
+x=seq(-4,4,by=.1)
+plot(x,pnorm(x),type="l",
+     ,col="blue",
+     lwd=3,
+     main="Cumulative Distribution Function",
+     xlab="x",ylab="Probability",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
+#pnorm(-3,mean=1,sd=sqrt(2))
+```
+
+]
+.panel[.panel-name[Output]
+&lt;img src="Introduction_R_files/figure-html/count_lines0120-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+]
+.panel[.panel-name[Output]
+&lt;img src="Introduction_R_files/figure-html/count_lines010-1.png" width="576" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## CARGANDO DATOS 
+
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLanguage": ["r", "css", "yaml"],
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

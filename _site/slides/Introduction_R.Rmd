@@ -1,0 +1,614 @@
+---
+title: "Introducción a R"
+subtitle: "Herramientas informáticas para trabajos colaborativos"
+author: "Matías Frugone-Álvarez"
+institute: "UPWELL, Santiago, Chile"
+date: "2021/08/23 (updated: `r Sys.Date()`)"
+output:
+   xaringan::moon_reader:
+    includes:
+      in_header:
+        - 'toc.html'     
+    toc: true
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    self_contained: false # if true, fonts will be stored locally
+    seal: false 
+    lib_dir: libs
+    nature:
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+
+```{r meta, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_general(
+    description = "Herramientas informáticas para trabajos colaborativos",
+    generator = "xaringan and remark.js"
+  ) %>% 
+  meta_name("github-repo" = "mat1506/Upwell_workshop") %>% 
+  meta_social(
+    title = "Herramientas informáticas para proyectos Colaborativos",
+    url = "https://github.com/mat1506/Upwell_workshop/slides/Git_GitHub.html#1",
+    og_type = "website",
+    og_author = "Matías Frugone-Álvarez",
+  )
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 3)
+library(ymlthis)
+library(tidyverse)
+library(xaringanExtra)
+xaringanExtra::use_panelset()
+xaringanExtra::use_editable(expires = 1)
+xaringanExtra::style_panelset_tabs(font_family = "Roboto")
+xaringanExtra::use_share_again()
+xaringanExtra::use_tile_view()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_scribble()
+xaringanExtra::use_animate_css()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+```
+
+
+```{r broadcast, echo=FALSE}
+xaringanExtra::use_broadcast()
+```
+
+name: portada
+class: center, middle
+background-image: url(images/r_rollercoaster.png)
+background-color: #cccccc;
+background-size: 50%
+background-position: 50% 20%
+
+class: title-slide, center, bottom
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+---
+class:inverse, toc, top, middle,
+
+background-image: url(images/stormyr.gif)
+background-color: #cccccc;
+background-size: 31%
+background-position: 90% 20%
+
+# Tabla de Contenido
+
+### 1. Higiene de bases de datos
+### 2. Tipos de datos en R
+### 3. Plot en R
+
+---
+class: inverse, middle, center
+
+background-image: url(images/rainbowr.gif)
+background-color: #cccccc;
+background-size: 30%
+background-position: 90% 5%
+
+# 1. Higiene de bases de datos
+---
+
+# ¿Por qué es importante la higiene de datos?
+
+## La mayoría de artículos científicos **NO** son reproducibles 
+
+
+## La inmensa mayoría de artículos científicos NO entregan los datos o son prácticamente imposibles de obtener.
+
+---
+class: bottom, center
+
+background-image: url(images/environmental_data.png)
+background-color: #cccccc;
+background-size: 100%
+background-position: 50% 50%
+
+---
+class: bottom, center
+
+background-image: url(images/data_cowboy.png)
+background-color: #cccccc;
+background-size: 70%
+background-position: 50% 0%
+
+# Planifique la gestión de datos de su investigación
+---
+class: bottom, center
+
+background-image: url(images/tidydata_2.jpg)
+background-color: #cccccc;
+background-size: 75%
+background-position: 50% 0%
+
+## Planifique la estructura de datos de su investigación  
+
+---
+class: bottom, center
+
+background-image: url(images/tidydata_3.jpg)
+background-color: #cccccc;
+background-size: 100%
+background-position: 50% 50%
+---
+class: bottom, center
+
+background-image: url(images/tidydata_1.jpg)
+background-color: #cccccc;
+background-size: 100%
+background-position: 50% 50%
+---
+
+name: Gitlocal
+class: left, middle,slide_left
+background-image: url(images/unnamed.jpg)
+background-color: #cccccc;
+background-size: 45%
+background-position: 90% 50%
+
+.pull-left[
+
+## Formatos de datos:
+  - .csv: comma separated values.
+  - .tsv: tab separated values.
+  - .txt: no formatting specified.
+  - .json: 'notación de objeto de JavaScript'
+
+## Missing values
+  - Por lo general, la mejor solución es dejarlo en blanco.
+  - NA or NULL son una buena opción
+  - NUNCA use 0. Evite números como -999
+  - No cree su propio código para los valores faltantes
+
+]
+
+---
+class: inverse, middle, center
+
+background-image: url(images/exploder.gif)
+background-color: #cccccc;
+background-size: 25%
+background-position: 90% 5%
+
+# 2. Tipos de datos en R
+---
+
+ESTABLECE EL DIRECTORIO DE TRABAJO:
+
+.panelset[
+.panel[.panel-name[Directorio]
+
+```{r, count_lines,echo=TRUE, eval = FALSE}
+
+#Ver donde estamos
+
+getwd()
+
+```
+]
+
+.panel[.panel-name[Definir directorio]
+
+```{r, count_lines1,echo=TRUE, eval = FALSE}
+
+#ESTABLECE EL DIRECTORIO DE TRABAJO
+
+setwd("/Dropbox/Curso_Upwell_2017/Session_1/Session_1.2")
+
+```
+]
+
+.panel[.panel-name[Help!!]
+
+```{r, count_lines2, echo=TRUE, eval = FALSE}
+#página web de ayuda
+help.start() 
+
+#busca funciones relacionadas
+help.search("Irregularly Time-Series") 
+
+#busca en la lista de distribución de R y en los manuales
+RSiteSearch("regression") 
+
+#muestra la ayuda de una función específica
+help(lm) 
+
+#muestra la ayuda de una libería
+help(package = "stats") 
+
+```
+]
+.panel[.panel-name[Demostración]
+
+```{r, count_lines3, echo=TRUE, eval = FALSE}
+
+#nos muestra el ejemplo de una función concreta
+example(lm) 
+
+#demostraciones
+demo(persp)
+demo(graphics)
+
+```
+]
+]
+
+---
+
+# Los tipos de datos básicos en R
+
+R tiene 5 clases atómicas básicas de datos
+
+.panelset[
+.panel[.panel-name[Tipos de datos]
+
+#### R tiene 5 clases atómicas básicas de datos
+
+
+ - logical (e.g., TRUE, FALSE)
+ - integer (e.g,, 2L, as.integer(3))
+ - numeric (real or decimal) (e.g, 2, 2.0, pi)
+ - complex (e.g, 1 + 0i, 1 + 4i)
+ - character (e.g, "a", "swc")
+
+]
+
+.panel[.panel-name[Numeric]
+
+```{r, count_lines52,echo=TRUE, eval = FALSE}
+x<-10.5
+x
+mode(x)
+```
+]
+.panel[.panel-name[Character]
+
+```{r, count_lines53,echo=TRUE, eval = FALSE}
+#SIEMPRE entre comillas
+y<-"perro"
+y
+mode(y)
+class(y)
+```
+]
+.panel[.panel-name[Integer]
+
+```{r, count_lines54,echo=TRUE, eval = FALSE}
+x=c(1L,3L,-2L)
+x
+class(x)
+```
+]
+.panel[.panel-name[Factor]
+
+```{r, count_lines55,echo=TRUE, eval = FALSE}
+x=factor(c("a","a","casa"))
+x
+class(x)
+```
+]
+]
+
+---
+
+## Tipo Matiz y Data Frame
+
+La diferencias entre ambas, es que las matrices almacenan un unico tipo de datos, mientras que los data frames pueden contener distintos tipos de datos.
+.panelset[
+.panel[.panel-name[Matrix]
+
+```{r, count_lines14,echo=TRUE, eval = FALSE}
+# matrix class:
+x=c(1,3,-2)
+y=c(2,0,7)
+z=cbind(x,y)
+z
+class(z)
+```
+]
+
+.panel[.panel-name[Data frame]
+
+```{r, count_lines15,echo=TRUE, eval = FALSE}
+#data.frame class:
+x=c(1,3,-2)
+y=c("a","a","b")
+z=data.frame(x,y)
+z
+class(z)
+
+```
+]
+
+.panel[.panel-name[Valores Perdidos]
+
+```{r, count_lines1166,echo=TRUE, eval = FALSE}
+#Inf infinito and NaN not a Number
+
+Inf/Inf
+
+x<-c(1:18,NA) #NA -> Not Available
+x
+x<-c(1:18,NaN) #NaN -> Not a Number
+x
+mean(x)
+mean(x, na.rm=T)
+
+
+```
+]
+.panel[.panel-name[Otros]
+
+```{r, count_lines1766,echo=TRUE, eval = FALSE}
+
+#REDONDEANDO NÚMEROS
+round(5.9, digits=0)
+round(5.9, 0) #no hace falta poner el nombre del parámetro!!
+
+#valor absoluto
+abs(-5.9)
+
+```
+]
+]
+
+---
+
+## Estructuras de Datos
+
+.panelset[
+.panel[.panel-name[VECTOR]
+
+```{r, count_lines214,echo=TRUE, eval = FALSE}
+z<-c(1, 2, 3, 4, 5, 6)
+z
+z<-1:12
+z
+z<-seq(1, 12, 2)
+is.vector(z)
+length(z)
+```
+]
+
+.panel[.panel-name[FUNCIONES A VECTORES]
+
+```{r, count_lines2194,echo=TRUE, eval = FALSE}
+max(z)
+min(z)
+sum(z)
+mean(z)
+median(z)
+range(z)
+z<-c(2, 1, 5, 4, 3, 6)
+sort(z)
+?sort
+z<-c(1,3,-2)
+sum(c(1,3,-2))
+mean(c(1,3,-2))
+```
+]
+.panel[.panel-name[FUNCIONES A VECTORES]
+
+```{r, count_lines2094,echo=TRUE, eval = FALSE}
+#Variance and Std. Dev.
+var(c(1,3,-2))
+sd(c(1,3,-2))
+#Minimum and Maximum
+min(c(1,3,-2))
+max(c(1,3,-2))
+```
+]
+]
+
+---
+
+## Estructura de Datos
+
+.panelset[
+.panel[.panel-name[DATA FRAME]
+
+```{r, count_lines314,echo=TRUE, eval = FALSE}
+#INSTALANDO PAQUETES
+install.packages(c("car","relimp"), dep=TRUE)
+#CARGANDO PAQUETES
+library(car)
+library(relimp)
+#cargamos una tabla de ejemplo que ya está en R
+data(cars)
+cars
+is.data.frame(cars)
+```
+]
+
+.panel[.panel-name[Hoja de cálculo]
+
+```{r, count_lines414,echo=TRUE, eval = FALSE}
+#lo vemos como una hoja de cálculo
+showData(cars)
+View(cars)
+#para editar datos
+fix(cars)
+```
+
+]
+
+.panel[.panel-name[Estructura interna]
+
+```{r, count_lines424,echo=TRUE, eval = FALSE}
+#vemos la estructura del dataframe, fíjate en los que empiezan con $
+str(cars) 
+#accedemos a las columnas por separado
+cars$speed
+cars$dist
+#accedemos a la fila 10
+cars[10,]
+#accedemos a varias filas
+cars[5:15,]
+#seleccionamos un subset (nuevo objeto) con una condición sobre una variable
+cars2<-cars[which(dist < 60), ]
+cars2
+```
+]
+.panel[.panel-name[Estructura interna]
+
+```{r, count_lines454,echo=TRUE, eval = FALSE}
+#CREAR UN DATA FRAME:definimos las columnas o vectores
+x<-c(10, 20, 40, 80)
+y<-c("s","s","n","n")
+#las unimos en un data frame
+xy<-data.frame(x, y)
+#ponemos nombre a las variable o columnas
+names(xy)<-c("valor","factor")
+#Combine as columns
+cbind(x,y)
+#Combine as rows
+rbind(x,y)
+```
+]
+]
+
+---
+class: inverse, middle, center
+
+background-image: url(images/heartyr.gif)
+background-color: #cccccc;
+background-size: 25%
+background-position: 90% 5%
+
+# 3. Grafícos en R
+---
+
+## Probability Density Function (PDF)
+
+.panelset[
+.panel[.panel-name[PDF]
+
+```{r, count_lines312,echo=TRUE, eval = FALSE}
+# standard normal density function
+?dnorm
+dnorm(-4)
+dnorm(-2)
+dnorm(0)
+dnorm(2)
+dnorm(4)
+```
+]
+
+.panel[.panel-name[Plot]
+
+```{r, count_lines412,echo=TRUE, eval = FALSE}
+x=seq(-4,4,by=.1)
+plot(x,dnorm(x),type="l",
+     ,col="blue",
+     lwd=3,
+     main="Normal Density Function",
+     xlab="x",ylab="f(x)",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
+#dnorm(x,mean=1,sd=sqrt(2))
+```
+
+]
+.panel[.panel-name[Output]
+```{r count_lines012,echo=FALSE,fig.align = 'center',fig.width = 8, fig.height = 6}
+x=seq(-4,4,by=.1)
+plot(x,dnorm(x),type="l",
+     col="blue",lwd=3,main="Normal Density Function",xlab="",ylab="",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
+
+```
+
+]
+.panel[.panel-name[Output]
+```{r count_lines01200,echo=FALSE,fig.align = 'center',fig.width = 8, fig.height = 6}
+x=seq(-4,4,by=.1)
+plot(x,dnorm(x,mean=1,sd=sqrt(2)),type="l",
+     col="blue",lwd=3,main="Normal Density Function",xlab="",ylab="",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
+
+```
+]
+]
+
+---
+
+## Cumulative Distribution Function (CDF)
+
+.panelset[
+.panel[.panel-name[CDF]
+
+```{r, count_lines3120,echo=TRUE, eval = FALSE}
+# standard normal density function
+?pnorm
+pnorm(-4)
+pnorm(-2)
+pnorm(0)
+pnorm(2)
+pnorm(4)
+```
+]
+
+.panel[.panel-name[Plot]
+
+```{r, count_lines4120,echo=TRUE, eval = FALSE}
+x=seq(-4,4,by=.1)
+plot(x,pnorm(x),type="l",
+     ,col="blue",
+     lwd=3,
+     main="Cumulative Distribution Function",
+     xlab="x",ylab="Probability",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
+#pnorm(-3,mean=1,sd=sqrt(2))
+```
+
+]
+.panel[.panel-name[Output]
+```{r count_lines0120,echo=FALSE,fig.align = 'center',fig.width = 8, fig.height = 6}
+x=seq(-4,4,by=.1)
+plot(x,pnorm(x),type="l",
+     col="blue",lwd=3,main="Cumulative Distribution Function",xlab="",ylab="",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Cumulative Function", lwd=3, bty = "n")
+#
+```
+
+]
+.panel[.panel-name[Output]
+```{r count_lines010,echo=FALSE,fig.align = 'center',fig.width = 8, fig.height = 6}
+x=seq(-4,4,by=.1)
+plot(x,pnorm(x,mean=-2,sd=sqrt(2)),type="l",
+     col="blue",lwd=3,main="Cumulative Distribution Function",xlab="",ylab="",las=1,col.axis="red")
+legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
+#
+```
+]
+]
+
+---
+
+## Directorio de trabajo
+
+El package `"here"` permite una fácil referencia de archivos mediante el uso del directorio de nivel superior de un proyecto de archivo para crear fácilmente rutas de archivo.
+
+
+```{r here ,echo=TRUE, eval = TRUE}
+library(tidyverse)
+library(here)
+here()
+X <- read_csv(here::here("data/LEM_proxies.csv"))
+```
+
+---
