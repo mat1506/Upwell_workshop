@@ -306,7 +306,7 @@ class(x)
 
 ---
 
-## Tipo Matiz y Data Frame
+## Tipo Matriz y Data Frame
 
 La diferencias entre ambas, es que las matrices almacenan un unico tipo de datos, mientras que los data frames pueden contener distintos tipos de datos.
 .panelset[
