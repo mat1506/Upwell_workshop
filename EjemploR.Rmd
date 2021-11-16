@@ -1,7 +1,7 @@
 ---
 title: "Un pequeño ejemplo con R"
 description: |
-  Realizaremos una figura estratigrafica
+  Realizaremos diferentes figuras con la función plot y ggplot
 author:
   - name: Matías Frugone Álavarez 
 date: "`r Sys.Date()`"
