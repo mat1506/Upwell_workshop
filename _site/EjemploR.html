@@ -2312,9 +2312,23 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h3>Contents</h3>
 <ul>
 <li><a href="#instalar-los-paquetes-necesarios">Instalar los paquetes necesarios</a></li>
-<li><a href="#scatter-plots">Scatter plots</a></li>
+<li><a href="#establecer-el-directorio-de-trabajo">Establecer el directorio de trabajo</a></li>
+<li><a href="#miremos-los-datos">Miremos los datos</a></li>
+<li><a href="#calcular-promedios-de-una-variable-para-niveles-de-un-factor">Calcular promedios de una variable para niveles de un factor</a></li>
+<li><a href="#análisis-exploratorio-de-datos-y-gráficos">Análisis exploratorio de datos y gráficos</a></li>
+<li><a href="#boxplot">Boxplot</a></li>
+<li><a href="#instalar-paquetes-otra-forma">Instalar paquetes otra forma</a></li>
+<li><a href="#matrix-of-plots-in-one-figure">Matrix of plots in one figure</a></li>
+<li><a href="#ggplot-histograma">ggplot Histograma</a></li>
+<li><a href="#plot-de-barras">Plot de barras</a></li>
+<li><a href="#scatter-plots">Scatter plots</a>
+<ul>
+<li><a href="#analisis-exp.-bivariate">Analisis Exp. Bivariate</a></li>
+</ul></li>
 <li><a href="#density">Density</a></li>
 <li><a href="#facets">Facets</a></li>
+<li><a href="#correlación-bivariate">Correlación Bivariate</a></li>
+<li><a href="#visualización-de-correlación-entre-variables">Visualización de Correlación entre variables</a></li>
 </ul>
 </nav>
 </div>
@@ -2325,41 +2339,391 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jrnold/ggthemes'>ggthemes</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
+<h2 id="establecer-el-directorio-de-trabajo">Establecer el directorio de trabajo</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;/home/mat1506/Documents/workflows/Upwell_workshop&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>X</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data/LEM_proxies.csv"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="miremos-los-datos">Miremos los datos</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span> <span class='co'>#para ver la estructura de los datos</span>
+</code></pre>
+</div>
+<pre><code>spec_tbl_df [501 × 25] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ ID             : chr [1:501] &quot;CHILL-LEM13-2C-1U 21-22 cm&quot; &quot;CHILL-LEM13-2C-1U 22-23 cm&quot; &quot;CHILL-LEM13-2C-1U 23-24 cm&quot; &quot;CHILL-LEM13-2C-1U 24-25 cm&quot; ...
+ $ Unit           : chr [1:501] &quot;U1&quot; &quot;U1&quot; &quot;U1&quot; &quot;U1&quot; ...
+ $ Facie          : chr [1:501] &quot;D1&quot; &quot;D1&quot; &quot;D1&quot; &quot;D1&quot; ...
+ $ depth          : num [1:501] 0 1 2 3 4 5 6 7 8 9 ...
+ $ MS             : num [1:501] 44.8 55.9 NA 67.4 NA ...
+ $ Den            : num [1:501] 1.21 1.39 NA 1.41 NA ...
+ $ FP             : num [1:501] 0.883 0.773 NA 0.758 NA ...
+ $ TS             : num [1:501] 0.175 0.23 0.229 0.267 0.255 ...
+ $ TC             : num [1:501] 2.42 1.9 2.03 2.11 2.07 ...
+ $ TIC            : num [1:501] 0 0 0 0.196 0 ...
+ $ TOC            : num [1:501] 2.42 1.9 2.03 1.91 2.07 ...
+ $ BioSi          : num [1:501] 19.6 18.8 19.2 20.2 19.3 ...
+ $ TN             : num [1:501] 0.278 NA NA NA NA 0.21 NA NA NA NA ...
+ $ TOC/TN         : num [1:501] 10.2 NA NA NA NA ...
+ $ d15N           : num [1:501] 1.43 NA NA NA NA ...
+ $ d13C           : num [1:501] -25.6 NA NA NA NA ...
+ $ Montmorillonite: chr [1:501] &quot;Present&quot; NA NA NA ...
+ $ Muscovite      : chr [1:501] &quot;0.14&quot; NA NA NA ...
+ $ Talc           : chr [1:501] &quot;0.096&quot; NA NA NA ...
+ $ Riebeckite     : chr [1:501] &quot;0.075&quot; NA NA NA ...
+ $ Clinochlore    : chr [1:501] &quot;0.192&quot; NA NA NA ...
+ $ Microcline     : chr [1:501] &quot;0.284&quot; NA NA NA ...
+ $ Quartz         : num [1:501] 2.21 NA NA NA NA ...
+ $ Albite         : num [1:501] 8.72 NA NA NA NA ...
+ $ Amorphous      : num [1:501] 39.4 NA NA NA NA NA NA NA NA NA ...
+ - attr(*, &quot;spec&quot;)=
+  .. cols(
+  ..   ID = col_character(),
+  ..   Unit = col_character(),
+  ..   Facie = col_character(),
+  ..   depth = col_double(),
+  ..   MS = col_double(),
+  ..   Den = col_double(),
+  ..   FP = col_double(),
+  ..   TS = col_double(),
+  ..   TC = col_double(),
+  ..   TIC = col_double(),
+  ..   TOC = col_double(),
+  ..   BioSi = col_double(),
+  ..   TN = col_double(),
+  ..   `TOC/TN` = col_double(),
+  ..   d15N = col_double(),
+  ..   d13C = col_double(),
+  ..   Montmorillonite = col_character(),
+  ..   Muscovite = col_character(),
+  ..   Talc = col_character(),
+  ..   Riebeckite = col_character(),
+  ..   Clinochlore = col_character(),
+  ..   Microcline = col_character(),
+  ..   Quartz = col_double(),
+  ..   Albite = col_double(),
+  ..   Amorphous = col_double()
+  .. )
+ - attr(*, &quot;problems&quot;)=&lt;externalptr&gt; </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>[</span>,<span class='fl'>5</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># Resumen de los datos</span>
+</code></pre>
+</div>
+<pre><code>       MS              Den              FP               TS         
+ Min.   : 24.43   Min.   :1.210   Min.   :0.3045   Min.   :0.01617  
+ 1st Qu.: 57.16   1st Qu.:1.378   1st Qu.:0.6940   1st Qu.:0.38217  
+ Median : 76.15   Median :1.481   Median :0.7170   Median :0.61781  
+ Mean   : 96.70   Mean   :1.491   Mean   :0.7113   Mean   :0.76149  
+ 3rd Qu.:125.45   3rd Qu.:1.519   3rd Qu.:0.7805   3rd Qu.:1.11340  
+ Max.   :273.65   Max.   :2.154   Max.   :0.8832   Max.   :6.82220  
+ NA&#39;s   :209      NA&#39;s   :209     NA&#39;s   :209                       
+       TC                TIC               TOC         
+ Min.   :-0.02204   Min.   :0.00000   Min.   :-0.1224  
+ 1st Qu.: 2.04920   1st Qu.:0.00000   1st Qu.: 1.9743  
+ Median : 2.86890   Median :0.04557   Median : 2.8238  
+ Mean   : 2.71282   Mean   :0.10466   Mean   : 2.6058  
+ 3rd Qu.: 3.60770   3rd Qu.:0.18158   3rd Qu.: 3.5163  
+ Max.   : 5.59430   Max.   :1.06930   Max.   : 5.3409  
+                                      NA&#39;s   :1        
+     BioSi             TN             TOC/TN            d15N       
+ Min.   : 5.37   Min.   :0.0360   Min.   : 1.628   Min.   :-1.151  
+ 1st Qu.:15.50   1st Qu.:0.1969   1st Qu.: 7.292   1st Qu.: 0.238  
+ Median :18.42   Median :0.3006   Median : 9.696   Median : 1.380  
+ Mean   :17.64   Mean   :0.3291   Mean   :10.454   Mean   : 1.205  
+ 3rd Qu.:20.81   3rd Qu.:0.4641   3rd Qu.:12.758   3rd Qu.: 2.040  
+ Max.   :26.62   Max.   :0.7689   Max.   :20.770   Max.   : 3.166  
+ NA&#39;s   :33      NA&#39;s   :377      NA&#39;s   :378      NA&#39;s   :407     
+      d13C       
+ Min.   :-29.53  
+ 1st Qu.:-26.10  
+ Median :-24.55  
+ Mean   :-23.66  
+ 3rd Qu.:-22.51  
+ Max.   :-16.65  
+ NA&#39;s   :407     </code></pre>
+</div>
+<h2 id="calcular-promedios-de-una-variable-para-niveles-de-un-factor">Calcular promedios de una variable para niveles de un factor</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>$</span><span class='va'>TOC</span>, <span class='va'>X</span><span class='op'>$</span><span class='va'>Facie</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='co'>#calcular promedios por factor</span>
+</code></pre>
+</div>
+<pre><code>       D1        D2        D3        D4        D5      D6_a      D6_b 
+1.8939686 1.6325068 3.8301412        NA 4.3219419 2.7576184 3.3545634 
+     D6_c        L1        L2        L3        L4        L5       LT2 
+4.3586846 0.8827930 0.4927908 0.1726453 0.4107186 0.7902270 2.7617361 
+       T1       T10       T11       T12       T13       T14       T15 
+0.5375500 0.8490357 0.3697850 1.0249300 1.0517100 1.8635000 2.1030470 
+      T16       T17       T18        T2        T3        T4        T5 
+1.9549800 2.6672900 0.9943400 0.5512890 0.6062123 0.6389503 1.7498500 
+       T6        T7        T8        T9       TL1 
+0.8491950 0.5136960 0.4327400 0.6375590 2.2273622 </code></pre>
+</div>
+<h2 id="análisis-exploratorio-de-datos-y-gráficos">Análisis exploratorio de datos y gráficos</h2>
+<h2 id="boxplot">Boxplot</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>$</span><span class='va'>TOC</span> <span class='op'>~</span> <span class='va'>X</span><span class='op'>$</span><span class='va'>Unit</span>, notch<span class='op'>=</span><span class='cn'>TRUE</span>, ylab<span class='op'>=</span><span class='st'>"TOC"</span><span class='op'>)</span> <span class='co'>#compara las medias visualmente</span>
+</code></pre>
+</div>
+<img src="EjemploR_files/figure-html5/unnamed-chunk-5-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>$</span><span class='va'>TOC</span>, plot <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>List of 6
+ $ breaks  : num [1:13] -0.5 0 0.5 1 1.5 2 2.5 3 3.5 4 ...
+ $ counts  : int [1:12] 3 43 31 23 28 94 77 75 56 47 ...
+ $ density : num [1:12] 0.012 0.172 0.124 0.092 0.112 0.376 0.308 0.3 0.224 0.188 ...
+ $ mids    : num [1:12] -0.25 0.25 0.75 1.25 1.75 2.25 2.75 3.25 3.75 4.25 ...
+ $ xname   : chr &quot;X$TOC&quot;
+ $ equidist: logi TRUE
+ - attr(*, &quot;class&quot;)= chr &quot;histogram&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>h</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>heat.colors</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>$</span><span class='va'>mids</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>$</span><span class='va'>count</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>$</span><span class='va'>count</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>]</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,   <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>$</span><span class='va'>count</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>5</span><span class='op'>)</span>,
+     main <span class='op'>=</span> <span class='st'>"Frequency histogram, El Maule (Organic Carbon)"</span>,
+     sub <span class='op'>=</span> <span class='st'>"Total Organic Carbon"</span>,
+     xlab <span class='op'>=</span> <span class='st'>"TOC (%)"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-5-2.png" width="624" /></p>
+</div>
+<h2 id="instalar-paquetes-otra-forma">Instalar paquetes otra forma</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"dplyr"</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://dplyr.tidyverse.org'>"dplyr"</a></span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<h2 id="matrix-of-plots-in-one-figure">Matrix of plots in one figure</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>y01</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>X</span>,<span class='va'>TOC</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>y02</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>X</span>,<span class='va'>Unit</span>,<span class='va'>TOC</span>,<span class='va'>TIC</span>,<span class='va'>TS</span>,<span class='va'>TN</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># 2x2 matrix of plots in one figure</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span>, data<span class='op'>=</span><span class='va'>y01</span>,notch<span class='op'>=</span><span class='cn'>T</span>, horizontal<span class='op'>=</span><span class='cn'>T</span>,main<span class='op'>=</span><span class='st'>"Boxplot of TOC"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span>, freq<span class='op'>=</span><span class='cn'>F</span>,main<span class='op'>=</span><span class='st'>"Probability density for TOC"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span>,lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span>, adj<span class='op'>=</span><span class='fl'>.5</span><span class='op'>)</span>,lwd<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span>, adj<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>,lwd<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span>, main<span class='op'>=</span><span class='st'>"QQ plot for Clay 0-10cm vs Normal distribution"</span>,ylab<span class='op'>=</span><span class='st'>"TOC %"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqline</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span>, col<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"QQ plot for TOC vs lognormal distribution"</span>,ylab<span class='op'>=</span><span class='st'>"log(TOC %)"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqline</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span>, col<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+</div>
+<h2 id="ggplot-histograma">ggplot Histograma</h2>
 <p>{ggplot2} es una implementación de Grammar of Graphics de Wilkinson (2006), pero no es necesario leer los libros para comenzar a usarlo. Si volvemos a los datos de Star Wars (contenidos en dplyr) y deseamos dibujar una gráfica de barras del género, las siguientes líneas son suficientes:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>y02</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>TOC</span>, fill <span class='op'>=</span> <span class='va'>Unit</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="EjemploR_files/figure-html5/unnamed-chunk-8-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>y02</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>TOC</span>, fill <span class='op'>=</span> <span class='va'>Unit</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"bin"</span>, position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="EjemploR_files/figure-html5/unnamed-chunk-8-2.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>y01</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>TOC</span><span class='op'>)</span>, bins <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>..density..</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='st'>'red'</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>'blue'</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>bold</a></span><span class='op'>(</span><span class='st'>'Simulated Samples'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>bold</a></span><span class='op'>(</span><span class='st'>'Density'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-8-3.png" width="624" /></p>
+</div>
+<h2 id="plot-de-barras">Plot de barras</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>starwars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
 <p>El primer argumento de la función son los datos (llamados starwars en este ejemplo), y luego la función aes (). Esta función es donde enumera las variables que desea asignar a la estética de las funciones geoms. En la segunda línea, verá que usamos la función geom_bar (). Esta función crea una gráfica de barras de la variable de género. Puede obtener diferentes tipos de gráficos utilizando diferentes funciones geom_. También puede proporcionar el argumento aes () a la función geom _ * ():</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>starwars</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
 </div>
-<p>La diferencia entre estos dos enfoques es que cuando especificas la estética en la función ggplot (), todas las funciones geom _ * () que siguen heredarán esta estética. Esto es útil si desea evitar escribir el mismo código una y otra vez, pero puede ser problemático si necesita especificar una estética diferente para diferentes funciones geom _ * (). Esto quedará claro en un ejemplo posterior.</p>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+</div>
+<p>La diferencia entre estos dos enfoques es que cuando especificas la estética en la función ggplot(), todas las funciones geom _ * () que siguen heredarán esta estética. Esto es útil si desea evitar escribir el mismo código una y otra vez, pero puede ser problemático si necesita especificar una estética diferente para diferentes funciones geom _ * (). Esto quedará claro en un ejemplo posterior.</p>
 <p>Puede agregar opciones a sus gráficos, por ejemplo, puede cambiar el sistema de coordenadas en su gráfico de barras:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>starwars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
 </div>
 <h2 id="scatter-plots">Scatter plots</h2>
 <p>Los diagramas de dispersión son muy útiles, especialmente si está tratando de averiguar la relación entre dos variables. Por ejemplo, hagamos un diagrama de dispersión de la altura frente al peso de los personajes de Star Wars:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'>str_detect</span><span class='op'>(</span><span class='va'>name</span>, <span class='st'>"Jabba"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>height</span>, <span class='va'>mass</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
+<h3 id="analisis-exp.-bivariate">Analisis Exp. Bivariate</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='co'>#</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TIC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TN</span>,xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1.2</span><span class='op'>)</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,cex.lab<span class='op'>=</span><span class='fl'>1.5</span>, cex.axis<span class='op'>=</span><span class='fl'>1.5</span>, cex.main<span class='op'>=</span><span class='fl'>1.5</span>, cex.sub<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,lty<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>;
+<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"TIC vs. TN"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TN</span><span class='op'>)</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TIC</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>#</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TN</span>,xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5.5</span><span class='op'>)</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,pch<span class='op'>=</span><span class='fl'>20</span>,cex.lab<span class='op'>=</span><span class='fl'>1.5</span>, cex.axis<span class='op'>=</span><span class='fl'>1.5</span>, cex.main<span class='op'>=</span><span class='fl'>1.5</span>, cex.sub<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,lty<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"TOC vs. TN"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TN</span><span class='op'>)</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>#</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span>,cex.lab<span class='op'>=</span><span class='fl'>1.5</span>, cex.axis<span class='op'>=</span><span class='fl'>1.5</span>, cex.main<span class='op'>=</span><span class='fl'>1.5</span>, cex.sub<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,lty<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"TOC vs. TS"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>#</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TIC</span>,pch<span class='op'>=</span><span class='fl'>20</span>,cex.lab<span class='op'>=</span><span class='fl'>1.5</span>, cex.axis<span class='op'>=</span><span class='fl'>1.5</span>, cex.main<span class='op'>=</span><span class='fl'>1.5</span>, cex.sub<span class='op'>=</span><span class='fl'>1.5</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,lty<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span><span class='op'>(</span><span class='st'>"TOC vs. TIC"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TIC</span><span class='op'>)</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-13-1.png" width="768" /></p>
 </div>
 <h2 id="density">Density</h2>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gender</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"feminine"</span>, <span class='st'>"masculine"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>height</span>, fill <span class='op'>=</span> <span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
 </div>
 <h2 id="facets">Facets</h2>
 <p>En algunos casos, tiene una variable de factor que separa los datos que desea representar en diferentes categorías. Si desea tener un gráfico por categoría, puede usar la función facet_grid (). Sin embargo, tenga cuidado, esta función no toma una variable como argumento, sino una fórmula, de ahí el símbolo ~ en el siguiente código:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rowwise.html'>rowwise</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>n_films <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>films</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>more_1 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>n_films</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Exactly one movie"</span>,
+                            <span class='va'>n_films</span> <span class='op'>!=</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"More than 1 movie"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>human <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>species</span> <span class='op'>==</span> <span class='st'>"Human"</span> <span class='op'>~</span> <span class='st'>"Human"</span>,
+                           <span class='va'>species</span> <span class='op'>!=</span> <span class='st'>"Human"</span> <span class='op'>~</span> <span class='st'>"Not Human"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gender</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"feminine"</span>, <span class='st'>"masculine"</span><span class='op'>)</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>human</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>height</span>, fill <span class='op'>=</span> <span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>human</span> <span class='op'>~</span> <span class='va'>more_1</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
 </div>
 <p>Podemos agregar una línea de regresión a este diagrama de dispersión:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'>str_detect</span><span class='op'>(</span><span class='va'>name</span>, <span class='st'>"Jabba"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>height</span>, <span class='va'>mass</span>, size <span class='op'>=</span> <span class='va'>birth_year</span>, colour <span class='op'>=</span> <span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>height</span>, <span class='va'>mass</span><span class='op'>)</span>, method  <span class='op'>=</span> <span class='st'>"lm"</span><span class='op'>)</span>
+</code></pre>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
+<h2 id="correlación-bivariate">Correlación Bivariate</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.4002049</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cov</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.4002049</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 1.156251</code></pre>
+<pre><code>[1] 0.7989956</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cov</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.4331975</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.4331975</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/cor.test.html'>cor.test</a></span><span class='op'>(</span><span class='va'>y02</span><span class='op'>$</span><span class='va'>TOC</span>,<span class='va'>y02</span><span class='op'>$</span><span class='va'>TS</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  y02$TOC and y02$TS
+t = 5.3088, df = 122, p-value = 5.025e-07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.278124 0.566263
+sample estimates:
+      cor 
+0.4331975 </code></pre>
+</div>
+<h2 id="visualización-de-correlación-entre-variables">Visualización de Correlación entre variables</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/braverock/PerformanceAnalytics'>PerformanceAnalytics</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"PerformanceAnalytics"</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/braverock/PerformanceAnalytics'>"PerformanceAnalytics"</a></span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/PerformanceAnalytics/man/chart.Correlation.html'>chart.Correlation</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>[</span>,<span class='fl'>9</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>]</span>,
+                  method<span class='op'>=</span><span class='st'>"pearson"</span>,
+                  histogram<span class='op'>=</span><span class='cn'>TRUE</span>,
+                  pch<span class='op'>=</span><span class='fl'>16</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-19-1.png" width="864" /></p>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

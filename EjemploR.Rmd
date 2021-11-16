@@ -14,20 +14,104 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Instalar los paquetes necesarios
 
-```{r echo=TRUE, eval = TRUE}
+```{r echo=TRUE}
 
 library(tidyverse)
 library(ggplot2)
 library(ggthemes)
 library(dplyr)
+library(here)
 
 ```
 
 
+## Establecer el directorio de trabajo
+
+
+
+```{r echo=TRUE}
+here()
+
+X <- read_csv(here::here("data/LEM_proxies.csv"))
+```
+
+
+## Miremos los datos
+
+```{r echo=TRUE}
+str(X) #para ver la estructura de los datos
+summary(X[,5:16]) # Resumen de los datos
+```
+
+## Calcular promedios de una variable para niveles de un factor
+
+```{r echo=TRUE}
+tapply(X$TOC, X$Facie, mean) #calcular promedios por factor
+```
+
+## Análisis exploratorio de datos y gráficos 
+
+## Boxplot
+
+```{r echo=TRUE}
+boxplot(X$TOC ~ X$Unit, notch=TRUE, ylab="TOC") #compara las medias visualmente
+h <- hist(X$TOC, plot = F)
+str(h)
+plot(h, col = heat.colors(length(h$mids))[length(h$count) - rank(h$count) + 1], ylim = c(0,   max(h$count) + 5),
+     main = "Frequency histogram, El Maule (Organic Carbon)",
+     sub = "Total Organic Carbon",
+     xlab = "TOC (%)")
+```
+
+## Instalar paquetes otra forma
+
+```{r echo=TRUE}
+if(!require(dplyr)){
+  install.packages("dplyr")
+  library("dplyr")
+}
+```
+
+
+## Matrix of plots in one figure
+
+```{r echo=TRUE}
+y01<-na.omit(select(X,TOC))
+y02<-na.omit(select(X,Unit,TOC,TIC,TS,TN))
+
+par(mfrow=c(2,2)) # 2x2 matrix of plots in one figure
+boxplot(y01$TOC, data=y01,notch=T, horizontal=T,main="Boxplot of TOC")
+hist(y01$TOC, freq=F,main="Probability density for TOC")
+lines(density(y01$TOC),lwd=2)
+lines(density(y01$TOC, adj=.5),lwd=1)
+lines(density(y01$TOC, adj=2),lwd=1.5)
+qqnorm(y01$TOC, main="QQ plot for Clay 0-10cm vs Normal distribution",ylab="TOC %")
+qqline(y01$TOC, col=4)
+qqnorm(log(y01$TOC), main="QQ plot for TOC vs lognormal distribution",ylab="log(TOC %)")
+qqline(log(y01$TOC), col=4)
+```
+
+
+## ggplot Histograma
+
 {ggplot2} es una implementación de Grammar of Graphics de Wilkinson (2006), pero no es necesario leer los libros para comenzar a usarlo. Si volvemos a los datos de Star Wars (contenidos en dplyr) y deseamos dibujar una gráfica de barras del género, las siguientes líneas son suficientes:
 
 
-```{r}
+```{r echo=TRUE}
+ggplot(data = y02) +
+  geom_histogram(aes(x = TOC, fill = Unit))
+ggplot(data = y02) +
+  geom_area(aes(x = TOC, fill = Unit), stat = "bin", position = "stack")
+ggplot(y01, aes(x = TOC), bins = 30) + 
+  geom_histogram(aes(y = ..density..), fill = 'red', alpha = 0.5) + 
+  geom_density(colour = 'blue') + xlab(expression(bold('Simulated Samples'))) +
+  ylab(expression(bold('Density')))
+```
+
+
+## Plot de barras
+
+```{r echo=TRUE}
 ggplot(starwars, aes(gender)) +
   geom_bar()
 ```
@@ -35,17 +119,17 @@ ggplot(starwars, aes(gender)) +
 
 El primer argumento de la función son los datos (llamados starwars en este ejemplo), y luego la función aes (). Esta función es donde enumera las variables que desea asignar a la estética de las funciones geoms. En la segunda línea, verá que usamos la función geom_bar (). Esta función crea una gráfica de barras de la variable de género. Puede obtener diferentes tipos de gráficos utilizando diferentes funciones geom_. También puede proporcionar el argumento aes () a la función geom _ * ():
 
-```{r}
+```{r echo=TRUE}
 ggplot(starwars) +
   geom_bar(aes(gender))
 ```
 
 
-La diferencia entre estos dos enfoques es que cuando especificas la estética en la función ggplot (), todas las funciones geom _ * () que siguen heredarán esta estética. Esto es útil si desea evitar escribir el mismo código una y otra vez, pero puede ser problemático si necesita especificar una estética diferente para diferentes funciones geom _ * (). Esto quedará claro en un ejemplo posterior.
+La diferencia entre estos dos enfoques es que cuando especificas la estética en la función ggplot(), todas las funciones geom _ * () que siguen heredarán esta estética. Esto es útil si desea evitar escribir el mismo código una y otra vez, pero puede ser problemático si necesita especificar una estética diferente para diferentes funciones geom _ * (). Esto quedará claro en un ejemplo posterior.
 
 Puede agregar opciones a sus gráficos, por ejemplo, puede cambiar el sistema de coordenadas en su gráfico de barras:
 
-```{r}
+```{r echo=TRUE}
 ggplot(starwars, aes(gender)) +
   geom_bar() +
   coord_flip()
@@ -57,7 +141,7 @@ ggplot(starwars, aes(gender)) +
 
 Los diagramas de dispersión son muy útiles, especialmente si está tratando de averiguar la relación entre dos variables. Por ejemplo, hagamos un diagrama de dispersión de la altura frente al peso de los personajes de Star Wars:
 
-```{r}
+```{r echo=TRUE}
 starwars %>%
   filter(!str_detect(name, "Jabba")) %>%
   ggplot() +
@@ -65,9 +149,31 @@ starwars %>%
 ```
 
 
+### Analisis Exp. Bivariate
+
+```{r echo=TRUE, fig.height=9, fig.width=8}
+par(mfrow=c(2,2))#
+plot(y02$TIC,y02$TN,xlim=c(0,1.2),ylim=c(0,1),cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5); abline(0,1,lty=2);
+title("TIC vs. TN")
+abline(h=mean(y02$TN)); abline(v=mean(y02$TIC))
+#
+plot(y02$TOC,y02$TN,xlim=c(0,5.5),ylim=c(0,1),pch=20,cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5); abline(0,1,lty=2)
+title("TOC vs. TN")
+abline(h=mean(y02$TN)); abline(v=mean(y02$TOC))
+#
+plot(y02$TOC,y02$TS,cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5); abline(0,1,lty=2)
+title("TOC vs. TS")
+abline(h=mean(y02$TS)); abline(v=mean(y02$TOC))
+#
+plot(y02$TOC,y02$TIC,pch=20,cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5); abline(0,1,lty=2)
+title("TOC vs. TIC")
+abline(h=mean(y02$TIC)); abline(v=mean(y02$TOC))
+```
+
+
 ## Density
 
-```{r}
+```{r echo=TRUE}
 starwars %>%
   filter(gender %in% c("feminine", "masculine")) %>%
   ggplot(aes(height, fill = gender)) +
@@ -79,7 +185,7 @@ starwars %>%
 
 En algunos casos, tiene una variable de factor que separa los datos que desea representar en diferentes categorías. Si desea tener un gráfico por categoría, puede usar la función facet_grid (). Sin embargo, tenga cuidado, esta función no toma una variable como argumento, sino una fórmula, de ahí el símbolo ~ en el siguiente código:
 
-```{r}
+```{r echo=TRUE}
 starwars %>%
   rowwise() %>%
   mutate(n_films = length(films)) %>%
@@ -97,11 +203,40 @@ starwars %>%
 
 Podemos agregar una línea de regresión a este diagrama de dispersión:
 
-```{r}
+```{r echo=TRUE}
 starwars %>%
   filter(!str_detect(name, "Jabba")) %>%
   ggplot() +
     geom_point(aes(height, mass, size = birth_year, colour = gender)) +
     geom_smooth(aes(height, mass), method  = "lm")
 ```
+
+## Correlación Bivariate
+
+```{r echo=TRUE}
+sum((y02$TS-mean(y02$TS))*(y02$TOC-mean(y02$TOC)))/(length(y02$TS)-1)
+cov(y02$TOC,y02$TS)
+sd(y02$TOC); sd(y02$TS)
+cov(y02$TOC,y02$TS)/(sd(y02$TOC)*sd(y02$TS))
+cor(y02$TOC,y02$TS)
+cor.test(y02$TOC,y02$TS)
+```
+
+
+## Visualización de Correlación entre variables
+
+```{r echo=TRUE}
+if(!require(PerformanceAnalytics)){install.packages("PerformanceAnalytics")
+  library("PerformanceAnalytics")
+}
+```
+
+```{r echo=TRUE, fig.height=8, fig.width=9}
+chart.Correlation(X[,9:16],
+                  method="pearson",
+                  histogram=TRUE,
+                  pch=16)
+```
+
+
 
