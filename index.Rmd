@@ -99,6 +99,6 @@ Matías
 
 
 -   [13:30 Introducción a R](slides/Introduction_R.html)
--   [13:30 CODIGO](slides/Session_intro_r.R)
--   [13:30 DATA](slides/LEM_proxies.csv)
+-   [13:30 CODIGO](Session_intro_r.R)
+-   [13:30 DATA](LEM_proxies.csv)
 
