@@ -97,7 +97,6 @@ Matías
 
 ### Slides
 
-
 -   [13:30 Introducción a R](slides/Introduction_R.html)
--   [13:30 DATA](LEM_proxies.csv)
+
 
