@@ -98,5 +98,5 @@ Matías
 ### Slides
 
 
--   [15:00 Practicó con Git y GitHub](slides/Git_GitHub.html)
+-   [13:30 Introducción a R](slides/Introduction_R.html)
 
