@@ -2318,7 +2318,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#análisis-exploratorio-de-datos-y-gráficos">Análisis exploratorio de datos y gráficos</a></li>
 <li><a href="#boxplot">Boxplot</a></li>
 <li><a href="#instalar-paquetes-otra-forma">Instalar paquetes otra forma</a></li>
-<li><a href="#matrix-of-plots-in-one-figure">Matrix of plots in one figure</a></li>
+<li><a href="#matriz-de-plot-en-una-figura">Matriz de plot en una figura</a></li>
 <li><a href="#ggplot-histograma">ggplot Histograma</a></li>
 <li><a href="#plot-de-barras">Plot de barras</a></li>
 <li><a href="#scatter-plots">Scatter plots</a>
@@ -2510,7 +2510,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </code></pre>
 </div>
 </div>
-<h2 id="matrix-of-plots-in-one-figure">Matrix of plots in one figure</h2>
+<h2 id="matriz-de-plot-en-una-figura">Matriz de plot en una figura</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>y01</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>X</span>,<span class='va'>TOC</span><span class='op'>)</span><span class='op'>)</span>
@@ -2528,7 +2528,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <span class='fu'><a href='https://rdrr.io/r/stats/qqnorm.html'>qqline</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>y01</span><span class='op'>$</span><span class='va'>TOC</span><span class='op'>)</span>, col<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="EjemploR_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+<p><img src="EjemploR_files/figure-html5/unnamed-chunk-7-1.png" width="864" /></p>
 </div>
 <h2 id="ggplot-histograma">ggplot Histograma</h2>
 <p>{ggplot2} es una implementación de Grammar of Graphics de Wilkinson (2006), pero no es necesario leer los libros para comenzar a usarlo. Si volvemos a los datos de Star Wars (contenidos en dplyr) y deseamos dibujar una gráfica de barras del género, las siguientes líneas son suficientes:</p>
