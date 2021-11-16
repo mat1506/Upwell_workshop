@@ -21,7 +21,7 @@
     <meta property="article:author" content="Matías Frugone-Álvarez"/>
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
     <script src="libs/panelset/panelset.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"a940ba8c900f47dc8b6adbc563f1777c","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x6849f5f6a96467f9cf7efea34bcc00f","expires":1}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -619,18 +619,8 @@ El package `"here"` permite una fácil referencia de archivos mediante el uso de
 ```r
 library(tidyverse)
 library(here)
-## here() starts at /home/mat1506/Documents/workflows/Upwell_workshop
 here()
-## [1] "/home/mat1506/Documents/workflows/Upwell_workshop"
 X &lt;- read_csv(here::here("data/LEM_proxies.csv"))
-## Rows: 501 Columns: 25
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## chr  (9): ID, Unit, Facie, Montmorillonite, Muscovite, Talc, Riebeckite, Cli...
-## dbl (16): depth, MS, Den, FP, TS, TC, TIC, TOC, BioSi, TN, TOC/TN, d15N, d13...
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ---

@@ -604,7 +604,7 @@ legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
 El package `"here"` permite una fácil referencia de archivos mediante el uso del directorio de nivel superior de un proyecto de archivo para crear fácilmente rutas de archivo.
 
 
-```{r here ,echo=TRUE, eval = TRUE}
+```{r here ,echo=TRUE, eval = FALSE}
 library(tidyverse)
 library(here)
 here()
