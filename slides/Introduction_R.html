@@ -21,7 +21,7 @@
     <meta property="article:author" content="Matías Frugone-Álvarez"/>
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
     <script src="libs/panelset/panelset.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xedc3f07ec944ce599b86e36736177df","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"a940ba8c900f47dc8b6adbc563f1777c","expires":1}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -327,7 +327,7 @@ class(x)
 
 ---
 
-## Tipo Matiz y Data Frame
+## Tipo Matriz y Data Frame
 
 La diferencias entre ambas, es que las matrices almacenan un unico tipo de datos, mientras que los data frames pueden contener distintos tipos de datos.
 .panelset[
@@ -610,8 +610,28 @@ legend("topleft",col="blue",legend ="Density Function", lwd=3, bty = "n")
 
 ---
 
-## CARGANDO DATOS 
+## Directorio de trabajo
 
+El package `"here"` permite una fácil referencia de archivos mediante el uso del directorio de nivel superior de un proyecto de archivo para crear fácilmente rutas de archivo.
+
+
+
+```r
+library(tidyverse)
+library(here)
+## here() starts at /home/mat1506/Documents/workflows/Upwell_workshop
+here()
+## [1] "/home/mat1506/Documents/workflows/Upwell_workshop"
+X &lt;- read_csv(here::here("data/LEM_proxies.csv"))
+## Rows: 501 Columns: 25
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr  (9): ID, Unit, Facie, Montmorillonite, Muscovite, Talc, Riebeckite, Cli...
+## dbl (16): depth, MS, Den, FP, TS, TC, TIC, TOC, BioSi, TN, TOC/TN, d15N, d13...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
 
 ---
     </textarea>
