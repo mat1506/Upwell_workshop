@@ -5,7 +5,7 @@ description: |
 author:
   - name: Matías Frugone-Álvarez 
     url: https://matfrugone.netlify.app
-    affiliation: tecnico de dato UPWELL
+    affiliation: Postdoctorado UPWELL
     affiliation_url: https://matfrugone.netlify.app
 date: "`r Sys.Date()`"
 output: distill::distill_article
@@ -371,7 +371,7 @@ head(maule_pd[[1]]$counts)
 
 Here we can get to the papers that published about a site of interest:
 
-```{r  seemaulepub, echo=TRUE, eval = TRUE}
+```{r  seemaulepub, echo=TRUE, eval = FALSE}
 get_publication(datasetid = 19817)
 ```
 

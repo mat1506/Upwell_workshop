@@ -1,6 +1,10 @@
 base
-neotoma
-leaflet
+methods
+datasets
+utils
+grDevices
+graphics
+stats
 tidyverse
 ggplot2
 tibble
@@ -11,3 +15,9 @@ dplyr
 stringr
 forcats
 ggthemes
+here
+zoo
+xts
+PerformanceAnalytics
+neotoma
+leaflet
