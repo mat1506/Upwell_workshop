@@ -121,7 +121,7 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 - **Target group**: a toda la comunidad vinculada al núcleo milenio UPWELL, particularmente estudiantes jóvenes, estudiantes de magíster de los programas nacionales de Ciencias Marinas, Ecología y Arqueología 
 
-### **Activities**
+### **Actividades**
 
 - Utilizando bases de datos en línea
 - Buscar, descubrir y descargar bases de datos en línea
@@ -140,7 +140,7 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 - **Target group**: la comunidad de UPWELL junto con los principales investigadores de otros centros nacionales e internacionales (People3000, Neotoma, Hope project, Archaeoglobe, Marum)
 
-### **Activities**
+### **Actividades**
 
 - Focus Group sobre bases de datos en línea: pasado, presente y futuro
 - Comunidades de base de datos emergentes en línea y síntesis.
@@ -205,7 +205,7 @@ Matías
 
 ## Links
 
-### Slides
+### Introducción a R (Slides)
 
 -   [13:30 Introducción a R](slides/Introduction_R.html)
 
