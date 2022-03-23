@@ -1,5 +1,5 @@
 ---
-title: "Talleres UPWELL: investigación abierta, análisis datos y metadatos en investigación reproducible"
+title: "Talleres UPWELL: ciencia abierta, análisis datos y metadatos en investigación reproducible"
 author:
 - name: Dra. Eugenia Gayo
   url: http://www.upwell.cl/web/biogeoquimica-de-humboldt/
