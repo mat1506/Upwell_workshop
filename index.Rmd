@@ -43,12 +43,20 @@ knitr::include_url("slides/index.html")
 # **Programa de los talleres**
 
 # **Install Party!** 
-(27 de mayo, 9 am)
+(27 de Mayo)
+
+### **Matinal**
+(9.00 am)
 
 Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub: 
 
 - Instalar Git y crear una cuenta en GitHub.
 - Instalar R y Rstudio
+
+### **Vespertino** 
+(2.30 pm)
+
+- Instalar Python.
 
 # **Sesión Cero** 
 (Viernes 3 de Junio)
