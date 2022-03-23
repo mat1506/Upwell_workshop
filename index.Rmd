@@ -165,8 +165,8 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 -   Instalar la última version de [Zoom](https://zoom.us/download).
 -   Instalar la última versión del Sofware [R](https://www.r-project.org/).
 -   Instalar la última versión de [RStudio](https://www.rstudio.com/).
--   Instalar Python > 3.8 [Git](https://www.python.org/).
--   Instalar Conda [Git](https://docs.conda.io/en/latest/).
+-   Instalar  [Python](https://www.python.org/) > 3.8.
+-   Instalar [Conda](https://docs.conda.io/en/latest/).
 -   Instalar la última version de [Git](https://git-scm.com/).
 -   Crear una cuenta en [GitHub](https://github.com/).
 -   Únase a una sesión de verificación (*Install Party*) de tecnología previa al curso; los detalles se encuentran en el correo electrónico previo al curso.
