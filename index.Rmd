@@ -51,56 +51,59 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 # **Sesión Cero** 
 
-## AM (Viernes 3 de Junio, 9.00 am)
+### **AM** (Viernes 3 de Junio, 9.00 am)
 
-### Charla de bienvenida (15 min)
+-   Charla de bienvenida (15 min)
 
-### Conceptos básicos de investigación abierta (45 min)
-
--   Investigación reproducible y análisis de datos.
--   Acceso abierto a los datos e investigaciones publicadas.
--   Licencias y formatos de archivo.
--   Plataformas de colaboración.
--   Revisión abierta por pares y las métricas.
--   Políticas de ciencia abierta
+- Conceptos básicos de investigación abierta (45 min)
+  - Investigación reproducible y análisis de datos.
+  - Acceso abierto a los datos e investigaciones publicadas.
+  - Licencias y formatos de archivo.
+  - Plataformas de colaboración.
+  - Revisión abierta por pares y las métricas.
+  - Políticas de ciencia abierta
   
-### Coffee Break (15 min)  
+#### Coffee Break (15 min)  
 
-### Introduccion a Git y GitHub (90 min)
-
--   Git 
--   Setup GitHub y RStudio
+- Introducción a Git y GitHub (90 min)
+  - Git 
+  - Set up GitHub y RStudio
 
 ### Almuerzo (1.00-2.30 pm)  
   
-## PM (2.30 pm)
+### **PM** (2.30 pm)
 
-### Git/GitHub con R y introducción a RMarkdown (45 min)
-
-### RStudio con Git
-
--   RMarkdown
+- Git/GitHub con R y introducción a RMarkdown (45 min)
+  - RStudio con Git
+  - RMarkdown
   
 ### Coffee Break (15 min)
 
-### Workflow I (45 min)
-
--   Data types, structures and classes
--   Tidy data: introducción a tidyverse packages
--   Introducción a Data visualization: ggplot2 package
--   Introducción a Exploratory Data Analysis (EDA) in R
+- Workflow I (45 min)
+  - Data types, structures and classes
+  - Tidy data: introducción a tidyverse packages
+  - Introducción a Data visualization: ggplot2 package
+  - Introducción a Exploratory Data Analysis (EDA) in R
  
 ### Coffee Break (15 min)
 
-### Workflow II (75 min)
-
--    Compendios de Investigación
- 
-### Palabras de clausura (15 min)
+- Workflow II (75 min)
+  - Compendios de Investigación
+  
+- Palabras de clausura (15 min)
 
 
 # **Sesión Uno**    
 
+**Objetivo**: entregar a los investigadorxs y estudiantes herramientas para que comprendan, adopten y utilicen la versatilidad de las bases de datos abiertas distribuidas globalmente en Arqueología, Paleoecología, Paleoclimatología y Ecología. 
+
+**Target group**: a toda la comunidad vinculada a la temática del núcleo milenio UPWELL, particularmente estudiantes jóvenes y investigadores de carrera temprana (ECR) 
+
+### **Actividades**
+
+- Introducción a las base de datos y repositorio de acceso abierto (Zenodo, GitHub, Dryad, OSF, figshare, etc)
+- Ejemplos de bases de datos utilizadas en arqueología, paleoecológico, paleoclimatología y proyectos ecológicos (P3k14c, Pangea, NOAA, Neotoma, Gnip, Gnir, EML, WHOI, WOD, IODE, etc.) 
+- Target Datasets: GitHub de UPWELL
 
 ## Pre-requisitos
 
