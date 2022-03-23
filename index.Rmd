@@ -1,5 +1,5 @@
 ---
-title: "Taller UPWELL: introducción al uso de datos y metadatos en investigación reproducible"
+title: "Talleres UPWELL: investigación abierta, análisis datos y metadatos en investigación reproducible"
 author:
 - name: Dra. Eugenia Gayo
   url: http://www.upwell.cl/web/biogeoquimica-de-humboldt/
@@ -40,16 +40,16 @@ knitr::include_url("slides/index.html")
 
 \
 
-# Programa
+# **Programa**
 
-# Install Party! (3-4 hrs)
+# **Install Party!** (3-4 hrs)
 
 Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub: 
 
 - Instalar Git y crear una cuenta en GitHub.
 - Instalar R y Rstudio
 
-# Sesión Cero 
+# **Sesión Cero** 
 
 ## AM (Viernes 3 de Junio, 9.00 am)
 
@@ -99,7 +99,7 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 ### Palabras de clausura (15 min)
 
 
-# Sesión Uno    
+# **Sesión Uno**    
 
 
 ## Pre-requisitos
