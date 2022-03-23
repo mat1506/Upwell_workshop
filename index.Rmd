@@ -40,18 +40,21 @@ knitr::include_url("slides/index.html")
 
 \
 
-# **Programa**
+# **Programa de los talleres**
 
-# **Install Party!** (27 de mayo, 9 am)
+# **Install Party!** 
+(27 de mayo, 9 am)
 
 Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub: 
 
 - Instalar Git y crear una cuenta en GitHub.
 - Instalar R y Rstudio
 
-# **Sesión Cero** (3 de Junio, 9 am)
+# **Sesión Cero** 
+(Viernes 3 de Junio)
 
-### **AM**
+### **Matinal**
+(9.00 am)
 
 -   Charla de bienvenida (15 min)
 
@@ -63,21 +66,23 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
   - Revisión abierta por pares y las métricas.
   - Políticas de ciencia abierta
   
-#### Coffee Break (15 min)  
+- Coffee Break (15 min)  
 
 - Introducción a Git y GitHub (90 min)
   - Git 
   - Set up GitHub y RStudio
 
-### Almuerzo (1.00-2.30 pm)  
+- Almuerzo 
+(1.00-2.30 pm)  
   
-### **PM** (2.30 pm)
+### **Vespertino** 
+(2.30 pm)
 
 - Git/GitHub con R y introducción a RMarkdown (45 min)
   - RStudio con Git
   - RMarkdown
   
-### Coffee Break (15 min)
+- Coffee Break (15 min)
 
 - Workflow I (45 min)
   - Data types, structures and classes
@@ -85,7 +90,7 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
   - Introducción a Data visualization: ggplot2 package
   - Introducción a Exploratory Data Analysis (EDA) in R
  
-### Coffee Break (15 min)
+- Coffee Break (15 min)
 
 - Workflow II (75 min)
   - Compendios de Investigación
@@ -93,17 +98,57 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 - Palabras de clausura (15 min)
 
 
-# **Sesión Uno** (11 y 12 de Agosto, 9 am)    
+# **Sesión Uno** 
+(11 y 12 de Agosto, 9 am)    
 
 **Objetivo**: entregar a los investigadorxs y estudiantes herramientas para que comprendan, adopten y utilicen la versatilidad de las bases de datos abiertas distribuidas globalmente en Arqueología, Paleoecología, Paleoclimatología y Ecología. 
 
-**Target group**: a toda la comunidad vinculada a la temática del núcleo milenio UPWELL, particularmente estudiantes jóvenes y investigadores de carrera temprana (ECR) 
+**Target group**: a toda la comunidad vinculada al núcleo milenio UPWELL, particularmente estudiantes jóvenes y investigadores de carrera temprana (ECR) 
 
 ### **Actividades**
 
 - Introducción a las base de datos y repositorio de acceso abierto (Zenodo, GitHub, Dryad, OSF, figshare, etc)
 - Ejemplos de bases de datos utilizadas en arqueología, paleoecológico, paleoclimatología y proyectos ecológicos (P3k14c, Pangea, NOAA, Neotoma, Gnip, Gnir, EML, WHOI, WOD, IODE, etc.) 
-- Target Datasets: GitHub de UPWELL
+- Uploading your data: edición de metadata, estructura de datos, generación de DOI para datos, etc.
+- Downloading the data: the Rstudio interface
+
+#### Target Datasets: GitHub de UPWELL
+
+# **Sesión Dos** 
+(11 y 12 de Agosto, 9 am)  
+
+- **Objetivo**: introduccir a un grupo diverso de estudiantes y ECR en el uso de los repositorios de datos abiertos en investigación centrada en las bases de datos arqueológicas, paleocológicas, paleoclimatológicas y ecológicas. 
+
+- **Target group**: a toda la comunidad vinculada al núcleo milenio UPWELL, particularmente estudiantes jóvenes, estudiantes de magíster de los programas nacionales de Ciencias Marinas, Ecología y Arqueología 
+
+### **Activities**
+
+- Utilizando bases de datos en línea
+- Buscar, descubrir y descargar bases de datos en línea
+- Diagramas y análisis básicos, *y no tan básicos*, usando R, Matlab, Python 
+
+- **Target Datasets**: El UPWELL GitHub + Conjuntos de datos disponibles públicamente de interés para los participantes relacionadas a las temáticas del núcleo.
+
+- **Requisitos**: R, Rstudio, Python y Git instalados. 
+
+
+# **Sesión Tres** 
+(11 y 12 de Agosto, 9 am)  
+
+
+- **Objetivo**: presentar los conjuntos de datos de Upwell y nuestros avances preliminares a una audiencia nacional e internacional. Incluye conferencias de clase mundial sobre el uso de flujos de datos interdisciplinarios para la investigación científica para comprender la co-evolución entre los sistemas sociales y biofísicos, particularmente en las regiones de upwell, junto con sus impactos locales y duraderos. 
+
+- **Target group**: la comunidad de UPWELL junto con los principales investigadores de otros centros nacionales e internacionales (People3000, Neotoma, Hope project, Archaeoglobe, Marum)
+
+### **Activities**
+
+- Focus Group sobre bases de datos en línea: pasado, presente y futuro
+- Comunidades de base de datos emergentes en línea y síntesis.
+- Scripts avanzados y análisis  
+
+- **Target Datasets**: El UPWELL GitHub + Conjuntos de datos disponibles públicamente de interés para los participantes relacionadas a las temáticas del núcleo.
+
+- **Requisitos**: conocimientos sobre R, Rstudio, Python y Git.
 
 ## Pre-requisitos
 
@@ -112,13 +157,15 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 -   Instalar la última version de [Zoom](https://zoom.us/download).
 -   Instalar la última versión del Sofware [R](https://www.r-project.org/).
 -   Instalar la última versión de [RStudio](https://www.rstudio.com/).
+-   Instalar Python > 3.8 [Git](https://www.python.org/).
+-   Instalar Conda [Git](https://docs.conda.io/en/latest/).
 -   Instalar la última version de [Git](https://git-scm.com/).
 -   Crear una cuenta en [GitHub](https://github.com/).
--   Únase a una sesión de verificación de tecnología previa al curso; los detalles se encuentran en el correo electrónico previo al curso.
+-   Únase a una sesión de verificación (*Install Party*) de tecnología previa al curso; los detalles se encuentran en el correo electrónico previo al curso.
 
-### Opcional
+### Recomendado
 
-Configure la clase con una computadora portátil que tenga lo siguiente instalado:
+Configure su computadora portátil con lo siguiente:
 
 <aside>
 
@@ -126,15 +173,13 @@ El día de la clase, le proporcionaremos un enlace a un proyecto de GitHub que c
 
 </aside>
 
--   Una versión reciente de R (\>=4.1.0), disponible en <https://cran.r-project.org/>
+#### Algunos de los R packages que vamos a utilizar;
 
--   Una versión reciente de RStudio Desktop (\>=RStudio Desktop 2022.02.0+443), disponible en <https://www.rstudio.com/download> (RStudio Desktop Open Source License)
+R packages 
 
--   Los R packages que vamos a utilizar;
-
-    ```{r echo=TRUE, eval = FALSE}
-    install.packages(c("tidyverse","devtools", "tinytex", "rmarkdown", "usethis", "here", "neotoma","Rtools"))
-    ```
+```{r echo=TRUE, eval = FALSE}
+install.packages(c("tidyverse","devtools", "tinytex", "rmarkdown", "usethis", "here", "neotoma"))
+```
 
 Una vez que tinytex está instalado, utilícelo para instalar una instalación mínima de LaTeX:
 
@@ -144,15 +189,15 @@ tinytex::install_tinytex()
 
 ```
 
-Algunos de estos son paquetes grandes, por lo que es mejor comenzar a instalarlos. Si tiene algún problema de instalación, venga a verme en la próxima pausa para el café.
+Algunos de estos paquetes son grandes, por lo que es mejor instalarlos antes del curso. Si tiene algún problema de instalación,  hable con nosotrxs antes del curso o durante la próxima pausa para el café.
 
 <aside>
 
-Usaremos el software mencionado anteriormente solo como una copia de seguridad importante en caso de que haya problemas con la conexión del servidor del aula.
+Usaremos los softwares mencionados anteriormente solo como una copia de seguridad importante en caso de que haya problemas con la conexión del servidor del aula.
 
 </aside>
 
-I look forward to meeting you,
+Nos vemos en los talleres!!,
 
 Matías
 
