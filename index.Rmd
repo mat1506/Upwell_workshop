@@ -42,14 +42,14 @@ knitr::include_url("slides/index.html")
 
 # **Programa**
 
-# **Install Party!** (Viernes 27 de mayo, 3-4 hrs)
+# **Install Party!** (Viernes 27 de mayo, 9 am)
 
 Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub: 
 
 - Instalar Git y crear una cuenta en GitHub.
 - Instalar R y Rstudio
 
-# **Sesión Cero** (Viernes 3 de Junio, 9.00 am)
+# **Sesión Cero** (Viernes 3 de Junio, 9 am)
 
 ### **AM**
 
@@ -93,7 +93,7 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 - Palabras de clausura (15 min)
 
 
-# **Sesión Uno** (Viernes 11 y Sabado 12 de Agosto, 9.00 am)    
+# **Sesión Uno** (11 y 12 de Agosto, 9 am)    
 
 **Objetivo**: entregar a los investigadorxs y estudiantes herramientas para que comprendan, adopten y utilicen la versatilidad de las bases de datos abiertas distribuidas globalmente en Arqueología, Paleoecología, Paleoclimatología y Ecología. 
 
