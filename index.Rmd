@@ -1,5 +1,5 @@
 ---
-title: "Taller UPWELL: introducción a bases de datos y metadatos"
+title: "Taller UPWELL: introducción al uso de datos y metadatos en investigación reproducible"
 author:
 - name: Dra. Eugenia Gayo
   url: http://www.upwell.cl/web/biogeoquimica-de-humboldt/
@@ -15,11 +15,11 @@ author:
   affiliation_url: http://www.upwell.cl/web/ecologia-de-humboldt/
 - name: Dr. Matías Frugone-Álvarez.
   url: https://matfrugone.netlify.app
-  affiliation: Tecnico de datos Upwell
-  affiliation_url: https://www.upwell.cl/web/  
+  affiliation: Postdoc UPWELL
+  affiliation_url: https://www.upwell.cl/web/postdocs/  
 date: "`r Sys.Date()`"
 description: |
-  Bienvenidxs a la website del taller sobre bases de datos del Núcleo Milenio UPWELL. `Espero que lo disfruten!`
+  Bienvenidxs a la website del taller sobre manejo de datos del Núcleo Milenio UPWELL. `Espero que lo disfruten!`
 site: distill::distill_website
 ---
 
@@ -40,6 +40,68 @@ knitr::include_url("slides/index.html")
 
 \
 
+# Programa
+
+# Install Party! (3-4 hrs)
+
+Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub: 
+
+- Instalar Git y crear una cuenta en GitHub.
+- Instalar R y Rstudio
+
+# Sesión Cero 
+
+## AM (Viernes 3 de Junio, 9.00 am)
+
+### Charla de bienvenida (15 min)
+
+### Conceptos básicos de investigación abierta (45 min)
+
+-   Investigación reproducible y análisis de datos.
+-   Acceso abierto a los datos e investigaciones publicadas.
+-   Licencias y formatos de archivo.
+-   Plataformas de colaboración.
+-   Revisión abierta por pares y las métricas.
+-   Políticas de ciencia abierta
+  
+### Coffee Break (15 min)  
+
+### Introduccion a Git y GitHub (90 min)
+
+-   Git 
+-   Setup GitHub y RStudio
+
+### Almuerzo (1.00-2.30 pm)  
+  
+## PM (2.30 pm)
+
+### Git/GitHub con R y introducción a RMarkdown (45 min)
+
+### RStudio con Git
+
+-   RMarkdown
+  
+### Coffee Break (15 min)
+
+### Workflow I (45 min)
+
+-   Data types, structures and classes
+-   Tidy data: introducción a tidyverse packages
+-   Introducción a Data visualization: ggplot2 package
+-   Introducción a Exploratory Data Analysis (EDA) in R
+ 
+### Coffee Break (15 min)
+
+### Workflow II (75 min)
+
+-    Compendios de Investigación
+ 
+### Palabras de clausura (15 min)
+
+
+# Sesión Uno    
+
+
 ## Pre-requisitos
 
 ### Esencial
@@ -57,15 +119,15 @@ Configure la clase con una computadora portátil que tenga lo siguiente instalad
 
 <aside>
 
-El día de la clase, le proporcionaremos un enlace a un proyecto de GitHub ClassRoom que contiene todos los materiales del curso.
+El día de la clase, le proporcionaremos un enlace a un proyecto de GitHub que contiene todos los materiales del curso.
 
 </aside>
 
--   Una versión reciente de R (\>=3.9.0), disponible en <https://cran.r-project.org/>
+-   Una versión reciente de R (\>=4.1.0), disponible en <https://cran.r-project.org/>
 
--   Una versión reciente de RStudio Desktop (\>=1.4.0), disponible en <https://www.rstudio.com/download> (RStudio Desktop Open Source License)
+-   Una versión reciente de RStudio Desktop (\>=RStudio Desktop 2022.02.0+443), disponible en <https://www.rstudio.com/download> (RStudio Desktop Open Source License)
 
--   Los R packages que vamos a usar;
+-   Los R packages que vamos a utilizar;
 
     ```{r echo=TRUE, eval = FALSE}
     install.packages(c("tidyverse","devtools", "tinytex", "rmarkdown", "usethis", "here", "neotoma","Rtools"))
