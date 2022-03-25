@@ -27,11 +27,9 @@ library(here)
 
 ## Establecer el directorio de trabajo
 
-
+[Desacargar datos aqui](https://github.com/mat1506/Upwell_workshop/blob/master/data/LEM_proxies.csv)
 
 ```{r echo=TRUE}
-here()
-
 X <- read_csv(here::here("data/LEM_proxies.csv"))
 ```
 
