@@ -54,7 +54,7 @@ knitr::include_url("slides/index.html")
 
 (9.00 am)
 
-Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub:
+Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub:
 
 -   Instalar Git y crear una cuenta en GitHub.
 -   Instalar R y Rstudio
@@ -65,7 +65,7 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 -   Instalar Python.
 
-# **Sesión Cero: Introducción a la investigación abierta reproducibles**
+# **Sesión Cero: introducción a la investigación abierta reproducibles**
 
 (Viernes 3 de Junio. Presencial PUC San Joaquín Santiago)
 
@@ -119,13 +119,15 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 -   Palabras de clausura (15 min)
 
-# **Sesiones de R con Google Earth Engine (GEE)**
+# **Sesiones GEE: R con Google Earth Engine (GEE)**
 
-(11 y 12 de Agosto, UCSC Concepción presencial)
+(11 y 12 de Agosto, UCSC Concepción presencial para estudiantes de postgrado, número de cupos=12)
 
 [carlos.lara\@ucsc.cl](mailto:carlos.lara@ucsc.cl){.email}
 
 ## **Sesión Uno**
+
+(11 de Agosto)
 
 **Objetivo**: permitir que lxs estudiantes puedan conectar su instalación de R con Google Earth Engine (GEE), para descargar y visualizar imágenes de interés.
 
@@ -146,9 +148,11 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 ## **Sesión Dos**
 
+(12 de Agosto)
+
 -   **Objetivo**: permitir que lxs estudiantes puedan realizar análisis básicos sobre imágenes, tales como gráficos y visualizaciones, índices y transformaciones lineales, uso de kernels sobre la imagen, y automatización de procesos.
 
--   **Target group**: estudiantes, investigadores y público en general que desee realizar análisis en percepción remota usando Google Earth Engine desde R.
+-   **Target group**: estudiantes, investigadorxs y público en general que desee realizar análisis en percepción remota usando Google Earth Engine desde R.
 
 ### **Actividades**
 
@@ -168,11 +172,13 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 -   **Requisitos**: Rstudio y GEE conectado.
 
-# **Sesiones de investigacion multidisciplinaria reproducible en Arqueología, Paleoecología, Paleoclimatología y Ecología**
-
-(11 y 12 de Agosto. Presencial PUC San Joaquín Santiago)
+# **Sesiones de investigación multidisciplinaria reproducible en Arqueología, Paleoecología, Paleoclimatología y Ecología**
 
 ## **Sesión Uno**
+
+(11 Agosto. Presencial PUC San Joaquín Santiago)
+
+### **Matinal**
 
 **Objetivo**: entregar a lxs investigadorxs y estudiantes herramientas para que comprendan, adopten y utilicen la versatilidad de las bases de datos abiertas distribuidas globalmente en Arqueología, Paleoecología, Paleoclimatología y Ecología.
 
@@ -189,7 +195,7 @@ Para los asistentes que no están familiarizados R/Rstudio/Git, no tienen instal
 
 ## **Sesión Dos**
 
-(11 y 12 de Agosto, 9 am)
+### **Vespertino**
 
 -   **Objetivo**: introducir a un grupo diverso de estudiantes y ECR en el uso de los repositorios de datos abiertos en investigación centrada en las bases de datos arqueológicas, paleocológicas, paleoclimatológicas y ecológicas.
 
