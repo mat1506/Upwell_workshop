@@ -48,6 +48,7 @@ knitr::include_url("slides/index.html")
 
 # **Install Party!**
 
+Responsable [Matías Frugone (email)](mailto:frugone.alvarez.m@gmail.com){.email}
 (27 de Mayo 2022 via Zoom)
 
 ### **Matinal**
@@ -65,7 +66,7 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 -   Instalar Python.
 
-# **Sesión Cero: introducción a la investigación abierta reproducibles**
+# **Workshop Cero: introducción a la investigación abierta reproducibles**
 
 (Viernes 3 de Junio. Presencial PUC San Joaquín Santiago)
 
@@ -119,11 +120,11 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 -   Palabras de clausura (15 min)
 
-# **Sesiones GEE: R con Google Earth Engine (GEE)**
+# **Workshop 1: R con Google Earth Engine (GEE)**
 
 (11 de Agosto, UCSC Concepción presencial para estudiantes de postgrado, número de cupos=12)
 
-[carlos.lara\@ucsc.cl](mailto:carlos.lara@ucsc.cl){.email}
+Responsable [carlos.lara\@ucsc.cl](mailto:carlos.lara@ucsc.cl){.email}
 
 ## **Sesión Uno**
 
@@ -172,11 +173,11 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 -   **Requisitos**: Rstudio y GEE conectado.
 
-# **Sesiones de investigación multidisciplinaria reproducible en Arqueología, Paleoecología, Paleoclimatología y Ecología**
+# **Workshop 2 UPWELL: investigación reproducible en Arqueología, Paleoecología, Paleoclimatología y Ecología**
 
 ## **Sesión Uno**
 
-(12 Agosto. Presencial PUC San Joaquín Santiago)
+(12 Agosto. UCSC Concepción presencial para estudiantes de postgrado, número de cupos=12)
 
 ### **Matinal**
 
@@ -213,7 +214,7 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 -   **Requisitos**: R, Rstudio, Python y Git instalados.
 
-# **Worksop 3 UPWELL: investigación multidisciplinaria integrativa en surgencias oceanográficas**
+# **Workshop 3 UPWELL: investigación multidisciplinaria integrativa en surgencias oceanográficas**
 
 (18 y 19 de Agosto)
 
