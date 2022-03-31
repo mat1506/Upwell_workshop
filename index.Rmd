@@ -121,13 +121,13 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 # **Sesiones GEE: R con Google Earth Engine (GEE)**
 
-(11 y 12 de Agosto, UCSC Concepción presencial para estudiantes de postgrado, número de cupos=12)
+(11 de Agosto, UCSC Concepción presencial para estudiantes de postgrado, número de cupos=12)
 
 [carlos.lara\@ucsc.cl](mailto:carlos.lara@ucsc.cl){.email}
 
 ## **Sesión Uno**
 
-(11 de Agosto)
+### **Matinal**
 
 **Objetivo**: permitir que lxs estudiantes puedan conectar su instalación de R con Google Earth Engine (GEE), para descargar y visualizar imágenes de interés.
 
@@ -148,7 +148,7 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 ## **Sesión Dos**
 
-(12 de Agosto)
+### **Vespertino**
 
 -   **Objetivo**: permitir que lxs estudiantes puedan realizar análisis básicos sobre imágenes, tales como gráficos y visualizaciones, índices y transformaciones lineales, uso de kernels sobre la imagen, y automatización de procesos.
 
@@ -176,7 +176,7 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 ## **Sesión Uno**
 
-(11 Agosto. Presencial PUC San Joaquín Santiago)
+(12 Agosto. Presencial PUC San Joaquín Santiago)
 
 ### **Matinal**
 
@@ -213,9 +213,9 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 -   **Requisitos**: R, Rstudio, Python y Git instalados.
 
-## **Sesión Tres**
+# **Worksop 3 UPWELL: investigación multidisciplinaria integrativa en surgencias oceanográficas**
 
-(11 y 12 de Agosto, 9 am)
+(18 y 19 de Agosto)
 
 -   **Objetivo**: presentar los conjuntos de datos de Upwell y nuestros avances preliminares a una audiencia nacional e internacional. Incluye conferencias de clase mundial sobre el uso de flujos de datos interdisciplinarios para la investigación científica para comprender la co-evolución entre los sistemas sociales y biofísicos, particularmente en las regiones de surgencias marinas, junto con sus impactos locales y duraderos.
 
