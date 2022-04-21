@@ -287,6 +287,8 @@ Matías F-Á\
 
 # Links
 
-### Introducción a R (Slides)
+# Slides: introducción a R y GitHub (2021)
 
--   [13:30 Introducción a R](slides/Introduction_R.html)
+-   [Introducción a R](slides/Introduction_R.html)
+-   [Introducción a Git](slides/Git_GitHub.html)
+
