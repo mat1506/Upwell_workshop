@@ -91,8 +91,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-04-20"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-04-20"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-05-26"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-05-26"/>
   <meta name="article:author" content="Matías Frugone Álvarez (modificado de David February 13, 2021)"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Cómo usar Git/GitHub con RStudio"]},{"type":"character","attributes":{},"value":["Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone Álvarez (modificado de David February 13, 2021)"]}]}]},{"type":"character","attributes":{},"value":["2022-04-20"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Cómo usar Git/GitHub con RStudio"]},{"type":"character","attributes":{},"value":["Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone Álvarez (modificado de David February 13, 2021)"]}]}]},{"type":"character","attributes":{},"value":["2022-05-26"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -1032,10 +1032,6 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     margin-top: 1.5em;
   }
 
-  .figure img {
-    width: 100%;
-  }
-
   .figure .caption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
@@ -1865,6 +1861,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
           return "<p>" + $('#ref-' + ref).html() + "</p>";
@@ -1879,6 +1881,31 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1978,6 +2005,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -2000,7 +2029,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2039,7 +2068,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2270,7 +2299,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Cómo usar Git/GitHub con RStudio","description":"Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/","authors":[{"author":"Matías Frugone Álvarez (modificado de David February 13, 2021)","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-04-20T00:00:00.000-04:00","citationText":"2021), 2022"}
+{"title":"Cómo usar Git/GitHub con RStudio","description":"Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/","authors":[{"author":"Matías Frugone Álvarez (modificado de David February 13, 2021)","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-05-26T00:00:00.000-04:00","citationText":"2021), 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2301,13 +2330,15 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h1>Cómo usar Git/GitHub con RStudio</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Este artículo es una traducción automática del artículo: <a href="https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/" class="uri">https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/</a></p></p>
+<p><p>Este artículo es una traducción automática del artículo: <a
+href="https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/"
+class="uri">https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/</a></p></p>
 </div>
 
 <div class="d-byline">
   Matías Frugone Álvarez (modificado de David February 13, 2021)  
   
-<br/>2022-04-20
+<br/>2022-05-26
 </div>
 
 <div class="d-article">
@@ -2317,30 +2348,49 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <ul>
 <li><a href="#cómo-usar-gitgithub-con-r">Cómo usar Git/GitHub con R</a>
 <ul>
-<li><a href="#qué-es-git-qué-es-github">1. ¿Qué es Git? ¿Qué es GitHub?</a>
+<li><a href="#qué-es-git-qué-es-github">1. ¿Qué es Git? ¿Qué es
+GitHub?</a>
 <ul>
-<li><a href="#por-qué-debería-usar-git-y-github">¿Por qué debería usar Git y GitHub?</a></li>
+<li><a href="#por-qué-debería-usar-git-y-github">¿Por qué debería usar
+Git y GitHub?</a></li>
 </ul></li>
 <li><a href="#cómo-configurar-git">2. Cómo configurar Git</a>
 <ul>
-<li><a href="#configurar-git-editar-gitconfig-file-desde-rstudio">2.1 Configurar Git (Editar gitconfig file) desde Rstudio</a></li>
+<li><a href="#configurar-git-editar-gitconfig-file-desde-rstudio">2.1
+Configurar Git (Editar gitconfig file) desde Rstudio</a></li>
 </ul></li>
-<li><a href="#conectar-rstudio-y-github">3. Conectar RStudio y GitHub</a>
+<li><a href="#conectar-rstudio-y-github">3. Conectar RStudio y
+GitHub</a>
 <ul>
 <li><a href="#regístrate-en-github">3.1 Regístrate en GitHub</a></li>
-<li><a href="#crear-un-token-de-acceso-personal-pat-en-github">3.2 Crear un token de acceso personal (PAT) en GitHub</a></li>
-<li><a href="#almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github">3.3 Almacenar token de acceso personal para conectar RStudio y GitHub</a></li>
+<li><a href="#crear-un-token-de-acceso-personal-pat-en-github">3.2 Crear
+un token de acceso personal (PAT) en GitHub</a></li>
+<li><a
+href="#almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github">3.3
+Almacenar token de acceso personal para conectar RStudio y
+GitHub</a></li>
 </ul></li>
-<li><a href="#manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual de sobreviviencia con Git y GitHub en RStudio</a>
+<li><a href="#manual-de-sobreviviencia-con-git-y-github-en-rstudio">4.
+Manual de sobreviviencia con Git y GitHub en RStudio</a>
 <ul>
-<li><a href="#encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted mismo</a></li>
-<li><a href="#dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a RStudio dónde encontrar a Git</a></li>
-<li><a href="#problemas-y-soluciones-rstudio-git-github">4.3 Problemas y soluciones RStudio, Git, GitHub</a></li>
+<li><a href="#encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted
+mismo</a></li>
+<li><a href="#dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a
+RStudio dónde encontrar a Git</a></li>
+<li><a href="#problemas-y-soluciones-rstudio-git-github">4.3 Problemas y
+soluciones RStudio, Git, GitHub</a></li>
 </ul></li>
-<li><a href="#inicializar-un-repositorio-git">5. Inicializar un repositorio Git</a></li>
-<li><a href="#ver-historial-de-confirmación">6. Ver historial de confirmación</a></li>
-<li><a href="#haga-una-consolidación-o-confirmación-commit-y-vea-más-historia">7. Haga una consolidación o confirmación (commit) y vea más historia</a></li>
-<li><a href="#cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github">8. Cómo conectar proyectos de RStudio con repositorios de GitHub</a>
+<li><a href="#inicializar-un-repositorio-git">5. Inicializar un
+repositorio Git</a></li>
+<li><a href="#ver-historial-de-confirmación">6. Ver historial de
+confirmación</a></li>
+<li><a
+href="#haga-una-consolidación-o-confirmación-commit-y-vea-más-historia">7.
+Haga una consolidación o confirmación (commit) y vea más
+historia</a></li>
+<li><a
+href="#cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github">8.
+Cómo conectar proyectos de RStudio con repositorios de GitHub</a>
 <ul>
 <li><a href="#rstudio-primero">8.1 RStudio Primero</a></li>
 <li><a href="#github-primero">8.2 GitHub Primero</a></li>
@@ -2348,9 +2398,11 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#flujo-de-trabajo-general">9. Flujo de trabajo general</a>
 <ul>
 <li><a href="#push-subir-a-github">9.1 Push (Subir a Github)</a></li>
-<li><a href="#pull-descargar-desde-github">9.2 Pull (Descargar desde Github)</a></li>
+<li><a href="#pull-descargar-desde-github">9.2 Pull (Descargar desde
+Github)</a></li>
 </ul></li>
-<li><a href="#colaborando-con-git-y-github">10. Colaborando con Git y Github</a>
+<li><a href="#colaborando-con-git-y-github">10. Colaborando con Git y
+Github</a>
 <ul>
 <li><a href="#colaborando">10.1 Colaborando</a></li>
 <li><a href="#branching">10.2 Branching</a></li>
@@ -2361,35 +2413,63 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </nav>
 </div>
 <h1 id="cómo-usar-gitgithub-con-r">Cómo usar Git/GitHub con R</h1>
-<p>El uso de Git y GitHub junto con RStudio tiene el poder de revolucionar la forma en que trabajas en R. Pero configurar todo puede ser un desafío.</p>
+<p>El uso de Git y GitHub junto con RStudio tiene el poder de
+revolucionar la forma en que trabajas en R. Pero configurar todo puede
+ser un desafío.</p>
 <h2 id="qué-es-git-qué-es-github">1. ¿Qué es Git? ¿Qué es GitHub?</h2>
 <p>En primer lugar, son dos cosas separadas:</p>
 <ol type="1">
-<li><p>Git es un software de código abierto para el control de versiones. Utilizando Git, puedes hacer cosas como ver todas las versiones anteriores de código que has creado en un proyecto.</p></li>
-<li><p>GitHub es el servicio más popular (otros incluyen GitLab y BitBucket) para colaborar en código y archivos usando Git.</p></li>
+<li><p>Git es un software de código abierto para el control de
+versiones. Utilizando Git, puedes hacer cosas como ver todas las
+versiones anteriores de código que has creado en un proyecto.</p></li>
+<li><p>GitHub es el servicio más popular (otros incluyen GitLab y
+BitBucket) para colaborar en código y archivos usando Git.</p></li>
 </ol>
-<p>Es posible usar Git sin usar GitHub, aunque la mayoría de la gente combina los dos. Poder tener un registro de todos los cambios que ha realizado en su código tanto localmente como en un sitio web remoto es poderoso.</p>
-<h3 id="por-qué-debería-usar-git-y-github">¿Por qué debería usar Git y GitHub?</h3>
+<p>Es posible usar Git sin usar GitHub, aunque la mayoría de la gente
+combina los dos. Poder tener un registro de todos los cambios que ha
+realizado en su código tanto localmente como en un sitio web remoto es
+poderoso.</p>
+<h3 id="por-qué-debería-usar-git-y-github">¿Por qué debería usar Git y
+GitHub?</h3>
 <ol type="1">
-<li><p><strong>El uso de Git y GitHub sirve como copia de seguridad</strong>.</p></li>
-<li><p><strong>El uso de Git y GitHub te permite usar el control de versiones</strong></p></li>
-<li><p><strong>El uso de Git y GitHub permite trabajar en el mismo proyecto al mismo tiempo que los colaboradores.</strong></p></li>
+<li><p><strong>El uso de Git y GitHub sirve como copia de
+seguridad</strong>.</p></li>
+<li><p><strong>El uso de Git y GitHub te permite usar el control de
+versiones</strong></p></li>
+<li><p><strong>El uso de Git y GitHub permite trabajar en el mismo
+proyecto al mismo tiempo que los colaboradores.</strong></p></li>
 </ol>
 <h2 id="cómo-configurar-git">2. Cómo configurar Git</h2>
-<p>Ahora que tienes un poco más de comprensión de lo que son Git y GitHub, hablemos de cómo configurar todo. Gran parte de lo que compartiré proviene del excelente libro <a href="http://happygitwithr.com/">Happy Git with R</a> de Jenny Bryan y Jim Hester. Sin embargo, en el momento de escribir este artículo (febrero de 2021), algunas cosas han cambiado con respecto a las credenciales. Adorno lo que creo que es el consejo más actualizado para configurar todo.</p>
-<h3 id="configurar-git-editar-gitconfig-file-desde-rstudio">2.1 Configurar Git (Editar gitconfig file) desde Rstudio</h3>
-<p>Primero abrímos un nuevo proyecto de Rstudio para configurar Git y Github</p>
-<p>El siguiente paso es configurar Git. Esto se trata en el <a href="https://happygitwithr.com/hello-git.html">Capítulo 7 de Happy Git with R</a>, aunque muestro lo que creo que es un proceso un poco más fácil. Específicamente, sugiero usar la función <a href="https://usethis.r-lib.org/reference/edit.html">edit_git_config() del paquete usethis</a>, que abrirá su <a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">archivo gitconfig</a>. Agregue su nombre y correo electrónico y cierre esto</p>
+<p>Ahora que tienes un poco más de comprensión de lo que son Git y
+GitHub, hablemos de cómo configurar todo. Gran parte de lo que
+compartiré proviene del excelente libro <a
+href="http://happygitwithr.com/">Happy Git with R</a> de Jenny Bryan y
+Jim Hester. Sin embargo, en el momento de escribir este artículo
+(febrero de 2021), algunas cosas han cambiado con respecto a las
+credenciales. Adorno lo que creo que es el consejo más actualizado para
+configurar todo.</p>
+<h3 id="configurar-git-editar-gitconfig-file-desde-rstudio">2.1
+Configurar Git (Editar gitconfig file) desde Rstudio</h3>
+<p>Primero abrímos un nuevo proyecto de Rstudio para configurar Git y
+Github</p>
+<p>El siguiente paso es configurar Git. Esto se trata en el <a
+href="https://happygitwithr.com/hello-git.html">Capítulo 7 de Happy Git
+with R</a>, aunque muestro lo que creo que es un proceso un poco más
+fácil. Específicamente, sugiero usar la función <a
+href="https://usethis.r-lib.org/reference/edit.html">edit_git_config()
+del paquete usethis</a>, que abrirá su <a
+href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">archivo
+gitconfig</a>. Agregue su nombre y correo electrónico y cierre esto</p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='va'>usethis</span><span class='op'>)</span> <span class='co'>#instala el paquete usethis</span>
 
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span>
-<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_git_config</a></span><span class='op'>(</span>user.name <span class='op'>=</span> <span class='st'>"TU_NOMBRE_USUARIO"</span>, user.email <span class='op'>=</span> <span class='st'>"TU@mail.com"</span><span class='op'>)</span>
+<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_git_config</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># Modificar en el fichero ".gitconfig" los apartados: "name" y "email" </span>
-<span class='co'># y guardar el fichero</span>
-<span class='co'>#Pegar en ".gitconfig"</span>
+
+<span class='co'>#Pegar en ".gitconfig" lo siguiente (y luego quitar las #):</span>
 
 <span class='co'>#[filter "lfs"]</span>
 <span class='co'>#    clean = git-lfs clean -- %f</span>
@@ -2401,15 +2481,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <span class='co'>#  email = micorreo@gmail.com</span>
 <span class='co'>#[credential]</span>
 <span class='co'>#  helper = cache</span>
+
+<span class='co'># complete con su nombre de usuario y email</span>
+<span class='co'># y guardar el fichero</span>
 </code></pre>
 </div>
 </div>
 <h2 id="conectar-rstudio-y-github">3. Conectar RStudio y GitHub</h2>
-<p>El proceso hasta ahora nos ha permitido usar Git localmente. Pero, ¿qué pasa si queremos conectarnos a GitHub? ¿Cómo lo hacemos?</p>
+<p>El proceso hasta ahora nos ha permitido usar Git localmente. Pero,
+¿qué pasa si queremos conectarnos a GitHub? ¿Cómo lo hacemos?</p>
 <h3 id="regístrate-en-github">3.1 Regístrate en GitHub</h3>
-<p>El primer paso es <a href="https://github.com/join">registrarse para obtener una cuenta (gratuita) de GitHub</a>.</p>
-<h3 id="crear-un-token-de-acceso-personal-pat-en-github">3.2 Crear un token de acceso personal (PAT) en GitHub</h3>
-<p>Una vez que se haya registrado, deberá habilitar RStudio para hablar con GitHub. El proceso para hacerlo ha cambiado recientemente (aquí es donde veo la mayor diferencia importante con Happy Git con R). La mejor manera de conectar RStudio y GitHub es usando su nombre de usuario y un token de acceso personal (PAT). Para generar un token de acceso personal, use la función <a href="https://usethis.r-lib.org/reference/github-token.html">create_github_token() de usethis</a>. Esto lo llevará a la página correspondiente en el sitio web de GitHub, donde le dará un nombre a su token y lo copiará (¡no lo pierda porque nunca volverá a aparecer!).</p>
+<p>El primer paso es <a href="https://github.com/join">registrarse para
+obtener una cuenta (gratuita) de GitHub</a>.</p>
+<h3 id="crear-un-token-de-acceso-personal-pat-en-github">3.2 Crear un
+token de acceso personal (PAT) en GitHub</h3>
+<p>Una vez que se haya registrado, deberá habilitar RStudio para hablar
+con GitHub. La mejor manera de conectar RStudio y GitHub es usando su
+nombre de usuario y un token de acceso personal (PAT). Para generar un
+token de acceso personal, use la función <a
+href="https://usethis.r-lib.org/reference/github-token.html">create_github_token()
+de usethis</a>. Esto lo llevará a la página correspondiente en el sitio
+web de GitHub, donde le dará un nombre a su token y lo copiará (¡no lo
+pierda porque nunca volverá a aparecer!).</p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2419,12 +2512,24 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 </div>
 <ul>
-<li><p>Pulsar sobre el enlace que aparece en la salida en la consola.</p></li>
-<li><p>Abrirá una página web de Github en la que se tendrá que pulsar el botón “Generate token”.</p></li>
-<li><p>Copiar el token que aparece en Github (luego se utilizará en el siguiente paso).</p></li>
+<li><p>Pulsar sobre el enlace que aparece en la salida en la
+consola.</p></li>
+<li><p>Abrirá una página web de Github en la que se tendrá que pulsar el
+botón “Generate token”.</p></li>
+<li><p>Copiar el token que aparece en Github (luego se utilizará en el
+siguiente paso).</p></li>
 </ul>
-<h3 id="almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github">3.3 Almacenar token de acceso personal para conectar RStudio y GitHub</h3>
-<p>Ahora que ha creado un token de acceso personal, debemos almacenarlo para que RStudio pueda acceder a él y sepa conectarse a su cuenta de GitHub. La función <a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html">gitcreds_set() del paquete gitcreds</a> te ayudará aquí. Ingresará su nombre de usuario de GitHub y el token de acceso personal como contraseña (NO su contraseña de GitHub, como pensé inicialmente). Una vez que haya hecho todo esto, ¡habrá conectado RStudio a GitHub!</p>
+<h3
+id="almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github">3.3
+Almacenar token de acceso personal para conectar RStudio y GitHub</h3>
+<p>Ahora que ha creado un token de acceso personal, debemos almacenarlo
+para que RStudio pueda acceder a él y sepa conectarse a su cuenta de
+GitHub. La función <a
+href="https://gitcreds.r-lib.org/reference/gitcreds_get.html">gitcreds_set()
+del paquete gitcreds</a> te ayudará aquí. Ingresará su nombre de usuario
+de GitHub y el token de acceso personal como contraseña (NO su
+contraseña de GitHub). Una vez que haya hecho todo esto, ¡habrá
+conectado RStudio a GitHub!</p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2441,7 +2546,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='co'>#  GITHUB_TOKEN="MI_TOKEN""</span>
+<span class='co'>#  GITHUB_TOKEN="MI_TOKEN"</span>
 </code></pre>
 </div>
 </div>
@@ -2452,133 +2557,280 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </code></pre>
 </div>
 </div>
-<p>Si todo ha salido bien salte al <strong>apartado 5</strong> del manú</p>
-<h2 id="manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual de sobreviviencia con Git y GitHub en RStudio</h2>
+<p>Si queremos ver el token en .Renviron, volvemos a ejecutar (muy
+importante porque Rstudio nos puede pedir el nombre de usuario de Github
+y TOKEN cada cierto tiempo cada vez que hacemos un
+<strong>Commit</strong>)</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Si todo ha salido bien salte al <strong>apartado 5</strong> del
+manú</p>
+<h2 id="manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual
+de sobreviviencia con Git y GitHub en RStudio</h2>
 <p>Erick Cuevas-Fernández</p>
 <p>10 de agosto de 2021</p>
 <ul>
-<li>Este documento se basa en “Happy Git with R” de Jenny Bryan y los STAT 545 TAs, Jim Hester</li>
+<li>Este documento se basa en “Happy Git with R” de Jenny Bryan y los
+STAT 545 TAs, Jim Hester</li>
 </ul>
-<h3 id="encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted mismo</h3>
-<p>RStudio sólo puede actuar como un GUI front-end para Git, si Git se ha instalado correctamente <strong>RStudio puede encontrarlo</strong>.</p>
-<p>Una prueba básica para la instalación exitosa de Git es simplemente introducir <code>git</code> en el shell. Si recibe una queja sobre que Git no se encuentra, significa que la instalación no tuvo éxito o que no se encuentra, es decir, no está en su <code>PATH</code>.</p>
-<p>Por cualquier problema con la conexión entre RStudio y Git, siempre ten en cuenta la ubicación de dónde se instaló Git.</p>
+<h3 id="encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted
+mismo</h3>
+<p>RStudio sólo puede actuar como un GUI front-end para Git, si Git se
+ha instalado correctamente <strong>RStudio puede
+encontrarlo</strong>.</p>
+<p>Una prueba básica para la instalación exitosa de Git es simplemente
+introducir <code>git</code> en el shell. Si recibe una queja sobre que
+Git no se encuentra, significa que la instalación no tuvo éxito o que no
+se encuentra, es decir, no está en su <code>PATH</code>.</p>
+<p>Por cualquier problema con la conexión entre RStudio y Git, siempre
+ten en cuenta la ubicación de dónde se instaló Git.</p>
 <ul>
-<li><p>Puedes usar en la terminal <code>which git</code> (Mac y Linux)</p></li>
-<li><p>O bien usar en la terminal <code>where git</code> (Windows)</p></li>
-<li><p>Recuerda que la terminal (o línea de comandos ó consola ó <code>shell</code> ó <code>bash</code>) es un programa en tu computadora que funciona para correr otros programas. Desde RStudio puedes abrir la <strong>terminal</strong>, lo cual es muy conveniente si estás trabajando en un proyecto. Puedes abrir una terminal con:</p>
+<li><p>Puedes usar en la terminal <code>which git</code> (Mac y
+Linux)</p></li>
+<li><p>O bien usar en la terminal <code>where git</code>
+(Windows)</p></li>
+<li><p>Recuerda que la terminal (o línea de comandos ó consola ó
+<code>shell</code> ó <code>bash</code>) es un programa en tu computadora
+que funciona para correr otros programas. Desde RStudio puedes abrir la
+<strong>terminal</strong>, lo cual es muy conveniente si estás
+trabajando en un proyecto. Puedes abrir una terminal con:</p>
 <ul>
-<li><p><em><code>Tools &gt; Terminal</code></em> (abre la terminal dentro del IDE de RStudio)</p></li>
-<li><p><em><code>Tools &gt; Shell</code></em>(abre una terminal externa a RStudio)</p></li>
+<li><p><em><code>Tools &gt; Terminal</code></em> (abre la terminal
+dentro del IDE de RStudio)</p></li>
+<li><p><em><code>Tools &gt; Shell</code></em>(abre una terminal externa
+a RStudio)</p></li>
 </ul></li>
-<li><p>La recomendación actual de <strong>GitHub</strong> es usar <em>HTTPS</em> porque es la manera más fácil de configurar y tiene operabilidad en multiples redes y plataformas.</p>
+<li><p>La recomendación actual de <strong>GitHub</strong> es usar
+<em>HTTPS</em> porque es la manera más fácil de configurar y tiene
+operabilidad en multiples redes y plataformas.</p>
 <ul>
-<li><p>Es menos probable que HTTPS sea bloqueado por un firewall.</p></li>
-<li><p>Una conexión HTTPS permite que <code>credential.helper</code> almacene en caché su contraseña. (por tanto puedes configurar tu usuario y contraseña en tu equipo de uso)</p></li>
-<li><p>Es más sencillo acceder a un repositorio desde cualquier lugar, ya que solo necesita los detalles de su cuenta (no se requieren claves SSH) para escribir en el repositorio.</p></li>
+<li><p>Es menos probable que HTTPS sea bloqueado por un
+firewall.</p></li>
+<li><p>Una conexión HTTPS permite que <code>credential.helper</code>
+almacene en caché su contraseña. (por tanto puedes configurar tu usuario
+y contraseña en tu equipo de uso)</p></li>
+<li><p>Es más sencillo acceder a un repositorio desde cualquier lugar,
+ya que solo necesita los detalles de su cuenta (no se requieren claves
+SSH) para escribir en el repositorio.</p></li>
 </ul></li>
-<li><p>Usualmente cuando inicies un proyecto colaborativo con GitHub inicializa el repositorio con un README. Copia el HTTPS URL para clonar el repositorio en la <em>terminal</em> <code>git clone https://github.com/TU-USUARIO/</code></p></li>
+<li><p>Usualmente cuando inicies un proyecto colaborativo con GitHub
+inicializa el repositorio con un README. Copia el HTTPS URL para clonar
+el repositorio en la <em>terminal</em>
+<code>git clone https://github.com/TU-USUARIO/</code></p></li>
 </ul>
-<h3 id="dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a RStudio dónde encontrar a Git</h3>
-<p>Si Git parece estar instalado y se puede encontrar, inicie RStudio. Salga y vuelva a iniciar RStudio si <strong>hay alguna duda</strong> sobre si abrió RStudio antes o después de instalar Git. HÁGALO.</p>
-<p>Desde RStudio, vaya a <em><code>Tools&gt; Global Options&gt; Git/SVN</code></em> y asegúrese de que la casilla * Git executable * apunte a … el ejecutable de Git. Debe leer algo como:</p>
+<h3 id="dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a RStudio
+dónde encontrar a Git</h3>
+<p>Si Git parece estar instalado y se puede encontrar, inicie RStudio.
+Salga y vuelva a iniciar RStudio si <strong>hay alguna duda</strong>
+sobre si abrió RStudio antes o después de instalar Git. HÁGALO.</p>
+<p>Desde RStudio, vaya a
+<em><code>Tools&gt; Global Options&gt; Git/SVN</code></em> y asegúrese
+de que la casilla * Git executable * apunte a … el ejecutable de Git.
+Debe leer algo como:</p>
 <ul>
 <li><p><code>/usr/bin/git</code> (Mac, Linux)</p></li>
-<li><p><code>C:/Program Files (x86)/Git/bin/git.exe</code> (Windows)</p></li>
+<li><p><code>C:/Program Files (x86)/Git/bin/git.exe</code>
+(Windows)</p></li>
 </ul>
-<p>Aquí hay un <a href="http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png">screenshot</a> de alguien que hace esto en un computador con Linux.</p>
-<p><img src="images/Captura%20de%20pantalla%20de%202021-10-17%2011-27-46.png" width="1020" /></p>
+<p>Aquí hay un <a
+href="http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png">screenshot</a>
+de alguien que hace esto en un computador con Linux.</p>
+<p><img
+src="images/Captura%20de%20pantalla%20de%202021-10-17%2011-27-46.png"
+width="1020" /></p>
 <ul>
-<li><p><strong>ATENCIÓN</strong>: En Windows, <strong>NO</strong> use <code>C:/Program Files (x86)/Git/cmd/git.exe</code>. <code>bin</code> en el path está BIEN, ¡SÍ! <code>cmd</code> en el path está MAL, ¡NO!</p></li>
-<li><p><strong>ATENCIÓN</strong>: En Windows, <strong>NO</strong> use <code>git-bash.exe</code>. Algo que termine en <code>git.exe</code> está BIEN, ¡SÍ! <code>git-bash.exe</code> está MAL, ¡NO!</p></li>
-<li><p>A veces, se han tenido problemas para navegar hasta el directorio necesario en Mac OS, una vez que se ha hecho clic en “Browse” y trabajando con una ventana deL Finder. El atajo de teclado es “command + shift + g” invocará “Go To Folder”, donde podrá escribir o pegar cualquier ruta que desee.</p></li>
+<li><p><strong>ATENCIÓN</strong>: En Windows, <strong>NO</strong> use
+<code>C:/Program Files (x86)/Git/cmd/git.exe</code>. <code>bin</code> en
+el path está BIEN, ¡SÍ! <code>cmd</code> en el path está MAL,
+¡NO!</p></li>
+<li><p><strong>ATENCIÓN</strong>: En Windows, <strong>NO</strong> use
+<code>git-bash.exe</code>. Algo que termine en <code>git.exe</code> está
+BIEN, ¡SÍ! <code>git-bash.exe</code> está MAL, ¡NO!</p></li>
+<li><p>A veces, se han tenido problemas para navegar hasta el directorio
+necesario en Mac OS, una vez que se ha hecho clic en “Browse” y
+trabajando con una ventana deL Finder. El atajo de teclado es “command +
+shift + g” invocará “Go To Folder”, donde podrá escribir o pegar
+cualquier ruta que desee.</p></li>
 </ul>
 <p><strong>Reinicie RStudio si realiza cambios.</strong> HÁGALO</p>
-<p>Siga los pasos de arriba para ver si RStudio y git se están comunicando ahora.</p>
+<p>Siga los pasos de arriba para ver si RStudio y git se están
+comunicando ahora.</p>
 <p>¿No está contento?</p>
 <ul>
-<li><p>Se ha visto esta ayuda: con su Proyecto abierto, vaya a “Tools&gt;Project Options …”. Si está disponible, haga clic en “Git/SVN” y seleccione “Git” en el menú desplegable Sistema de control de versiones. Responda “yes” a la ventana emergente “Confirm New Git Repository”. Responda “yes” a la ventana emergente “Confirm Restart RStudio”.</p></li>
-<li><p>Si instaló Git a través de GitHub para Windows, es posible que el ejecutable de Git esté realmente bien oculto. Obtenga ayuda o instale Git de otra manera.</p></li>
-<li><p>Su <code>PATH</code> probablemente no está configurado correctamente y/o debe reinstalar Git y controlar/notificar a dónde va. Lea más en <a href="https://mamaciasq.github.io/git-con-r/troubleshooting.html#troubleshooting">15</a>.</p></li>
+<li><p>Se ha visto esta ayuda: con su Proyecto abierto, vaya a
+“Tools&gt;Project Options …”. Si está disponible, haga clic en “Git/SVN”
+y seleccione “Git” en el menú desplegable Sistema de control de
+versiones. Responda “yes” a la ventana emergente “Confirm New Git
+Repository”. Responda “yes” a la ventana emergente “Confirm Restart
+RStudio”.</p></li>
+<li><p>Si instaló Git a través de GitHub para Windows, es posible que el
+ejecutable de Git esté realmente bien oculto. Obtenga ayuda o instale
+Git de otra manera.</p></li>
+<li><p>Su <code>PATH</code> probablemente no está configurado
+correctamente y/o debe reinstalar Git y controlar/notificar a dónde va.
+Lea más en <a
+href="https://mamaciasq.github.io/git-con-r/troubleshooting.html#troubleshooting">15</a>.</p></li>
 <li><p>Pida ayuda.</p></li>
 </ul>
-<h3 id="problemas-y-soluciones-rstudio-git-github">4.3 Problemas y soluciones RStudio, Git, GitHub</h3>
+<h3 id="problemas-y-soluciones-rstudio-git-github">4.3 Problemas y
+soluciones RStudio, Git, GitHub</h3>
 <p>Problemas que se han visto y posibles soluciones.</p>
-<p>Si experimenta algún problema nuevo y, sobre todo, encuentra la solución correspondiente, <a href="https://github.com/jennybc/happy-git-with-r/issues">se apreciará mucho saber de usted!</a></p>
-<h4 id="el-panel-de-git-de-rstudio-desaparece-en-mac-os">4.3.1 El panel de Git de RStudio desaparece en Mac OS</h4>
-<p>Después de una actualización de Mac OS, es posible que deba activar las herramientas de línea de comandos de Xcode para solicitarle lo que necesita, es decir, volver a instalar o volver a aceptar el acuerdo de licencia. Hemos visto que esto provoca que el panel de RStudio Git desaparezca en un sistema donde estaba funcionando anteriormente. Use comandos como estos a continuación para hacerle cosquillas a Xcode:</p>
+<p>Si experimenta algún problema nuevo y, sobre todo, encuentra la
+solución correspondiente, <a
+href="https://github.com/jennybc/happy-git-with-r/issues">se apreciará
+mucho saber de usted!</a></p>
+<h4 id="el-panel-de-git-de-rstudio-desaparece-en-mac-os">4.3.1 El panel
+de Git de RStudio desaparece en Mac OS</h4>
+<p>Después de una actualización de Mac OS, es posible que deba activar
+las herramientas de línea de comandos de Xcode para solicitarle lo que
+necesita, es decir, volver a instalar o volver a aceptar el acuerdo de
+licencia. Hemos visto que esto provoca que el panel de RStudio Git
+desaparezca en un sistema donde estaba funcionando anteriormente. Use
+comandos como estos a continuación para hacerle cosquillas a Xcode:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div>
 </div>
 <p>o</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div>
 </div>
 <p>Luego <strong>reinicie RStudio</strong>.</p>
 <h4 id="path-disfuncional">4.3.2 PATH disfuncional</h4>
-<p>Es bastante seguro de que la mayoría de los casos en los que RStudio <em>no</em> detecta automáticamente el ejecutable de Git provienen de problemas con el <code>PATH</code>. Este es el conjunto de directorios donde la computadora buscará ejecutables, como Git (hoy) o <code>make</code>. Ciertos métodos de instalación de Git, especialmente en Windows y/o sistemas operativos más antiguos, tienen una mayor tendencia a poner Git en una ubicación no convencional o dejar de agregar el directorio correspondiente al <code>PATH</code>.</p>
+<p>Es bastante seguro de que la mayoría de los casos en los que RStudio
+<em>no</em> detecta automáticamente el ejecutable de Git provienen de
+problemas con el <code>PATH</code>. Este es el conjunto de directorios
+donde la computadora buscará ejecutables, como Git (hoy) o
+<code>make</code>. Ciertos métodos de instalación de Git, especialmente
+en Windows y/o sistemas operativos más antiguos, tienen una mayor
+tendencia a poner Git en una ubicación no convencional o dejar de
+agregar el directorio correspondiente al <code>PATH</code>.</p>
 <p>¿Cómo ver su <code>PATH</code>?</p>
 <p>En el shell:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$PATH</span></span></code></pre></div>
 </div>
-<p>Eche un buen vistazo a eso. Vea el punto anterior sobre cómo encontrar su ejecutable Git o reinstalarlo mientras está <strong>completamente despierto</strong>. ¿El directorio de host está en su <code>PATH</code>? ¿No? <strong>Arréglelo</strong></p>
-<p>Vaya <a href="http://www.troubleshooters.com/linux/prepostpath.htm">aquí</a> para obtener instrucciones sobre qué poner en su <code>.bash_profile</code> para añadir un directorio al <code>PATH</code>.</p>
-<h4 id="botones-pushpull-atenuados-en-rstudio">4.3.3 Botones Push/Pull atenuados en RStudio</h4>
-<p>¿Está seguro de que su repositorio local está rastreando un repositorio remoto, por ejemplo, un repositorio de GitHub? En un shell con directorio de trabajo configurado en el repositorio local de Git, ingrese estos comandos:</p>
+<p>Eche un buen vistazo a eso. Vea el punto anterior sobre cómo
+encontrar su ejecutable Git o reinstalarlo mientras está
+<strong>completamente despierto</strong>. ¿El directorio de host está en
+su <code>PATH</code>? ¿No? <strong>Arréglelo</strong></p>
+<p>Vaya <a
+href="http://www.troubleshooters.com/linux/prepostpath.htm">aquí</a>
+para obtener instrucciones sobre qué poner en su
+<code>.bash_profile</code> para añadir un directorio al
+<code>PATH</code>.</p>
+<h4 id="botones-pushpull-atenuados-en-rstudio">4.3.3 Botones Push/Pull
+atenuados en RStudio</h4>
+<p>¿Está seguro de que su repositorio local está rastreando un
+repositorio remoto, por ejemplo, un repositorio de GitHub? En un shell
+con directorio de trabajo configurado en el repositorio local de Git,
+ingrese estos comandos:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git remote <span class="at">-v</span> </span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git remote <span class="at">-v</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">origin</span>  https://github.com/jennybc/myrepo <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code></pre></div>
 </div>
-<p>Queremos ver que fetch y push estén configurados en URL remotas que apuntan al repositorio remoto. Tenga en cuenta también que el repositorio de GitHub es un remoto llamado <code>origen</code>, en lo que respecta a su repositorio local. Esto es típico y, aunque creo que <code>github</code> es un nombre muy superior, el <code>origen</code> es una convención tan fuerte que lo sigo.</p>
-<p>Si descubre que todavía necesita configurar un control remoto, obtenga la URL HTTPS o SSH, según corresponda, para su repositorio GitHub. Esto es fácil de obtener en su portapapeles desde la página GitHub del repositorio. Haz esto en el shell:</p>
+<p>Queremos ver que fetch y push estén configurados en URL remotas que
+apuntan al repositorio remoto. Tenga en cuenta también que el
+repositorio de GitHub es un remoto llamado <code>origen</code>, en lo
+que respecta a su repositorio local. Esto es típico y, aunque creo que
+<code>github</code> es un nombre muy superior, el <code>origen</code> es
+una convención tan fuerte que lo sigo.</p>
+<p>Si descubre que todavía necesita configurar un control remoto,
+obtenga la URL HTTPS o SSH, según corresponda, para su repositorio
+GitHub. Esto es fácil de obtener en su portapapeles desde la página
+GitHub del repositorio. Haz esto en el shell:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/brereton/myrepo.git</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/brereton/myrepo.git</span></code></pre></div>
 </div>
-<p>Descargue todos los archivos del repositorio GitHub en línea y haga frente a cualquier conflicto.</p>
+<p>Descargue todos los archivos del repositorio GitHub en línea y haga
+frente a cualquier conflicto.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span></code></pre></div>
 </div>
-<p>Llame a <code>git remote -v</code> nuevamente. Una vez que pueda probar que su control remoto GitHub está configurado correctamente, puede pasar al siguiente paso.</p>
-<p>¿Estás seguro de que la sucursal actual está <em>rastreando</em> una sucursal en el control remoto? En ese mismo shell, en su repositorio, haga esto:</p>
+<p>Llame a <code>git remote -v</code> nuevamente. Una vez que pueda
+probar que su control remoto GitHub está configurado correctamente,
+puede pasar al siguiente paso.</p>
+<p>¿Estás seguro de que la sucursal actual está <em>rastreando</em> una
+sucursal en el control remoto? En ese mismo shell, en su repositorio,
+haga esto:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brereton@2021-mbp</span> myrepo $ git branch <span class="at">-vv</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> master b8e03e3 [origin/master] line added locally</span></code></pre></div>
 </div>
-<p>Lo anterior muestra la confirmación exitosa de que la rama <code>master</code> local está rastreando <code>origin/master</code>, es decir, la rama principal en GitHub. Si no ve el bit <code>[origin/master]</code>, eso es un problema. Por cierto, <code>git branch -r</code> es otra forma útil de examinar las ramas de seguimiento remoto. (Si está trabajando con una rama que no sea <code>master</code>, ajuste todo en consecuencia).</p>
-<p>Al conectar un repositorio local a un nuevo repositorio de GitHub, mucha gente recuerda agregar el control remoto GitHub, pero también se olvida de consolidar esta relación de seguimiento para las sucursales relevantes.</p>
-<p>Si descubres que la rama <code>master</code> local todavía no está siguiendo ’master` en GitHub, corrige eso de la siguiente manera:</p>
+<p>Lo anterior muestra la confirmación exitosa de que la rama
+<code>master</code> local está rastreando <code>origin/master</code>, es
+decir, la rama principal en GitHub. Si no ve el bit
+<code>[origin/master]</code>, eso es un problema. Por cierto,
+<code>git branch -r</code> es otra forma útil de examinar las ramas de
+seguimiento remoto. (Si está trabajando con una rama que no sea
+<code>master</code>, ajuste todo en consecuencia).</p>
+<p>Al conectar un repositorio local a un nuevo repositorio de GitHub,
+mucha gente recuerda agregar el control remoto GitHub, pero también se
+olvida de consolidar esta relación de seguimiento para las sucursales
+relevantes.</p>
+<p>Si descubres que la rama <code>master</code> local todavía no está
+siguiendo ’master` en GitHub, corrige eso de la siguiente manera:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--set-upstream</span> origin master</span></code></pre></div>
 </div>
-<p>Esto es equivalente a <code>git push -u origin master</code>, pero transmite más acerca de lo que está haciendo.</p>
-<p>Llame <code>git branch -vv</code> o <code>git branch -r</code> nuevamente para confirmar que la rama <code>master</code> en GitHub es la rama ascendente o de seguimiento para la rama<code>master</code> local.</p>
-<h4 id="falla-en-el-push-a-nivel-de-rstudio">4.3.4 Falla en el push a nivel de RStudio</h4>
+<p>Esto es equivalente a <code>git push -u origin master</code>, pero
+transmite más acerca de lo que está haciendo.</p>
+<p>Llame <code>git branch -vv</code> o <code>git branch -r</code>
+nuevamente para confirmar que la rama <code>master</code> en GitHub es
+la rama ascendente o de seguimiento para la rama<code>master</code>
+local.</p>
+<h4 id="falla-en-el-push-a-nivel-de-rstudio">4.3.4 Falla en el push a
+nivel de RStudio</h4>
 <p>¿Obtiene este error en RStudio?</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">error:</span> unable to read askpass response from <span class="st">&#39;rpostback-askpass&#39;</span></span></code></pre></div>
 </div>
 <p>Abra el shell: <em>Tools &gt; Shell</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin master</span></code></pre></div>
 </div>
-<h4 id="se-rumorea-que-tiene-algún-repositorio-de-git-dentro-de-otro-repositorio-de-git">4.3.5 Se rumorea que tiene algún repositorio de Git dentro de otro repositorio de Git</h4>
-<p>No cree un repositorio de Git dentro de otro repositorio de Git. Simplemente no lo haga.</p>
-<p>Si tiene una necesidad real de esto, lo que es realmente raro, la forma correcta de hacerlo es a través de <a href="http://git-scm.com/book/en/v2/Git-Tools-Submodules">submódulos</a>.</p>
-<h2 id="inicializar-un-repositorio-git">5. Inicializar un repositorio Git</h2>
-<p>Ahora que ha instalado y configurado Git, puede usarlo localmente. La <a href="https://usethis.r-lib.org/reference/use_git.html">función use_git()</a> agregará un repositorio Git (a menudo denominado “repositorio”) a un proyecto RStudio existente. Aquí crearé un nuevo proyecto y luego inicializaré un repositorio de Git.</p>
+<h4
+id="se-rumorea-que-tiene-algún-repositorio-de-git-dentro-de-otro-repositorio-de-git">4.3.5
+Se rumorea que tiene algún repositorio de Git dentro de otro repositorio
+de Git</h4>
+<p>No cree un repositorio de Git dentro de otro repositorio de Git.
+Simplemente no lo haga.</p>
+<p>Si tiene una necesidad real de esto, lo que es realmente raro, la
+forma correcta de hacerlo es a través de <a
+href="http://git-scm.com/book/en/v2/Git-Tools-Submodules">submódulos</a>.</p>
+<h2 id="inicializar-un-repositorio-git">5. Inicializar un repositorio
+Git</h2>
+<p>Ahora que ha instalado y configurado Git, puede usarlo localmente. La
+<a href="https://usethis.r-lib.org/reference/use_git.html">función
+use_git()</a> agregará un repositorio Git (a menudo denominado
+“repositorio”) a un proyecto RStudio existente. Aquí crearé un nuevo
+proyecto y luego inicializaré un repositorio de Git.</p>
 <p>En RStudio:</p>
 <ul>
-<li><p>Crear un <code>Nuevo Proyecto</code> en el menu <code>File</code></p></li>
+<li><p>Crear un <code>Nuevo Proyecto</code> en el menu
+<code>File</code></p></li>
 <li><p>Seleccionar <code>"New Directory"</code></p></li>
 <li><p>Seleccionar <code>"New Project"</code></p></li>
 <li><p>En crear nuevo proyecto, selecciones:</p>
@@ -2586,7 +2838,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li>Activar: <code>"Create a git repository"</code></li>
 </ul></li>
 </ul>
-<p><img src="images/Captura%20de%20pantalla%20de%202021-10-16%2000-10-14.png" width="820" /></p>
+<p><img
+src="images/Captura%20de%20pantalla%20de%202021-10-16%2000-10-14.png"
+width="820" /></p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2599,39 +2853,88 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 <p>Y visitar la pestaña: <code>"Git"</code> en RStudio.</p>
 <figure>
-<img src="images/images.png" title="Git en RStuio" width="826" alt="Git en RStuio" /><figcaption aria-hidden="true">Git en RStuio</figcaption>
+<img src="images/images.png" title="Git en RStuio" width="826"
+alt="Git en RStuio" />
+<figcaption aria-hidden="true">Git en RStuio</figcaption>
 </figure>
-<p>En RStudio ve a <em><code>Tools &gt; Project Options &gt; Git/SVN</code></em>. Dentro de <em>Version control system</em>, selecciona <em>Git</em>. Y da click a <em>“Yes”</em> cuando aparezca <em>“Confirm New Git Repository?”</em>.</p>
-<p>Si usaste RStudio o <em>usethis</em>, el proyecto debería reiniciarse en RStudio. Hazlo tu mismo si hizo git init. RStudio ahora debería tener un panel Git.</p>
-<h2 id="ver-historial-de-confirmación">6. Ver historial de confirmación</h2>
-<p>Ahora que mi proyecto RStudio tiene un repositorio Git asociado, veré una pestaña adicional en la parte superior derecha: la pestaña Git. Desde aquí, puedo ver todo el historial de cambios en mi código a lo largo del tiempo (¡todavía no muchos!).</p>
+<p>En RStudio ve a
+<em><code>Tools &gt; Project Options &gt; Git/SVN</code></em>. Dentro de
+<em>Version control system</em>, selecciona <em>Git</em>. Y da click a
+<em>“Yes”</em> cuando aparezca <em>“Confirm New Git
+Repository?”</em>.</p>
+<p>Si usaste RStudio o <em>usethis</em>, el proyecto debería reiniciarse
+en RStudio. Hazlo tu mismo si hizo git init. RStudio ahora debería tener
+un panel Git.</p>
+<h2 id="ver-historial-de-confirmación">6. Ver historial de
+confirmación</h2>
+<p>Ahora que mi proyecto RStudio tiene un repositorio Git asociado, veré
+una pestaña adicional en la parte superior derecha: la pestaña Git.
+Desde aquí, puedo ver todo el historial de cambios en mi código a lo
+largo del tiempo (¡todavía no muchos!).</p>
 <p>En RStudio:</p>
 <ul>
 <li><p>Visitar la pestaña: “Git” de RStudio</p></li>
-<li><p>Pulsar el icono del reloj para ver el historial de “Commit” realizados para ver el “Initial Commit”.</p></li>
+<li><p>Pulsar el icono del reloj para ver el historial de “Commit”
+realizados para ver el “Initial Commit”.</p></li>
 </ul>
-<p><img src="images/Captura%20de%20pantalla%20de%202021-10-17%2013-08-07.png" width="1200" /></p>
-<h2 id="haga-una-consolidación-o-confirmación-commit-y-vea-más-historia">7. Haga una consolidación o confirmación (commit) y vea más historia</h2>
-<p>Git no realiza un seguimiento automático de los cambios de la manera en que lo hace una herramienta como Google Docs. En su lugar, tienes que decirle a Git: hice cambios y quiero que mantengas un registro de ellos. Decirle a Git esto se llama hacer una confirmación (commit) y puedes hacerlo desde RStudio.</p>
-<p>Cada confirmación tiene un mensaje de confirmación, lo que es útil porque, cuando miras tu historial de código, ves lo que hiciste en cada momento (es decir, en cada confirmación o commit). RStudio tiene una herramienta integrada para ver su historial de código. Puede hacer clic en cualquier confirmación para ver qué cambió, en relación con la confirmación anterior. Se agregaron líneas en verde; se eliminaron líneas en rojo.</p>
+<p><img
+src="images/Captura%20de%20pantalla%20de%202021-10-17%2013-08-07.png"
+width="1200" /></p>
+<h2
+id="haga-una-consolidación-o-confirmación-commit-y-vea-más-historia">7.
+Haga una consolidación o confirmación (commit) y vea más historia</h2>
+<p>Git no realiza un seguimiento automático de los cambios de la manera
+en que lo hace una herramienta como Google Docs. En su lugar, tienes que
+decirle a Git: hice cambios y quiero que mantengas un registro de ellos.
+Decirle a Git esto se llama hacer una confirmación (commit) y puedes
+hacerlo desde RStudio.</p>
+<p>Cada confirmación tiene un mensaje de confirmación, lo que es útil
+porque, cuando miras tu historial de código, ves lo que hiciste en cada
+momento (es decir, en cada confirmación o commit). RStudio tiene una
+herramienta integrada para ver su historial de código. Puede hacer clic
+en cualquier confirmación para ver qué cambió, en relación con la
+confirmación anterior. Se agregaron líneas en verde; se eliminaron
+líneas en rojo.</p>
 <p>Un ejemplo practico, en RStudio realice lo siguiente:</p>
 <ul>
-<li><p>Crear un archivo de script R: llámelo “test.R” y guardelo.</p></li>
-<li><p>Visite la pestaña “Git” de RStudio y pulse sobre el botón de “commit” para confirmar la creación del archivo (fichero): “test.R”.</p></li>
-<li><p>En el panel del commit añada un texto que lo defina, por ejemplo; Mi primer script R.</p></li>
-<li><p>Haga varios cambios en el fichero “test.R” y haga en cada uno de ellos de nuevo un “commit”.</p></li>
-<li><p>Revise luego la historia de los cambios que se han producido en el historial (pulsar el icono del reloj).</p>
+<li><p>Crear un archivo de script R: llámelo “test.R” y
+guardelo.</p></li>
+<li><p>Visite la pestaña “Git” de RStudio y pulse sobre el botón de
+“commit” para confirmar la creación del archivo (fichero):
+“test.R”.</p></li>
+<li><p>En el panel del commit añada un texto que lo defina, por ejemplo;
+Mi primer script R.</p></li>
+<li><p>Haga varios cambios en el fichero “test.R” y haga en cada uno de
+ellos de nuevo un “commit”.</p></li>
+<li><p>Revise luego la historia de los cambios que se han producido en
+el historial (pulsar el icono del reloj).</p>
 <ul>
 <li><p>Observe los nuevos cambios resaltados en color verde.</p></li>
-<li><p>Frente a los valores antiguos que aparecerán en color rojizo.</p></li>
+<li><p>Frente a los valores antiguos que aparecerán en color
+rojizo.</p></li>
 </ul></li>
 </ul>
-<h2 id="cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github">8. Cómo conectar proyectos de RStudio con repositorios de GitHub</h2>
-<p>Ahora que hemos conectado RStudio y GitHub, discutamos cómo hacer que los dos funcionen juntos. La idea básica es que configure los proyectos que cree en RStudio con repositorios GitHub asociados. Cada proyecto de RStudio vive en un solo repositorio de GitHub.</p>
-<p>¿Cómo conectamos un proyecto de RStudio a un repositorio de GitHub? <a href="https://happygitwithr.com/usage-intro.html">Happy Git with R repasa tres estrategias</a>. Demostraré dos de ellos.</p>
+<h2
+id="cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github">8.
+Cómo conectar proyectos de RStudio con repositorios de GitHub</h2>
+<p>Ahora que hemos conectado RStudio y GitHub, discutamos cómo hacer que
+los dos funcionen juntos. La idea básica es que configure los proyectos
+que cree en RStudio con repositorios GitHub asociados. Cada proyecto de
+RStudio vive en un solo repositorio de GitHub.</p>
+<p>¿Cómo conectamos un proyecto de RStudio a un repositorio de GitHub?
+<a href="https://happygitwithr.com/usage-intro.html">Happy Git with R
+repasa tres estrategias</a>. Demostraré dos de ellos.</p>
 <h3 id="rstudio-primero">8.1 RStudio Primero</h3>
-<p>A veces, ya tiene un proyecto localmente y desea obtenerlo en GitHub. Para hacer esto, primero deberá usar la función <a href="https://usethis.r-lib.org/reference/use_git.html">use_git() de usethis</a>, como hicimos anteriormente. Luego, puede usar la <a href="https://usethis.r-lib.org/reference/use_github.html">función use_github()</a>, que creará un repositorio de GitHub y lo conectará a su proyecto RStudio actual.</p>
-<p>Para subir un proyecto RStudio en el que se ha configurado las opciones con Git a Github, se tienen que realizar los siguientes pasos en la consola de RStudio:</p>
+<p>A veces, ya tiene un proyecto localmente y desea obtenerlo en GitHub.
+Para hacer esto, primero deberá usar la función <a
+href="https://usethis.r-lib.org/reference/use_git.html">use_git() de
+usethis</a>, como hicimos anteriormente. Luego, puede usar la <a
+href="https://usethis.r-lib.org/reference/use_github.html">función
+use_github()</a>, que creará un repositorio de GitHub y lo conectará a
+su proyecto RStudio actual.</p>
+<p>Para subir un proyecto RStudio en el que se ha configurado las
+opciones con Git a Github, se tienen que realizar los siguientes pasos
+en la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span>
@@ -2643,63 +2946,187 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 </div>
 <ul>
-<li>Se realizará un proceso que activará la página web de Github con el repositorio asociado al proyecto que se acaba de crear en RStudio.</li>
+<li>Se realizará un proceso que activará la página web de Github con el
+repositorio asociado al proyecto que se acaba de crear en RStudio.</li>
 </ul>
 <h3 id="github-primero">8.2 GitHub Primero</h3>
-<p>La forma más sencilla de usar RStudio y GitHub juntos es crear un repositorio en GitHub primero. Cree el repositorio y, a continuación, cuando inicie un nuevo proyecto en RStudio, utilice la opción de control de versiones, introduzca la URL de su repositorio y listo.</p>
-<p>Para bajar un repositorio creado en Github a un proyecto local en RStudio, se tienen que realizar los siguientes pasos:</p>
+<p>La forma más sencilla de usar RStudio y GitHub juntos es crear un
+repositorio en GitHub primero. Cree el repositorio y, a continuación,
+cuando inicie un nuevo proyecto en RStudio, utilice la opción de control
+de versiones, introduzca la URL de su repositorio y listo.</p>
+<p>Para bajar un repositorio creado en Github a un proyecto local en
+RStudio, se tienen que realizar los siguientes pasos:</p>
 <ul>
-<li><p>Crear un nuevo repositorio en nuestra cuenta de Github (o utilizar uno ya existente): pulsar el botón “Create repository”.</p></li>
-<li><p>Copiar al portapapeles (<code>clonar</code>) la primera dirección que aparece (pulsando el botón de la derecha). Coincide con la dirección url que aparece en la barra del navegador.</p></li>
-<li><p>En RStudio seleccionamos crear “New project”, elegimos <code>"Version Control"</code> y luego seleccionamos “Git”.</p></li>
-<li><p>Introducimos en el primer cuadro de texto la url copiada anteriormente.</p></li>
+<li><p>Crear un nuevo repositorio en nuestra cuenta de Github (o
+utilizar uno ya existente): pulsar el botón “Create
+repository”.</p></li>
+<li><p>Copiar al portapapeles (<code>clonar</code>) la primera dirección
+que aparece (pulsando el botón de la derecha). Coincide con la dirección
+url que aparece en la barra del navegador.</p></li>
+<li><p>En RStudio seleccionamos crear “New project”, elegimos
+<code>"Version Control"</code> y luego seleccionamos “Git”.</p></li>
+<li><p>Introducimos en el primer cuadro de texto la url copiada
+anteriormente.</p></li>
 <li><p>Pulsamos <code>"Create Project"</code>.</p></li>
-<li><p>A continuación podrá consultarse la pestaña “Git” y ver la información asociada al repositorio descargado.</p></li>
+<li><p>A continuación podrá consultarse la pestaña “Git” y ver la
+información asociada al repositorio descargado.</p></li>
 </ul>
 <h2 id="flujo-de-trabajo-general">9. Flujo de trabajo general</h2>
-<p>Ahora que hemos conectado RStudio y GitHub, podemos empujar y tirar de nuestro trabajo entre los dos.</p>
+<p>Ahora que hemos conectado RStudio y GitHub, podemos empujar y tirar
+de nuestro trabajo entre los dos.</p>
 <h3 id="push-subir-a-github">9.1 Push (Subir a Github)</h3>
-<p>Empujar significa enviar cualquier cambio en su código de RStudio a GitHub. Para hacer esto, primero tenemos que comprometernos. Después de confirmar, ahora tenemos un botón (la flecha hacia arriba) en RStudio que podemos usar para enviar nuestro código a GitHub.</p>
+<p>Empujar significa enviar cualquier cambio en su código de RStudio a
+GitHub. Para hacer esto, primero tenemos que comprometernos. Después de
+confirmar, ahora tenemos un botón (la flecha hacia arriba) en RStudio
+que podemos usar para enviar nuestro código a GitHub.</p>
 <p>En RStudio:</p>
 <ul>
-<li><p>Creamos un nuevo archivo (“fichero”) en “File”; un script R o un archivo .Rmd y lo guradamos.</p></li>
+<li><p>Creamos un nuevo archivo (“fichero”) en “File”; un script R o un
+archivo .Rmd y lo guradamos.</p></li>
 <li><p>Se pulsa en la pestaña “Git” sobre el botón de “commit”.</p></li>
-<li><p>Marcamos todos los ficheros sobre los checks de “Staged”, rellenamos la descripción del commit y pulsamos sobre el botón de “commit”.</p></li>
-<li><p>Después de hacer el commit, pulsamos sobre el botón “Push” para subir los cambios a Github.</p></li>
-<li><p>A continuación puede comprobarse en la página de Github del repositorio que se han actualizado los últimos ficheros considerados en el último commit.</p></li>
+<li><p>Marcamos todos los ficheros sobre los checks de “Staged”,
+rellenamos la descripción del commit y pulsamos sobre el botón de
+“commit”.</p></li>
+<li><p>Después de hacer el commit, pulsamos sobre el botón “Push” para
+subir los cambios a Github.</p></li>
+<li><p>A continuación puede comprobarse en la página de Github del
+repositorio que se han actualizado los últimos ficheros considerados en
+el último commit.</p></li>
 </ul>
-<h3 id="pull-descargar-desde-github">9.2 Pull (Descargar desde Github)</h3>
-<p>Lo opuesto a empujar es tirar (Pull). Utilizando el botón de flecha hacia abajo, RStudio va al repositorio de GitHub, toma el código más reciente y lo lleva a su editor local. (<a href="https://medium.com/better-programming/six-rules-for-good-git-hygiene-5006cf9e9e2#:~:text=Always%20Pull%20Before%20a%20Push&amp;text=Before%20you%20try%20to%20push,sync%20with%20the%20remote%20repository.">Tirar regularmente es extremadamente importante si estás colaborando</a>, aunque si eres el único que trabaja en un proyecto de RStudio y un repositorio GitHub asociado, sabes que tu código local coincide con lo que está en GitHub, por lo que es menos importante.)</p>
+<h3 id="pull-descargar-desde-github">9.2 Pull (Descargar desde
+Github)</h3>
+<p>Lo opuesto a empujar es tirar (Pull). Utilizando el botón de flecha
+hacia abajo, RStudio va al repositorio de GitHub, toma el código más
+reciente y lo lleva a su editor local. (<a
+href="https://medium.com/better-programming/six-rules-for-good-git-hygiene-5006cf9e9e2#:~:text=Always%20Pull%20Before%20a%20Push&amp;text=Before%20you%20try%20to%20push,sync%20with%20the%20remote%20repository.">Tirar
+regularmente es extremadamente importante si estás colaborando</a>,
+aunque si eres el único que trabaja en un proyecto de RStudio y un
+repositorio GitHub asociado, sabes que tu código local coincide con lo
+que está en GitHub, por lo que es menos importante.)</p>
 <p>En la página de Github de nuestro repositorio:</p>
 <ul>
-<li><p>Editamos uno de los ficheros de nuestro repositorio pulsando sobre el icono de un lápiz (a la derecha).</p></li>
-<li><p>Realizamos alguna modificación sobre el fichero (o ficheros).</p></li>
-<li><p>Pulsamos en la parte inferior de la página en el botón de “Commit changes” (rellenando los comentarios que creamos oportunos sobre el commit que se está realizando).</p></li>
-<li><p>Se puede navegar por la página de Github para consultar todos los commits realizados (y mucha más información).</p></li>
+<li><p>Editamos uno de los ficheros de nuestro repositorio pulsando
+sobre el icono de un lápiz (a la derecha).</p></li>
+<li><p>Realizamos alguna modificación sobre el fichero (o
+ficheros).</p></li>
+<li><p>Pulsamos en la parte inferior de la página en el botón de “Commit
+changes” (rellenando los comentarios que creamos oportunos sobre el
+commit que se está realizando).</p></li>
+<li><p>Se puede navegar por la página de Github para consultar todos los
+commits realizados (y mucha más información).</p></li>
 </ul>
 <p>Volvemos a RStudio:</p>
 <ul>
-<li><p>En la pestaña “Git” pulsamos sobre el botón de la flecha que apunta hacia abajo (verde) para realizar un “Pull” o descarga de los cambios en Github a nuestro proyecto local en RStudio.</p></li>
-<li><p>Después de eso puede comprobarse que los ficheros locales de nuestro proyecto se han actualizado con los cambios que se han producido en el repositorio.</p></li>
+<li><p>En la pestaña “Git” pulsamos sobre el botón de la flecha que
+apunta hacia abajo (verde) para realizar un “Pull” o descarga de los
+cambios en Github a nuestro proyecto local en RStudio.</p></li>
+<li><p>Después de eso puede comprobarse que los ficheros locales de
+nuestro proyecto se han actualizado con los cambios que se han producido
+en el repositorio.</p></li>
 </ul>
 <p><strong>¡Lo hiciste!</strong></p>
 <p>¡Ahora está todo configurado para usar Git y GitHub con RStudio!</p>
-<h2 id="colaborando-con-git-y-github">10. Colaborando con Git y Github</h2>
-<p>Este artículo es una traducción automática del artículo: <a href="https://www.sds.pub/collaborating-with-git-and-github.html" class="uri">https://www.sds.pub/collaborating-with-git-and-github.html</a></p>
-<p>Cualquiera que haya trabajado alguna vez en cualquier tipo de proyecto de escritura colaborativa (código o de otro tipo) probablemente se ha encontrado con frustraciones del control de versiones. Por ejemplo, podría estar trabajando en algunas revisiones de un documento. Hago algunas modificaciones y se las envío a mi colega. En el momento en que obtienen mi versión, sin embargo, ya está detrás de su versión en otras áreas (por ejemplo, tal vez revisaron su descripción del análisis al mismo tiempo que proporcioné modificaciones al documento en su totalidad). No pueden simplemente aceptar mis ediciones sin perder otros cambios, pero les gustaría incorporar ambos cambios. En muchas situaciones como esta, el control de versiones se maneja mediante convenciones de nomenclatura, por ejemplo, ‘full-manuscript_v1.docx’ se convierte en ‘full-manuscript_v1da.docx’ que luego se convierte en ‘full-manuscript_v2.docx’ hasta que finalmente terminamos con ‘full-manuscript_vFinal.docx’ que inevitablemente termina como ‘full-manuscript_vFinalv2.docx’ y así sucesivamente hasta que realmente llamemos al documento completo. Git es un enfoque alternativo para administrar versiones de un documento mediante el seguimiento de los cambios en las líneas de los documentos. Si dos personas están trabajando en el mismo documento, pero editando líneas diferentes, esos cambios se fusionarán automáticamente. Sin embargo, fundamentalmente, no se pierde nada y la historia completa del proyecto se almacena desde su creación inicial hasta las etapas finales. Git se creó inicialmente para desarrolladores de software, pero abogamos por su uso para una gama más amplia de aplicaciones, incluidos documentos dinámicos. (es decir, cualquier cosa producida a través de RMarkdown). Desde nuestro punto de vista, la curva de aprendizaje de git es engañosamente empinada. A menudo vemos que las discusiones sobre git son simples (por ejemplo, ‘aprenda estos cinco comandos para trabajar con git’) con poca instrucción explícita dedicada al tema. Más bien, es una habilidad que se presume que uno ‘adquirirá’ en el camino. Si bien hay excepciones a esto (por ejemplo, el maravilloso libro Happy Git y GitHub para el usuario de Jenny Bryan), sentimos que es importante cubrir el tema de manera explícita.</p>
+<h2 id="colaborando-con-git-y-github">10. Colaborando con Git y
+Github</h2>
+<p>Este artículo es una traducción automática del artículo: <a
+href="https://www.sds.pub/collaborating-with-git-and-github.html"
+class="uri">https://www.sds.pub/collaborating-with-git-and-github.html</a></p>
+<p>Cualquiera que haya trabajado alguna vez en cualquier tipo de
+proyecto de escritura colaborativa (código o de otro tipo) probablemente
+se ha encontrado con frustraciones del control de versiones. Por
+ejemplo, podría estar trabajando en algunas revisiones de un documento.
+Hago algunas modificaciones y se las envío a mi colega. En el momento en
+que obtienen mi versión, sin embargo, ya está detrás de su versión en
+otras áreas (por ejemplo, tal vez revisaron su descripción del análisis
+al mismo tiempo que proporcioné modificaciones al documento en su
+totalidad). No pueden simplemente aceptar mis ediciones sin perder otros
+cambios, pero les gustaría incorporar ambos cambios. En muchas
+situaciones como esta, el control de versiones se maneja mediante
+convenciones de nomenclatura, por ejemplo, ‘full-manuscript_v1.docx’ se
+convierte en ‘full-manuscript_v1da.docx’ que luego se convierte en
+‘full-manuscript_v2.docx’ hasta que finalmente terminamos con
+‘full-manuscript_vFinal.docx’ que inevitablemente termina como
+‘full-manuscript_vFinalv2.docx’ y así sucesivamente hasta que realmente
+llamemos al documento completo. Git es un enfoque alternativo para
+administrar versiones de un documento mediante el seguimiento de los
+cambios en las líneas de los documentos. Si dos personas están
+trabajando en el mismo documento, pero editando líneas diferentes, esos
+cambios se fusionarán automáticamente. Sin embargo, fundamentalmente, no
+se pierde nada y la historia completa del proyecto se almacena desde su
+creación inicial hasta las etapas finales. Git se creó inicialmente para
+desarrolladores de software, pero abogamos por su uso para una gama más
+amplia de aplicaciones, incluidos documentos dinámicos. (es decir,
+cualquier cosa producida a través de RMarkdown). Desde nuestro punto de
+vista, la curva de aprendizaje de git es engañosamente empinada. A
+menudo vemos que las discusiones sobre git son simples (por ejemplo,
+‘aprenda estos cinco comandos para trabajar con git’) con poca
+instrucción explícita dedicada al tema. Más bien, es una habilidad que
+se presume que uno ‘adquirirá’ en el camino. Si bien hay excepciones a
+esto (por ejemplo, el maravilloso libro Happy Git y GitHub para el
+usuario de Jenny Bryan), sentimos que es importante cubrir el tema de
+manera explícita.</p>
 <h3 id="colaborando">10.1 Colaborando</h3>
-<p>Una de las ventajas de utilizar git es que proporciona un medio eficaz de colaboración. Sin embargo, no cualquiera puede contribuir directamente a su repositorio. Hay dos formas principales de colaborar en un repositorio con colegas: (a) agregar colaboradores a un repositorio existente, o (b) crear una organización y agregar colaboradores a repositorios específicos, o la organización en su conjunto. La principal diferencia entre estos es que las organizaciones suelen tener muchos repositorios y usted puede otorgar acceso a todos los repositorios simultáneamente. Podría considerar crear una organización para todo su laboratorio, por ejemplo, y luego tener diferentes repositorios para diferentes proyectos. Sin embargo, incluso dentro de las organizaciones, puede agregar colaboradores a repositorios individuales sin proporcionar acceso a toda la organización.</p>
-<p>Para agregar colaboradores a un repositorio, vaya a Settings -&gt; Manage Access -&gt; Invite a collaborato</p>
+<p>Una de las ventajas de utilizar git es que proporciona un medio
+eficaz de colaboración. Sin embargo, no cualquiera puede contribuir
+directamente a su repositorio. Hay dos formas principales de colaborar
+en un repositorio con colegas: (a) agregar colaboradores a un
+repositorio existente, o (b) crear una organización y agregar
+colaboradores a repositorios específicos, o la organización en su
+conjunto. La principal diferencia entre estos es que las organizaciones
+suelen tener muchos repositorios y usted puede otorgar acceso a todos
+los repositorios simultáneamente. Podría considerar crear una
+organización para todo su laboratorio, por ejemplo, y luego tener
+diferentes repositorios para diferentes proyectos. Sin embargo, incluso
+dentro de las organizaciones, puede agregar colaboradores a repositorios
+individuales sin proporcionar acceso a toda la organización.</p>
+<p>Para agregar colaboradores a un repositorio, vaya a Settings -&gt;
+Manage Access -&gt; Invite a collaborato</p>
 <p><img src="images/manage-access-github.png" width="1005" /></p>
-<p>Luego, puede buscar personas por su nombre de usuario de GitHub, correo electrónico o su nombre / apellido. Una vez que se envía una invitación, la persona debe aceptar la invitación y luego tendrá acceso push al repositorio. Los colaboradores generalmente deben reservarse para personas que tienen roles continuos en el proyecto, con contribuciones directas. Las pequeñas correcciones de errores, etc., se pueden manejar con forks (bifurcaciones) de repositorio (descritas a continuación).</p>
+<p>Luego, puede buscar personas por su nombre de usuario de GitHub,
+correo electrónico o su nombre / apellido. Una vez que se envía una
+invitación, la persona debe aceptar la invitación y luego tendrá acceso
+push al repositorio. Los colaboradores generalmente deben reservarse
+para personas que tienen roles continuos en el proyecto, con
+contribuciones directas. Las pequeñas correcciones de errores, etc., se
+pueden manejar con forks (bifurcaciones) de repositorio (descritas a
+continuación).</p>
 <h3 id="branching">10.2 Branching</h3>
-<p>La ramificación es un marco realmente poderoso para trabajar con git, y le sugerimos que se sienta cómodo lo antes posible. Cuando crea una rama, crea efectivamente una copia paralela de todo el repositorio. Puede realizar los cambios que desee en esa rama y estar seguro de que no romperá nada en la rama principal porque está completamente separada. Una vez que haya creado lo que sea en lo que estaba trabajando en su rama, y ​​haya decidido con sus colaboradores que debería ser parte de la rama principal, puede fusionarlo. Alternativamente, puede decidir que no quiere para hacer esos cambios, y luego puede simplemente tirar la rama a la basura y seguir adelante sin ninguna interrupción en la main branch. Como regla general, debe intentar nunca realizar cambios directamente en la rama principal. En su lugar, cree branches, realice cambios allí y luego combínelas. Esto ayuda a garantizar que los cambios se implementen en la main branch de una manera planificada, y puede usar sistemas de revisión con sus colegas para asegurarse de que todos estén en sintonía.</p>
+<p>La ramificación es un marco realmente poderoso para trabajar con git,
+y le sugerimos que se sienta cómodo lo antes posible. Cuando crea una
+rama, crea efectivamente una copia paralela de todo el repositorio.
+Puede realizar los cambios que desee en esa rama y estar seguro de que
+no romperá nada en la rama principal porque está completamente separada.
+Una vez que haya creado lo que sea en lo que estaba trabajando en su
+rama, y ​​haya decidido con sus colaboradores que debería ser parte de la
+rama principal, puede fusionarlo. Alternativamente, puede decidir que no
+quiere para hacer esos cambios, y luego puede simplemente tirar la rama
+a la basura y seguir adelante sin ninguna interrupción en la main
+branch. Como regla general, debe intentar nunca realizar cambios
+directamente en la rama principal. En su lugar, cree branches, realice
+cambios allí y luego combínelas. Esto ayuda a garantizar que los cambios
+se implementen en la main branch de una manera planificada, y puede usar
+sistemas de revisión con sus colegas para asegurarse de que todos estén
+en sintonía.</p>
 <h2 id="más-información">Más información</h2>
-<p>Si estás buscando aprender más y aún no te he ganado la idea de que deberías echar un vistazo a Happy Git with R, <a href="http://happygitwithr.com/">déjame intentarlo una vez más</a>. Es el mejor libro para ayudarte a guiarte a medida que profundizas en el uso de Git/GitHub en tu trabajo de R.</p>
+<p>Si estás buscando aprender más y aún no te he ganado la idea de que
+deberías echar un vistazo a Happy Git with R, <a
+href="http://happygitwithr.com/">déjame intentarlo una vez más</a>. Es
+el mejor libro para ayudarte a guiarte a medida que profundizas en el
+uso de Git/GitHub en tu trabajo de R.</p>
 <p>Aquí hay algunos recursos adicionales de Git/GitHub para revisar:</p>
-<p><a href="https://www.sds.pub/collaborating-with-git-and-github.html">Colaboración con git y GitHub</a>: Este capítulo de los materiales del curso para Social Data Science with R en la Universidad de Oregon cubre los conceptos básicos de Git y GitHub.</p>
-<p><a href="https://rstudio-conf-2020.github.io/r-for-excel/github.html">Los materiales de un taller de rstudio::conf de 2019</a> titulado “R para usuarios de Excel” cubren “control de versiones y practica un flujo de trabajo con GitHub y RStudio que optimiza el trabajo con nuestro colaborador más importante: Future You”.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a
+href="https://www.sds.pub/collaborating-with-git-and-github.html">Colaboración
+con git y GitHub</a>: Este capítulo de los materiales del curso para
+Social Data Science with R en la Universidad de Oregon cubre los
+conceptos básicos de Git y GitHub.</p>
+<p><a
+href="https://rstudio-conf-2020.github.io/r-for-excel/github.html">Los
+materiales de un taller de rstudio::conf de 2019</a> titulado “R para
+usuarios de Excel” cubren “control de versiones y practica un flujo de
+trabajo con GitHub y RStudio que optimiza el trabajo con nuestro
+colaborador más importante: Future You”.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

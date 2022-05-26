@@ -91,8 +91,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-04-20"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-04-20"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-05-26"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-05-26"/>
   <meta name="article:author" content="Matías Frugone-Álvarez"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Análisis Demo de la base de datos NeotomaDB en Chile"]},{"type":"character","attributes":{},"value":["Un repaso sobre la situación actual de las bases de datos del proyecto AbrocomaDB\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone-Álvarez"]},{"type":"character","attributes":{},"value":["https://matfrugone.netlify.app"]},{"type":"character","attributes":{},"value":["Postdoctorado UPWELL"]},{"type":"character","attributes":{},"value":["https://matfrugone.netlify.app"]}]}]},{"type":"character","attributes":{},"value":["2022-04-20"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Análisis Demo de la base de datos NeotomaDB en Chile"]},{"type":"character","attributes":{},"value":["Un repaso sobre la situación actual de las bases de datos del proyecto AbrocomaDB\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone-Álvarez"]},{"type":"character","attributes":{},"value":["https://matfrugone.netlify.app"]},{"type":"character","attributes":{},"value":["Postdoctorado UPWELL"]},{"type":"character","attributes":{},"value":["https://matfrugone.netlify.app"]}]}]},{"type":"character","attributes":{},"value":["2022-05-26"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -1032,10 +1032,6 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     margin-top: 1.5em;
   }
 
-  .figure img {
-    width: 100%;
-  }
-
   .figure .caption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
@@ -1865,6 +1861,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
           return "<p>" + $('#ref-' + ref).html() + "</p>";
@@ -1879,6 +1881,31 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1978,6 +2005,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -2000,7 +2029,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2039,7 +2068,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
   <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
   <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -2279,7 +2308,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Análisis Demo de la base de datos NeotomaDB en Chile","description":"Un repaso sobre la situación actual de las bases de datos del proyecto AbrocomaDB","authors":[{"author":"Matías Frugone-Álvarez","authorURL":"https://matfrugone.netlify.app","affiliation":"Postdoctorado UPWELL","affiliationURL":"https://matfrugone.netlify.app","orcidID":""}],"publishedDate":"2022-04-20T00:00:00.000-04:00","citationText":"Frugone-Álvarez, 2022"}
+{"title":"Análisis Demo de la base de datos NeotomaDB en Chile","description":"Un repaso sobre la situación actual de las bases de datos del proyecto AbrocomaDB","authors":[{"author":"Matías Frugone-Álvarez","authorURL":"https://matfrugone.netlify.app","affiliation":"Postdoctorado UPWELL","affiliationURL":"https://matfrugone.netlify.app","orcidID":""}],"publishedDate":"2022-05-26T00:00:00.000-04:00","citationText":"Frugone-Álvarez, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2310,13 +2339,17 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h1>Análisis Demo de la base de datos NeotomaDB en Chile</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Un repaso sobre la situación actual de las bases de datos del proyecto AbrocomaDB</p></p>
+<p><p>Un repaso sobre la situación actual de las bases de datos del
+proyecto AbrocomaDB</p></p>
 </div>
 
 <div class="d-byline">
-  Matías Frugone-Álvarez <a href="https://matfrugone.netlify.app" class="uri">https://matfrugone.netlify.app</a> (Postdoctorado UPWELL)<a href="https://matfrugone.netlify.app" class="uri">https://matfrugone.netlify.app</a>
+  Matías Frugone-Álvarez <a href="https://matfrugone.netlify.app"
+class="uri">https://matfrugone.netlify.app</a> (Postdoctorado UPWELL)<a
+href="https://matfrugone.netlify.app"
+class="uri">https://matfrugone.netlify.app</a>
   
-<br/>2022-04-20
+<br/>2022-05-26
 </div>
 
 <div class="d-article">
@@ -2331,15 +2364,18 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <ul>
 <li><a href="#getting-started">Getting Started</a></li>
 <li><a href="#search-for-data">Search for Data</a></li>
-<li><a href="#tips-and-tricks-before-we-start">Tips and tricks before we start</a></li>
+<li><a href="#tips-and-tricks-before-we-start">Tips and tricks before we
+start</a></li>
 <li><a href="#download-data">Download Data</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#web-api--application-programming-interface">Web API- Application Programming Interface</a>
+<li><a href="#web-api--application-programming-interface">Web API-
+Application Programming Interface</a>
 <ul>
 <li><a href="#what-is-a-web-api">What is a Web API?</a></li>
 <li><a href="#more-about-json">More about JSON</a></li>
-<li><a href="#more-on-the-neotoma-db-api">More on the Neotoma DB API</a></li>
+<li><a href="#more-on-the-neotoma-db-api">More on the Neotoma DB
+API</a></li>
 </ul></li>
 <li><a href="#the-neotoma-package">The <code>neotoma</code> Package</a>
 <ul>
@@ -2352,55 +2388,88 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </nav>
 </div>
 <h1 id="introduction">Introduction</h1>
-<p>This workshop is intended to introduce individuals to different ways of analysing data stored in the Neotoma Paleoecology Database and the <code>neotoma</code> package for R.</p>
+<p>This workshop is intended to introduce individuals to different ways
+of analysing data stored in the Neotoma Paleoecology Database and the
+<code>neotoma</code> package for R.</p>
 <ol type="1">
-<li>Introduction to Neotoma Explorer for easy data exploration and extraction.</li>
-<li>Training in the use of the Neotoma R package to archive, access, and analyze paleoecological data.</li>
+<li>Introduction to Neotoma Explorer for easy data exploration and
+extraction.</li>
+<li>Training in the use of the Neotoma R package to archive, access, and
+analyze paleoecological data.</li>
 </ol>
-<p>Neotoma is a multiproxy paleo-database that stores a range of paleoecological &amp; paleoenvironmental data. One of the strengths of Neotoma is the ability to compare different paleo-proxy data such as fossil pollen, diatoms, ostracodes, insects, charcoal, and geochemical data. In addition, the database is structured to allow the creation and storage of age models built on absolute dates derived from age control points and stratigraphic sections. Neotoma is a public-access, community-supported database that has emerged as the standard repository for Pliocene and Quaternary paleoecological data.</p>
-<p>More teaching materials can be found <a href="http://www.neotomadb.org/education/category/higher_ed/">in Neotoma’s educational resources</a>.</p>
-<p>This workshop is available on GitHub, in the NeotomaDB <a href="https://github.com/NeotomaDB/Workshops/tree/master/IBSQuito19">repository</a>.</p>
+<p>Neotoma is a multiproxy paleo-database that stores a range of
+paleoecological &amp; paleoenvironmental data. One of the strengths of
+Neotoma is the ability to compare different paleo-proxy data such as
+fossil pollen, diatoms, ostracodes, insects, charcoal, and geochemical
+data. In addition, the database is structured to allow the creation and
+storage of age models built on absolute dates derived from age control
+points and stratigraphic sections. Neotoma is a public-access,
+community-supported database that has emerged as the standard repository
+for Pliocene and Quaternary paleoecological data.</p>
+<p>More teaching materials can be found <a
+href="http://www.neotomadb.org/education/category/higher_ed/">in
+Neotoma’s educational resources</a>.</p>
+<p>This workshop is available on GitHub, in the NeotomaDB <a
+href="https://github.com/NeotomaDB/Workshops/tree/master/IBSQuito19">repository</a>.</p>
 <h1 id="finding-data">Finding Data</h1>
 <h2 id="explorer">Explorer</h2>
 <h3 id="getting-started">Getting Started</h3>
 <ol type="1">
-<li>Go to <a href="http://www.neotomadb.org/" class="uri">http://www.neotomadb.org/</a> and click on the ‘Explorer’ picture, or navigate directly to the <a href="http://apps.neotomadb.org/Explorer/">Explorer App</a></li>
-<li>Pan (by dragging), or change the zoom so that your window is centered on Chile.</li>
+<li>Go to <a href="http://www.neotomadb.org/"
+class="uri">http://www.neotomadb.org/</a> and click on the ‘Explorer’
+picture, or navigate directly to the <a
+href="http://apps.neotomadb.org/Explorer/">Explorer App</a></li>
+<li>Pan (by dragging), or change the zoom so that your window is
+centered on Chile.</li>
 </ol>
 <h3 id="search-for-data">Search for Data</h3>
-<h3 id="tips-and-tricks-before-we-start">Tips and tricks before we start</h3>
+<h3 id="tips-and-tricks-before-we-start">Tips and tricks before we
+start</h3>
 <ol type="1">
 <li><p>Show/Hide Search Results</p>
 <ol type="a">
-<li>We will accumulate many search layers - it may be getting a bit confusing. Find the icon that lets you show/hide/combine search layers and use it to hide or delete some of your searches.</li>
+<li>We will accumulate many search layers - it may be getting a bit
+confusing. Find the icon that lets you show/hide/combine search layers
+and use it to hide or delete some of your searches.</li>
 </ol></li>
 <li><p>Rename searches</p>
 <ol type="a">
-<li>Searches from the “Basic” search window are automatically named, but not “Advanced” searches.Add names for your searches as you go at the bottom of the Search dialog.</li>
+<li>Searches from the “Basic” search window are automatically named, but
+not “Advanced” searches.Add names for your searches as you go at the
+bottom of the Search dialog.</li>
 </ol></li>
 </ol>
 <h4 id="finding-sites">Finding sites</h4>
 <ol type="1">
 <li><p><strong>Find a known site</strong></p>
 <ol type="a">
-<li>Using the Search dialog window (Metadata subtab;Collection type:Core;Database:Neotoma; Site Name), find “Laguna del Maule”.</li>
-<li>Once you’ve performed the search, click on the point that appears. A window will pop up with some information about this record.</li>
+<li>Using the Search dialog window (Metadata subtab;Collection
+type:Core;Database:Neotoma; Site Name), find “Laguna del Maule”.</li>
+<li>Once you’ve performed the search, click on the point that appears. A
+window will pop up with some information about this record.</li>
 </ol></li>
 <li><p><strong>Explore sites by geography</strong></p>
 <ol type="a">
-<li><p>Using the Search dialog window, first choose “dataset type = Pollen” at the top</p></li>
+<li><p>Using the Search dialog window, first choose “dataset type =
+Pollen” at the top</p></li>
 <li><p>Then, in the Space subtab, click “Search by extent”</p>
 <ol type="1">
-<li>Click the “Extent” dropdown menu and search by shape, select the rectangle by using SHIFT+pointer, then draw a rectangle on the map in your chosen region of Chile (for example, South of Chile).</li>
+<li>Click the “Extent” dropdown menu and search by shape, select the
+rectangle by using SHIFT+pointer, then draw a rectangle on the map in
+your chosen region of Chile (for example, South of Chile).</li>
 </ol></li>
 </ol></li>
-<li><p><strong>Find all sites within a database</strong> Chile and the region has a rich history in paleoecological reseach of fossil pollen data. Let’s see how many are currently in Neotoma:</p>
+<li><p><strong>Find all sites within a database</strong> Chile and the
+region has a rich history in paleoecological reseach of fossil pollen
+data. Let’s see how many are currently in Neotoma:</p>
 <ol type="a">
-<li>Search Window, Metadata subtab;Collection type: Core; Database field</li>
+<li>Search Window, Metadata subtab;Collection type: Core; Database
+field</li>
 <li>Find all sites within the Latin American Pollen Database.</li>
 </ol>
 <ul>
-<li>Not that many sites from the region are in Neotoma currently - only 36 datasets across 36 sites</li>
+<li>Not that many sites from the region are in Neotoma currently - only
+36 datasets across 36 sites</li>
 </ul></li>
 </ol>
 <h4 id="find-a-taxon">Find a Taxon</h4>
@@ -2408,74 +2477,167 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><p><strong>Search for a single taxon.</strong></p>
 <ol type="a">
 <li>Search Window, select Dataset type: pollen, and use Taxon name</li>
-<li>Find all sites within the Latin American Pollen Database with <strong>Chenopodioideae</strong> records</li>
+<li>Find all sites within the Latin American Pollen Database with
+<strong>Chenopodioideae</strong> records</li>
 </ol></li>
 <li><p><strong>Search for multiple taxa</strong></p>
 <ol type="a">
-<li>Let’s re-search for <strong>Chenopodioideae</strong>, but make sure we’ve included all relevant records.</li>
+<li>Let’s re-search for <strong>Chenopodioideae</strong>, but make sure
+we’ve included all relevant records.</li>
 </ol></li>
 </ol>
-<h4 id="find-all-charcoal-and-pollen-records-in-the-database">Find all charcoal and pollen records in the database</h4>
+<h4 id="find-all-charcoal-and-pollen-records-in-the-database">Find all
+charcoal and pollen records in the database</h4>
 <ol type="1">
 <li><strong>Search window, Dataset type = “Charcoal”</strong></li>
 <li><strong>Search window, Dataset type = “Pollen”</strong></li>
 </ol>
 <h4 id="multi-taxon-search">Multi-Taxon Search</h4>
 <ol type="1">
-<li><p><strong>Find all sites with Chenopodioideae pollen between 10,000 and 500 years ago.</strong></p>
+<li><p><strong>Find all sites with Chenopodioideae pollen between 10,000
+and 500 years ago.</strong></p>
 <ol type="a">
-<li>For <strong>Chenopodioideae</strong>, first click on “Dataset Type” = “pollen”</li>
-<li>Then use the Taxon Selection which you can use by clicking on the gears icon to the right of the ‘Taxon’ field in the ‘Search’ window.</li>
+<li>For <strong>Chenopodioideae</strong>, first click on “Dataset Type”
+= “pollen”</li>
+<li>Then use the Taxon Selection which you can use by clicking on the
+gears icon to the right of the ‘Taxon’ field in the ‘Search’
+window.</li>
 </ol>
 <ul>
-<li>Enter ‘Taxa group’ = Vascular Plant, search for <em>Casuarina</em>, click the box next to Taxon to check all taxa, then uncheck taxa like “<em>Myrica/Casuarina</em>” or “<em>Casuarina/Corylus</em>”.</li>
+<li>Enter ‘Taxa group’ = Vascular Plant, search for <em>Casuarina</em>,
+click the box next to Taxon to check all taxa, then uncheck taxa like
+“<em>Myrica/Casuarina</em>” or “<em>Casuarina/Corylus</em>”.</li>
 </ul>
 <ol type="a">
 <li>Then click the ‘Abundance/density’ box and select &gt;5%.<br />
 </li>
-<li>Fill in the desired age range, and choose records that ‘intersects result age range’.</li>
+<li>Fill in the desired age range, and choose records that ‘intersects
+result age range’.</li>
 <li>Finally, click ‘Search’</li>
 </ol></li>
-<li><p><strong>Find all sites with <em>Nothofagus</em> between 10,000 and 500 years</strong></p>
+<li><p><strong>Find all sites with <em>Nothofagus</em> between 10,000
+and 500 years</strong></p>
 <ol type="a">
-<li>Use the ‘Advanced Taxon Selection’ which you can use by clicking on the gears icon to the right of the ‘Taxon’ field in the ‘Search’ window. b Enter ‘Taxa group’ = Vascular Plant, search for <em>Nothofagus</em>, click the box next to Taxon to check all taxa you want to include.</li>
-<li>Set a relative abundance filter if you’d like (click the ‘Abundance/density’ box and select &gt;5%)<br />
+<li>Use the ‘Advanced Taxon Selection’ which you can use by clicking on
+the gears icon to the right of the ‘Taxon’ field in the ‘Search’ window.
+b Enter ‘Taxa group’ = Vascular Plant, search for <em>Nothofagus</em>,
+click the box next to Taxon to check all taxa you want to include.</li>
+<li>Set a relative abundance filter if you’d like (click the
+‘Abundance/density’ box and select &gt;5%)<br />
 </li>
-<li>Fill in the desired age range, and choose records that ‘intersects result age range’.</li>
+<li>Fill in the desired age range, and choose records that ‘intersects
+result age range’.</li>
 <li>Finally, click ‘Search’</li>
 </ol></li>
 </ol>
-<p>You can combine these two searches to find sites with either Casuarina OR Nothfagus, or restrict it to only those sites with both taxa.</p>
+<p>You can combine these two searches to find sites with either
+Casuarina OR Nothfagus, or restrict it to only those sites with both
+taxa.</p>
 <h3 id="download-data">Download Data</h3>
 <ol type="1">
-<li>Find the icon in the menu that indicates ’View search results in tables’and click on it.</li>
-<li>Click on the Save icon to the right. The dataset will be saved as a text file in CSV (comma separated value) format.</li>
-<li>Open the downloaded CSV file in Excel or a text editor (e.g. Notepad, Wordpad) to look at it.</li>
+<li>Find the icon in the menu that indicates ’View search results in
+tables’and click on it.</li>
+<li>Click on the Save icon to the right. The dataset will be saved as a
+text file in CSV (comma separated value) format.</li>
+<li>Open the downloaded CSV file in Excel or a text editor
+(e.g. Notepad, Wordpad) to look at it.</li>
 </ol>
-<h1 id="web-api--application-programming-interface">Web API- Application Programming Interface</h1>
+<h1 id="web-api--application-programming-interface">Web API- Application
+Programming Interface</h1>
 <h2 id="what-is-a-web-api">What is a Web API?</h2>
 <ol type="1">
-<li>Set of protocols for building tools and applications that use a specific web service</li>
-<li>Often a structure for URL/URI formulation to make a query on a web database, such as Neotoma, iDigBio, or the Paleobiology Database. + URL = Uniform Resource Locator, or web address. + URI = Uniform Resource Identifier, or web address of a service, like an API.</li>
-<li>Calls are usually sent as URL <code>GET</code> statements: values appended to a URL after a <code>?</code> that are processed as parameters to be passed to the code running on the server. For example, we can think of <a href="http://google.com/?q=bananas" class="uri">http://google.com/?q=bananas</a> as if it were an R function called <code>search()</code>, passed as <code>search(q="bananas")</code>.</li>
+<li>Set of protocols for building tools and applications that use a
+specific web service</li>
+<li>Often a structure for URL/URI formulation to make a query on a web
+database, such as Neotoma, iDigBio, or the Paleobiology Database. + URL
+= Uniform Resource Locator, or web address. + URI = Uniform Resource
+Identifier, or web address of a service, like an API.</li>
+<li>Calls are usually sent as URL <code>GET</code> statements: values
+appended to a URL after a <code>?</code> that are processed as
+parameters to be passed to the code running on the server. For example,
+we can think of <a href="http://google.com/?q=bananas"
+class="uri">http://google.com/?q=bananas</a> as if it were an R function
+called <code>search()</code>, passed as
+<code>search(q="bananas")</code>.</li>
 </ol>
-<p>Google has APIs for most of its products. You could write an R (or Python, etc.) script that would connect to the Google Calendar API to allow you to automatically change events on your calendar or report agenda items back to you in your own custom environment. <a href="https://hilaryparker.com/">Hilary Parker</a> has a nice example for <a href="https://hilaryparker.com/2014/05/27/sunsets-in-google-calendar-using-r/">adding sunsets to Google Calendar</a> using R.</p>
-<p>APIs exist for many important biological and paleobiological databases. We will work through a quick example from Neotoma. Different databases/services produce different kinds of API returns. The simplest kinds are comma delimited text files, but many APIs are now returning JSON documents.</p>
+<p>Google has APIs for most of its products. You could write an R (or
+Python, etc.) script that would connect to the Google Calendar API to
+allow you to automatically change events on your calendar or report
+agenda items back to you in your own custom environment. <a
+href="https://hilaryparker.com/">Hilary Parker</a> has a nice example
+for <a
+href="https://hilaryparker.com/2014/05/27/sunsets-in-google-calendar-using-r/">adding
+sunsets to Google Calendar</a> using R.</p>
+<p>APIs exist for many important biological and paleobiological
+databases. We will work through a quick example from Neotoma. Different
+databases/services produce different kinds of API returns. The simplest
+kinds are comma delimited text files, but many APIs are now returning
+JSON documents.</p>
 <h2 id="more-about-json">More about JSON</h2>
-<p>At its most basic level, JSON transmits data objects in attribute-value pairs. It has come to replace XML, which was the previous standard for this sort of data transmission.</p>
-<p>JSON is composed of objects, enclosed by curly brackets, which may have any number of attributes named in quotes, with values after a colon, separated by commas. You may also present an array, or an ordered collection of values, enclosed in square brackets.</p>
-<p>Let’s search the Neotoma DB via the API for <em>Casuarina</em>. Here is the example API call:</p>
-<p><a href="">http://api.neotomadb.org/v1/data/sampledata?taxonname=Casuarina*</a></p>
-<p>Notice when you make this call that the JSON is computer-friendly but not human-friendly (though this depends on browser). Try it again with the ‘pretty’ format tag:</p>
-<p><a href="">http://api.neotomadb.org/v1/data/sampledata?taxonname=Casuarina*&amp;format=pretty</a></p>
-<p>You should be able to see the nested set of JSON objects, including the occurrences returned as comma-separated objects within <code>"data"</code>.</p>
+<p>At its most basic level, JSON transmits data objects in
+attribute-value pairs. It has come to replace XML, which was the
+previous standard for this sort of data transmission.</p>
+<p>JSON is composed of objects, enclosed by curly brackets, which may
+have any number of attributes named in quotes, with values after a
+colon, separated by commas. You may also present an array, or an ordered
+collection of values, enclosed in square brackets.</p>
+<p>Let’s search the Neotoma DB via the API for <em>Casuarina</em>. Here
+is the example API call:</p>
+<p><a
+href="">http://api.neotomadb.org/v1/data/sampledata?taxonname=Casuarina*</a></p>
+<p>Notice when you make this call that the JSON is computer-friendly but
+not human-friendly (though this depends on browser). Try it again with
+the ‘pretty’ format tag:</p>
+<p><a
+href="">http://api.neotomadb.org/v1/data/sampledata?taxonname=Casuarina*&amp;format=pretty</a></p>
+<p>You should be able to see the nested set of JSON objects, including
+the occurrences returned as comma-separated objects within
+<code>"data"</code>.</p>
 <p>Try experimenting with the search, substituting different names.</p>
-<p>JSON is becoming the standard for data transfer in web services. R has several packages for dealing with JSON-formatted data. We will use some examples from the package <a href="https://cran.rstudio.com/web/packages/RJSONIO/index.html"><code>RJSONIO</code></a>. We will also use the package <a href="https://cran.rstudio.com/web/packages/Rcurl/index.html"><code>RCurl</code></a>, which has functions to let you query APIs from within the R environment. The <code>neotoma</code> package is built around the newer <a href="https://cran.rstudio.com/web/packages/httr/index.html"><code>httr</code></a> package.</p>
+<p>JSON is becoming the standard for data transfer in web services. R
+has several packages for dealing with JSON-formatted data. We will use
+some examples from the package <a
+href="https://cran.rstudio.com/web/packages/RJSONIO/index.html"><code>RJSONIO</code></a>.
+We will also use the package <a
+href="https://cran.rstudio.com/web/packages/Rcurl/index.html"><code>RCurl</code></a>,
+which has functions to let you query APIs from within the R environment.
+The <code>neotoma</code> package is built around the newer <a
+href="https://cran.rstudio.com/web/packages/httr/index.html"><code>httr</code></a>
+package.</p>
 <h2 id="more-on-the-neotoma-db-api">More on the Neotoma DB API</h2>
-<p>Based on the <em>Casuarina</em> example, you can see that the example API call is reporting data from only part of the distributed database schema of Neotoma. In fact, the Neotoma API is designed around a set of different URLs, each of which allows a user to search a portion of the database. So, if you want the full Site information for locations with <em>Casuarina</em> present, you would have to search on <em>Casuarina</em> in the SampleData URI (as we did in the example), pull the DatasetID values from those returns, then search on the Dataset URI (<a href="">http://api.neotomadb.org/v1/data/datasets</a>) for those DatasetIDs, which would, in turn, produce the SiteIDs, which you would then search on the Sites URI (<a href="">http://api.neotomadb.org/v1/data/sites</a>). This sort of searching would be cumbersome if you were to do it by hand, but fortunately you can script a computer to do it for you. In fact, you don’t have to write the scripts to do it, because they have already been constructed and provided to the community as the R <a href="https://cran.rstudio.com/web/packages/neotoma/index.html"><code>neotoma</code></a> package.</p>
-<p>The <code>neotoma</code> package will the the subject of our next module, but bear in mind that the other APIs also have wrapper packages to simplify data calls in R. The PaleoBioDB has a package, <code>paleobioDB</code>, and iDigBio has a package, <code>ridigbio</code>. The Earth-Life Consortium was aimed at creating a single API and wrapping R package to access both PaleoBioDB and Neotoma at the same time, as well as linking to many online museum databases and iDigBio. We wanted to introduce you to the underlying architecture here so you would understand what these packages are doing, and would know that you can crack them open and hack your own solutions if you cannot get them to give you the data or format of data that you need for your work.</p>
+<p>Based on the <em>Casuarina</em> example, you can see that the example
+API call is reporting data from only part of the distributed database
+schema of Neotoma. In fact, the Neotoma API is designed around a set of
+different URLs, each of which allows a user to search a portion of the
+database. So, if you want the full Site information for locations with
+<em>Casuarina</em> present, you would have to search on
+<em>Casuarina</em> in the SampleData URI (as we did in the example),
+pull the DatasetID values from those returns, then search on the Dataset
+URI (<a href="">http://api.neotomadb.org/v1/data/datasets</a>) for those
+DatasetIDs, which would, in turn, produce the SiteIDs, which you would
+then search on the Sites URI (<a
+href="">http://api.neotomadb.org/v1/data/sites</a>). This sort of
+searching would be cumbersome if you were to do it by hand, but
+fortunately you can script a computer to do it for you. In fact, you
+don’t have to write the scripts to do it, because they have already been
+constructed and provided to the community as the R <a
+href="https://cran.rstudio.com/web/packages/neotoma/index.html"><code>neotoma</code></a>
+package.</p>
+<p>The <code>neotoma</code> package will the the subject of our next
+module, but bear in mind that the other APIs also have wrapper packages
+to simplify data calls in R. The PaleoBioDB has a package,
+<code>paleobioDB</code>, and iDigBio has a package,
+<code>ridigbio</code>. The Earth-Life Consortium was aimed at creating a
+single API and wrapping R package to access both PaleoBioDB and Neotoma
+at the same time, as well as linking to many online museum databases and
+iDigBio. We wanted to introduce you to the underlying architecture here
+so you would understand what these packages are doing, and would know
+that you can crack them open and hack your own solutions if you cannot
+get them to give you the data or format of data that you need for your
+work.</p>
 <h1 id="the-neotoma-package">The <code>neotoma</code> Package</h1>
-<p>Install the <code>neotoma</code> package, then add it to your programming environment</p>
+<p>Install the <code>neotoma</code> package, then add it to your
+programming environment</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># install.packages('devtools')</span>
@@ -2485,10 +2647,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </code></pre>
 </div>
 </div>
-<p><code>neotoma</code> has three core commands: <code>get_site</code>, <code>get_dataset</code>, and <code>get_download</code>. The first two return metadata for sites and datasets; the latter returns data. See Goring <em>et al</em>. 2015 for a full description of the package and example code. This exercise is partially based on those examples.</p>
+<p><code>neotoma</code> has three core commands: <code>get_site</code>,
+<code>get_dataset</code>, and <code>get_download</code>. The first two
+return metadata for sites and datasets; the latter returns data. See
+Goring <em>et al</em>. 2015 for a full description of the package and
+example code. This exercise is partially based on those examples.</p>
 <h3 id="finding-sites-1">Finding sites</h3>
-<p>We’ll start with <code>get_site</code>. <code>get_site</code> returns a <code>data.frame</code> with metadata about sites. You can use this to find the spatial coverage of data in a region (e.g. using <code>get_site</code> with a bounding box), or to get explicit site information easily from more complex data objects. Use the command <code>?get_site</code> to see all the options available.</p>
-<p>You can easily search by site name, for example, finding “Laguna del Maule”, a site in central Chile.</p>
+<p>We’ll start with <code>get_site</code>. <code>get_site</code> returns
+a <code>data.frame</code> with metadata about sites. You can use this to
+find the spatial coverage of data in a region (e.g. using
+<code>get_site</code> with a bounding box), or to get explicit site
+information easily from more complex data objects. Use the command
+<code>?get_site</code> to see all the options available.</p>
+<p>You can easily search by site name, for example, finding “Laguna del
+Maule”, a site in central Chile.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>maule_site</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://docs.ropensci.org/neotoma/reference/get_site.html'>get_site</a></span><span class='op'>(</span>sitename <span class='op'>=</span> <span class='st'>'Laguna del Maule%'</span><span class='op'>)</span>
@@ -2506,8 +2678,15 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
  Laguna del Maule -70.50141 -36.05363 2160
 A site object containing 1 sites and 8 parameters.</code></pre>
 </div>
-<p>While <code>maule_site</code> is a <code>data.frame</code> it also has class <code>site</code>, that’s why the print output looks a little different than a standard <code>data.frame</code>. That also allows you to use some of the other <code>neotoma</code> functions more easily.</p>
-<p>By default the search string is explicit, but because older sites, especially pollen sites entered as part of COHMAP, often had appended textual information (for example <code>(CA:British Columbia)</code>), it’s often good practice to first search using a wildcard character. For example, searching for “Marion” returns three sites:</p>
+<p>While <code>maule_site</code> is a <code>data.frame</code> it also
+has class <code>site</code>, that’s why the print output looks a little
+different than a standard <code>data.frame</code>. That also allows you
+to use some of the other <code>neotoma</code> functions more easily.</p>
+<p>By default the search string is explicit, but because older sites,
+especially pollen sites entered as part of COHMAP, often had appended
+textual information (for example <code>(CA:British Columbia)</code>),
+it’s often good practice to first search using a wildcard character. For
+example, searching for “Marion” returns three sites:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#results= "hide"</span>
@@ -2522,7 +2701,11 @@ A site object containing 1 sites and 8 parameters.</code></pre>
 </code></pre>
 </div>
 </div>
-<p>You can also search by lat/lon bounding box. This one roughly corresponds to central Chile (A numeric vector c(lonW, latS, lonE, latN) representing the bounding box within which to search for sites. The convention here is to use negative values for longitudes west of Greenwich or longitudes south of the equator)</p>
+<p>You can also search by lat/lon bounding box. This one roughly
+corresponds to central Chile (A numeric vector c(lonW, latS, lonE, latN)
+representing the bounding box within which to search for sites. The
+convention here is to use negative values for longitudes west of
+Greenwich or longitudes south of the equator)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#results= "hide"</span>
@@ -2531,7 +2714,13 @@ A site object containing 1 sites and 8 parameters.</code></pre>
 </div>
 <pre><code>The API call was successful, you have returned  1 records.</code></pre>
 </div>
-<p>You can also search by geopolitical name or geopolitical IDs (<code>gpid</code>) stored in Neotoma. For a list of names and gpids, go to <a href="http://api.neotomadb.org/apdx/geopol.htm" class="uri">http://api.neotomadb.org/apdx/geopol.htm</a>, or use the <code>get_table(table.name = "GeoPoliticalUnits")</code> command. This command works either with an explicit numeric ID, or with a text string:</p>
+<p>You can also search by geopolitical name or geopolitical IDs
+(<code>gpid</code>) stored in Neotoma. For a list of names and gpids, go
+to <a href="http://api.neotomadb.org/apdx/geopol.htm"
+class="uri">http://api.neotomadb.org/apdx/geopol.htm</a>, or use the
+<code>get_table(table.name = "GeoPoliticalUnits")</code> command. This
+command works either with an explicit numeric ID, or with a text
+string:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># get all sites in Chile (gpid=7956)</span>
@@ -2546,8 +2735,17 @@ A site object containing 1 sites and 8 parameters.</code></pre>
 </div>
 <pre><code>The API call was successful, you have returned  32 records.</code></pre>
 </div>
-<p><code>data.frame</code> stores vectors of equal length. The nice thing about a <code>data.frame</code> is that each vector can be of a different type (character, numeric values, <em>etc</em>.). In RStudio, you can use the Environment panel in upper right to explore variables.</p>
-<p>We pointed out before that the object returned from <code>get_site</code> is both a <code>data.frame</code> and a <code>site</code> object. Because it has a special <code>print</code> method some of the information from the full object is obscured when printed. You can see all the data in the <code>data.frame</code> using <code>str</code> (short for <em>structure</em>):</p>
+<p><code>data.frame</code> stores vectors of equal length. The nice
+thing about a <code>data.frame</code> is that each vector can be of a
+different type (character, numeric values, <em>etc</em>.). In RStudio,
+you can use the Environment panel in upper right to explore
+variables.</p>
+<p>We pointed out before that the object returned from
+<code>get_site</code> is both a <code>data.frame</code> and a
+<code>site</code> object. Because it has a special <code>print</code>
+method some of the information from the full object is obscured when
+printed. You can see all the data in the <code>data.frame</code> using
+<code>str</code> (short for <em>structure</em>):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>maule_site</span><span class='op'>)</span>
@@ -2564,8 +2762,18 @@ A site object containing 1 sites and 8 parameters.</code></pre>
 </div>
 </div>
 <h3 id="getting-datasets">Getting Datasets</h3>
-<p>The structure of the Neotoma data model, as expressed through the API, is roughly: “<code>counts</code> within <code>download</code>, <code>download</code> within <code>dataset</code>, <code>dataset</code> within <code>site</code>”. So a <code>dataset</code> contains more information than a <code>site</code>, about a particular dataset from that site.</p>
-<p>A site may have a single associated dataset, or multiple. The Neotoma function <code>get_dataset</code> returns a list of datasets containing the <strong>metadata</strong> for each <strong>dataset</strong>. We can pass output from <code>get_site</code> (site metadata) to <code>get_dataset</code>, even if <code>get_site</code> returns multiple sites. For example:</p>
+<p>The structure of the Neotoma data model, as expressed through the
+API, is roughly: “<code>counts</code> within <code>download</code>,
+<code>download</code> within <code>dataset</code>, <code>dataset</code>
+within <code>site</code>”. So a <code>dataset</code> contains more
+information than a <code>site</code>, about a particular dataset from
+that site.</p>
+<p>A site may have a single associated dataset, or multiple. The Neotoma
+function <code>get_dataset</code> returns a list of datasets containing
+the <strong>metadata</strong> for each <strong>dataset</strong>. We can
+pass output from <code>get_site</code> (site metadata) to
+<code>get_dataset</code>, even if <code>get_site</code> returns multiple
+sites. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>all_chill</span> <span class='op'>&lt;-</span> <span class='fu'>neotoma</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/neotoma/reference/get_dataset.html'>get_dataset</a></span><span class='op'>(</span>gpid <span class='op'>=</span> <span class='fl'>825</span><span class='op'>)</span>
@@ -2576,7 +2784,7 @@ A site object containing 1 sites and 8 parameters.</code></pre>
 </code></pre>
 </div>
 <pre><code>A dataset_list containing 114 objects:
-Accessed from 2022-04-20 22:13h to 2022-04-20 22:13h. 
+Accessed from 2022-05-26 11:28h to 2022-05-26 11:28h. 
 Datasets:
  dataset.id                         site.name      long       lat
          13 Aguas Calientes                   -67.40000 -23.08333
@@ -2810,7 +3018,9 @@ Datasets:
  pollen           </code></pre>
 <pre><code>NULL</code></pre>
 </div>
-<p>Use get.tables(‘GeoPoliticalUnits’) for a list of acceptable values, or link here: <a href="http://api.neotomadb.org/apdx/geopol.htm" class="uri">http://api.neotomadb.org/apdx/geopol.htm</a></p>
+<p>Use get.tables(‘GeoPoliticalUnits’) for a list of acceptable values,
+or link here: <a href="http://api.neotomadb.org/apdx/geopol.htm"
+class="uri">http://api.neotomadb.org/apdx/geopol.htm</a></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>all_chill</span><span class='op'>)</span>
@@ -2818,7 +3028,8 @@ Datasets:
 </div>
 <p><img src="neotoma_files/figure-html5/plotch-1.png" width="624" /></p>
 </div>
-<p>Make sure the leaflet package is installed using install.packages(‘leaflet’), and then let’s check out what we get:</p>
+<p>Make sure the leaflet package is installed using
+install.packages(‘leaflet’), and then let’s check out what we get:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rstudio.github.io/leaflet/'>leaflet</a></span><span class='op'>)</span>
@@ -2860,8 +3071,17 @@ Datasets:
 <script type="application/json" data-for="htmlwidget-820f3e47ccabc591b824">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircleMarkers","args":[[-23.0789077522251,-23.4978768847976,-18.2478724708478,-39.9974576117587,-42.0036214151629,-54.2019744577282,-51.5846289281425,-46.6288844332745,-23.4880742888426,-49.130373443935,-40.9569198497059,-42.2546113535808,-48.7312716347183,-23.3185518563987,-23.3168453191087,-23.9467646326032,-40.9571832299582,-40.9533987401961,-23.4974702269724,-18.2503677860554,-40.0028680671053,-54.1971065058676,-51.58772897246,-46.6370703772566,-49.1343278978992,-40.9499146803864,-48.7319601305708,-23.3193771743128,-23.3133209498442,-23.9520521716611,-40.9567006723909,-18.6600138939087,-18.6592571332244,-18.6622369077368,-18.662660161395,-18.6626360179353,-18.6665249916151,-18.6601402167309,-18.6576533603397,-18.6610660957251,-18.6647814023433,-18.6643764271433,-18.6645033762752,-18.6590228600459,-18.666234646005,-18.6639068253091,-18.6614277928098,-18.6572848863326,-18.6601509818932,-18.6662592308232,-18.6604924783911,-18.660113988622,-18.6613008701484,-18.6603175874133,-18.6572916793599,-18.6626842421558,-18.665861461969,-18.6654769788574,-18.6617454662741,-18.6614600228596,-18.6591023167394,-18.6594561636899,-18.6585726066221,-18.6613070263699,-18.6597976663717,-18.6616555547327,-18.6619651298233,-18.6638273260006,-18.6596015452532,-18.6645608840751,-18.6573365906541,-18.6642148449653,-18.6608446072446,-18.6582497910512,-18.6583636721628,-18.6590099306599,-18.6625666492254,-18.6593476714831,-18.6661965806209,-18.6582487489291,-18.6656249674954,-18.6654335523964,-18.6645879116174,-18.6640819184421,-18.6637155726048,-18.6597593417726,-18.6824845677348,-18.6810772995058,-18.681491015159,-18.6818880899333,-18.683477792343,-18.6763540323976,-18.6806207605022,-18.6843750628353,-18.682958465001,-18.6836477743265,-18.6839408527863,-18.6765819058836,-18.6790449546966,-18.6766553500168,-18.6773982941163,-52.032507950357,-52.040886507063,-52.0336629039756,-52.041980797158,-45.6847527786304,-45.684357844962,-45.6875071254542,-36.0524840818115,-36.0546156862427,-36.0495845819407,-36.0581803755232,-47.6441039710943,-47.6391950928545],[-67.4016879278515,-67.5826469852653,-69.2041739534074,-71.9999288380053,-73.9685954436852,-71.2382314876857,-72.6337929229735,-72.8380602112733,-67.6866438117827,-74.4196567647863,-72.9037942796177,-73.9510177464597,-74.0359544220654,-67.7799029984669,-67.7796455445181,-67.7844661467307,-72.9073979398119,-72.9006157475663,-67.5825482716918,-69.2041817923542,-71.9981483366829,-71.2316531079117,-72.6299732866435,-72.8369414814742,-74.4199005449173,-72.9036027715728,-74.0355884020723,-67.7800951642817,-67.7835694806342,-67.7877564967278,-72.9022357564513,-69.5396263212308,-69.5485709384496,-69.5422250197496,-69.5405867428745,-69.5467976409703,-69.5462834858702,-69.5425721900322,-69.545510270241,-69.5401656146714,-69.5462152320536,-69.5476027074077,-69.5418679813592,-69.543851385223,-69.5394793215341,-69.5440196016774,-69.5483982455468,-69.5470059740304,-69.5442099597275,-69.5421671279257,-69.5394553019682,-69.5427261230855,-69.5483875945716,-69.5437456644227,-69.5443611433583,-69.5453541575994,-69.5427644860971,-69.5468698033311,-69.5413084568822,-69.5433162827877,-69.5460895037156,-69.548550716915,-69.5453381106391,-69.5451041574211,-69.5423052110703,-69.5404052890528,-69.5494365473528,-69.541992309002,-69.5411235345777,-69.5406756677705,-69.5462441669678,-69.5397624040295,-69.5439975453185,-69.5464795149507,-69.5406436767516,-69.5410466953873,-69.5434158573969,-69.548868674456,-69.5432967356237,-69.5420561124425,-69.5462811096751,-69.5469996783108,-69.5466774028696,-69.5485197548259,-69.5446323463827,-69.5402952813025,-69.6189937271189,-69.6277530402096,-69.6271581712702,-69.6223135426721,-69.6257997580955,-69.619022930361,-69.624565991942,-69.6199617734423,-69.6283992099819,-69.6285156928386,-69.6232843381503,-69.6245303397753,-69.6263573226972,-69.6218638046143,-69.62678814971,-71.8802602218435,-71.8732832676446,-71.8724184244493,-71.8763201230805,-71.8419099828616,-71.8382914556346,-71.835855695686,-70.5007557452743,-70.505523437098,-70.5047699943761,-70.5015817611775,-72.9750605190363,-72.9770284647638],10,null,null,{"interactive":true,"className":"","stroke":false,"color":["#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E7298A","#E6AB02","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#7570B3","#66A61E","#1B9E77","#E6AB02","#7570B3","#1B9E77","#E6AB02","#7570B3","#A6761D","#E6AB02","#D95F02","#7570B3","#E6AB02"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E6AB02","#E7298A","#E6AB02","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#E6AB02","#7570B3","#666666","#66A61E","#7570B3","#66A61E","#1B9E77","#E6AB02","#7570B3","#1B9E77","#E6AB02","#7570B3","#A6761D","#E6AB02","#D95F02","#7570B3","#E6AB02"],"fillOpacity":0.5},null,null,["Site: Aguas Calientes<br>Type: pollen","Site: Aguas Calientes 2<br>Type: pollen","Site: Ajata<br>Type: pollen","Site: Caunahue<br>Type: pollen","Site: Chepu<br>Type: pollen","Site: Isla Clarence<br>Type: pollen","Site: Cueva Milodon<br>Type: pollen","Site: La Esperanza<br>Type: pollen","Site: Lejía<br>Type: pollen","Site: Puerto Eden<br>Type: pollen","Site: Canal de la Puntilla<br>Type: pollen","Site: San Pedro<br>Type: pollen","Site: Tempano Sur<br>Type: pollen","Site: Tumbre 1<br>Type: pollen","Site: Tumbre 2<br>Type: pollen","Site: Tuyajto<br>Type: pollen","Site: Canal de la Puntilla<br>Type: loss-on-ignition","Site: Canal de la Puntilla<br>Type: pollen","Site: Aguas Calientes 2<br>Type: geochronologic","Site: Ajata<br>Type: geochronologic","Site: Caunahue<br>Type: geochronologic","Site: Isla Clarence<br>Type: geochronologic","Site: Cueva Milodon<br>Type: geochronologic","Site: La Esperanza<br>Type: geochronologic","Site: Puerto Eden<br>Type: geochronologic","Site: Canal de la Puntilla<br>Type: geochronologic","Site: Tempano Sur<br>Type: geochronologic","Site: Tumbre 1<br>Type: geochronologic","Site: Tumbre 2<br>Type: geochronologic","Site: Tuyajto<br>Type: geochronologic","Site: Canal de la Puntilla<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Upper Middens<br>Type: geochronologic","Site: Quebrada La Higuera Upper Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Upper Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Upper Middens<br>Type: pollen","Site: Quebrada La Higuera Lower Middens<br>Type: geochronologic","Site: Quebrada La Higuera Lower Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Lower Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Lower Middens<br>Type: pollen","Site: Quebrada La Higuera Lower Middens<br>Type: geochronologic","Site: Quebrada La Higuera Lower Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Lower Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Lower Middens<br>Type: pollen","Site: Quebrada La Higuera Lower Middens<br>Type: geochronologic","Site: Quebrada La Higuera Lower Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Lower Middens<br>Type: plant macrofossil","Site: Quebrada La Higuera Lower Middens<br>Type: pollen","Site: Quebrada La Higuera Lower Middens<br>Type: geochronologic","Site: Quebrada La Higuera Lower Middens<br>Type: vertebrate fauna","Site: Quebrada La Higuera Lower Middens<br>Type: plant macrofossil","Site: Rio Rubens Bog<br>Type: geochronologic","Site: Rio Rubens Bog<br>Type: plant macrofossil","Site: Rio Rubens Bog<br>Type: charcoal","Site: Rio Rubens Bog<br>Type: pollen","Site: Mallin Pollux<br>Type: geochronologic","Site: Mallin Pollux<br>Type: charcoal","Site: Mallin Pollux<br>Type: pollen","Site: Laguna del Maule<br>Type: geochronologic","Site: Laguna del Maule<br>Type: testate amoebae","Site: Laguna del Maule<br>Type: pollen","Site: Laguna del Maule<br>Type: diatom","Site: Mallin Casanova<br>Type: geochronologic","Site: Mallin Casanova<br>Type: pollen"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-54.2019744577282,-18.2478724708478],"lng":[-74.4199005449173,-67.4016879278515]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <h3 id="get_download">Get_Download</h3>
-<p>The Neotoma function <code>get_download()</code> returns a <code>list</code> that stores a list of <code>download</code> objects - one for each retrieved <code>dataset</code>. Note that <code>get_download()</code> returns the actual (raw) data associated with each dataset, rather than a list of the available datasets, as in <code>get_dataset()</code> above. Each download object contains a suite of data for the samples in that dataset.</p>
-<p>Using the <code>get_download()</code> will accept an object of class <code>dataset</code> (ie, <code>tas_dataset</code>), but also of class <code>site</code> (ie, <code>lagoon_sites</code>), since it will automatically query for the datasets associated in each site.</p>
+<p>The Neotoma function <code>get_download()</code> returns a
+<code>list</code> that stores a list of <code>download</code> objects -
+one for each retrieved <code>dataset</code>. Note that
+<code>get_download()</code> returns the actual (raw) data associated
+with each dataset, rather than a list of the available datasets, as in
+<code>get_dataset()</code> above. Each download object contains a suite
+of data for the samples in that dataset.</p>
+<p>Using the <code>get_download()</code> will accept an object of class
+<code>dataset</code> (ie, <code>tas_dataset</code>), but also of class
+<code>site</code> (ie, <code>lagoon_sites</code>), since it will
+automatically query for the datasets associated in each site.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>CH_all</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://docs.ropensci.org/neotoma/reference/get_download.html'>get_download</a></span><span class='op'>(</span><span class='va'>CH_sites</span><span class='op'>)</span>
@@ -2869,7 +3089,13 @@ Datasets:
 </code></pre>
 </div>
 </div>
-<p>There are a number of messages that appear. These can be suppressed with the flag <code>verbose = FALSE</code> in the function call. One thing you’ll note is that not all of the datasets can be downloaded directly to a <code>download</code> objct. This is because <code>geochronologic</code> datasets have a different data structure than other data, requiring different fields, and as such, they can be obtained using the <code>get_geochron()</code> function.</p>
+<p>There are a number of messages that appear. These can be suppressed
+with the flag <code>verbose = FALSE</code> in the function call. One
+thing you’ll note is that not all of the datasets can be downloaded
+directly to a <code>download</code> objct. This is because
+<code>geochronologic</code> datasets have a different data structure
+than other data, requiring different fields, and as such, they can be
+obtained using the <code>get_geochron()</code> function.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -2905,7 +3131,10 @@ Datasets:
 <li><p>lab.data</p></li>
 <li><p>chronologies</p></li>
 </ol>
-<p>Within the download object, <code>sample.meta</code> stores the core depth and age information for that dataset. We just want to look at the first few lines, so are using the <code>head()</code> function. Let’s explore different facets of the dataset</p>
+<p>Within the download object, <code>sample.meta</code> stores the core
+depth and age information for that dataset. We just want to look at the
+first few lines, so are using the <code>head()</code> function. Let’s
+explore different facets of the dataset</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>maule_pd</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>sample.meta</span><span class='op'>)</span>
@@ -2916,7 +3145,8 @@ Datasets:
 </code></pre>
 </div>
 </div>
-<p>Here we can get to the papers that published about a site of interest:</p>
+<p>Here we can get to the papers that published about a site of
+interest:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://docs.ropensci.org/neotoma/reference/get_publication.html'>get_publication</a></span><span class='op'>(</span>datasetid <span class='op'>=</span> <span class='fl'>19817</span><span class='op'>)</span>
@@ -2924,7 +3154,8 @@ Datasets:
 </div>
 </div>
 <h1 id="multi-site-analysis">Multi-Site Analysis</h1>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

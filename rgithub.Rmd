@@ -52,10 +52,10 @@ En la consola de RStudio:
 install.packages(usethis) #instala el paquete usethis
 
 library(usethis)
-usethis::edit_git_config(user.name = "TU_NOMBRE_USUARIO", user.email = "TU@mail.com")
+usethis::edit_git_config()
 # Modificar en el fichero ".gitconfig" los apartados: "name" y "email" 
-# y guardar el fichero
-#Pegar en ".gitconfig"
+
+#Pegar en ".gitconfig" lo siguiente (y luego quitar las #):
 
 #[filter "lfs"]
 #	  clean = git-lfs clean -- %f
@@ -68,6 +68,8 @@ usethis::edit_git_config(user.name = "TU_NOMBRE_USUARIO", user.email = "TU@mail.
 #[credential]
 #	helper = cache
 
+# complete con su nombre de usuario y email
+# y guardar el fichero
 ```
 
 ## 3. Conectar RStudio y GitHub
@@ -80,7 +82,7 @@ El primer paso es [registrarse para obtener una cuenta (gratuita) de GitHub](htt
 
 ### 3.2 Crear un token de acceso personal (PAT) en GitHub
 
-Una vez que se haya registrado, deberá habilitar RStudio para hablar con GitHub. El proceso para hacerlo ha cambiado recientemente (aquí es donde veo la mayor diferencia importante con Happy Git con R). La mejor manera de conectar RStudio y GitHub es usando su nombre de usuario y un token de acceso personal (PAT). Para generar un token de acceso personal, use la función [create_github_token() de usethis](https://usethis.r-lib.org/reference/github-token.html). Esto lo llevará a la página correspondiente en el sitio web de GitHub, donde le dará un nombre a su token y lo copiará (¡no lo pierda porque nunca volverá a aparecer!).
+Una vez que se haya registrado, deberá habilitar RStudio para hablar con GitHub. La mejor manera de conectar RStudio y GitHub es usando su nombre de usuario y un token de acceso personal (PAT). Para generar un token de acceso personal, use la función [create_github_token() de usethis](https://usethis.r-lib.org/reference/github-token.html). Esto lo llevará a la página correspondiente en el sitio web de GitHub, donde le dará un nombre a su token y lo copiará (¡no lo pierda porque nunca volverá a aparecer!).
 
 En la consola de RStudio:
 
@@ -97,7 +99,7 @@ usethis::create_github_token()
 
 ### 3.3 Almacenar token de acceso personal para conectar RStudio y GitHub
 
-Ahora que ha creado un token de acceso personal, debemos almacenarlo para que RStudio pueda acceder a él y sepa conectarse a su cuenta de GitHub. La función [gitcreds_set() del paquete gitcreds](https://gitcreds.r-lib.org/reference/gitcreds_get.html) te ayudará aquí. Ingresará su nombre de usuario de GitHub y el token de acceso personal como contraseña (NO su contraseña de GitHub, como pensé inicialmente). Una vez que haya hecho todo esto, ¡habrá conectado RStudio a GitHub!
+Ahora que ha creado un token de acceso personal, debemos almacenarlo para que RStudio pueda acceder a él y sepa conectarse a su cuenta de GitHub. La función [gitcreds_set() del paquete gitcreds](https://gitcreds.r-lib.org/reference/gitcreds_get.html) te ayudará aquí. Ingresará su nombre de usuario de GitHub y el token de acceso personal como contraseña (NO su contraseña de GitHub). Una vez que haya hecho todo esto, ¡habrá conectado RStudio a GitHub!
 
 En la consola de RStudio:
 
@@ -115,7 +117,7 @@ Y/O guarda el token en .Renviron
 
 usethis::edit_r_environ()
 
-#  GITHUB_TOKEN="MI_TOKEN""
+#  GITHUB_TOKEN="MI_TOKEN"
 
 ```
 
@@ -126,6 +128,16 @@ Reinicia R y verifica la configuración.
 usethis::git_sitrep()
 
 ```
+
+Si queremos ver el token en .Renviron, volvemos a ejecutar (muy importante porque Rstudio nos puede pedir el nombre de usuario de Github y TOKEN cada cierto tiempo cada vez que hacemos un **Commit**)
+
+```{r echo=TRUE, eval = FALSE}
+
+usethis::edit_r_environ()
+
+```
+
+
 
 Si todo ha salido bien salte al **apartado 5** del manú
 

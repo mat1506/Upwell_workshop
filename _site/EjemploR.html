@@ -91,8 +91,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-04-20"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-04-20"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-05-26"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-05-26"/>
   <meta name="article:author" content="Matías Frugone Álavarez"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Un pequeño ejemplo con R"]},{"type":"character","attributes":{},"value":["Realizaremos diferentes figuras con la función plot y ggplot\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone Álavarez"]}]}]},{"type":"character","attributes":{},"value":["2022-04-20"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Un pequeño ejemplo con R"]},{"type":"character","attributes":{},"value":["Realizaremos diferentes figuras con la función plot y ggplot\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone Álavarez"]}]}]},{"type":"character","attributes":{},"value":["2022-05-26"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -1032,10 +1032,6 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     margin-top: 1.5em;
   }
 
-  .figure img {
-    width: 100%;
-  }
-
   .figure .caption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
@@ -1865,6 +1861,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
           return "<p>" + $('#ref-' + ref).html() + "</p>";
@@ -1879,6 +1881,31 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1978,6 +2005,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -2000,7 +2029,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2039,7 +2068,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2270,7 +2299,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Un pequeño ejemplo con R","description":"Realizaremos diferentes figuras con la función plot y ggplot","authors":[{"author":"Matías Frugone Álavarez","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-04-20T00:00:00.000-04:00","citationText":"Álavarez, 2022"}
+{"title":"Un pequeño ejemplo con R","description":"Realizaremos diferentes figuras con la función plot y ggplot","authors":[{"author":"Matías Frugone Álavarez","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-05-26T00:00:00.000-04:00","citationText":"Álavarez, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2301,13 +2330,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h1>Un pequeño ejemplo con R</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Realizaremos diferentes figuras con la función plot y ggplot</p></p>
+<p><p>Realizaremos diferentes figuras con la función plot y
+ggplot</p></p>
 </div>
 
 <div class="d-byline">
   Matías Frugone Álavarez  
   
-<br/>2022-04-20
+<br/>2022-05-26
 </div>
 
 <div class="d-article">
@@ -2315,14 +2345,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#instalar-los-paquetes-necesarios">Instalar los paquetes necesarios</a></li>
-<li><a href="#establecer-el-directorio-de-trabajo">Establecer el directorio de trabajo</a></li>
+<li><a href="#instalar-los-paquetes-necesarios">Instalar los paquetes
+necesarios</a></li>
+<li><a href="#establecer-el-directorio-de-trabajo">Establecer el
+directorio de trabajo</a></li>
 <li><a href="#miremos-los-datos">Miremos los datos</a></li>
-<li><a href="#calcular-promedios-de-una-variable-para-niveles-de-un-factor">Calcular promedios de una variable para niveles de un factor</a></li>
-<li><a href="#análisis-exploratorio-de-datos-y-gráficos">Análisis exploratorio de datos y gráficos</a></li>
+<li><a
+href="#calcular-promedios-de-una-variable-para-niveles-de-un-factor">Calcular
+promedios de una variable para niveles de un factor</a></li>
+<li><a href="#análisis-exploratorio-de-datos-y-gráficos">Análisis
+exploratorio de datos y gráficos</a></li>
 <li><a href="#boxplot">Boxplot</a></li>
-<li><a href="#instalar-paquetes-otra-forma">Instalar paquetes otra forma</a></li>
-<li><a href="#matriz-de-plot-en-una-figura">Matriz de plot en una figura</a></li>
+<li><a href="#instalar-paquetes-otra-forma">Instalar paquetes otra
+forma</a></li>
+<li><a href="#matriz-de-plot-en-una-figura">Matriz de plot en una
+figura</a></li>
 <li><a href="#ggplot-histograma">ggplot Histograma</a></li>
 <li><a href="#plot-de-barras">Plot de barras</a></li>
 <li><a href="#scatter-plots">Scatter plots</a>
@@ -2332,11 +2369,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#density">Density</a></li>
 <li><a href="#facets">Facets</a></li>
 <li><a href="#correlación-bivariate">Correlación Bivariate</a></li>
-<li><a href="#visualización-de-correlación-entre-variables">Visualización de Correlación entre variables</a></li>
+<li><a
+href="#visualización-de-correlación-entre-variables">Visualización de
+Correlación entre variables</a></li>
 </ul>
 </nav>
 </div>
-<h2 id="instalar-los-paquetes-necesarios">Instalar los paquetes necesarios</h2>
+<h2 id="instalar-los-paquetes-necesarios">Instalar los paquetes
+necesarios</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
@@ -2347,7 +2387,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </code></pre>
 </div>
 </div>
-<h2 id="establecer-el-directorio-de-trabajo">Establecer el directorio de trabajo</h2>
+<h2 id="establecer-el-directorio-de-trabajo">Establecer el directorio de
+trabajo</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>X</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"https://raw.githubusercontent.com/mat1506/Upwell_workshop/master/data/LEM_proxies.csv"</span><span class='op'>)</span>
@@ -2452,7 +2493,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
  Max.   :-16.65  
  NA&#39;s   :407     </code></pre>
 </div>
-<h2 id="calcular-promedios-de-una-variable-para-niveles-de-un-factor">Calcular promedios de una variable para niveles de un factor</h2>
+<h2
+id="calcular-promedios-de-una-variable-para-niveles-de-un-factor">Calcular
+promedios de una variable para niveles de un factor</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>$</span><span class='va'>TOC</span>, <span class='va'>X</span><span class='op'>$</span><span class='va'>Facie</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='co'>#calcular promedios por factor</span>
@@ -2469,7 +2512,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
        T6        T7        T8        T9       TL1 
 0.8491950 0.5136960 0.4327400 0.6375590 2.2273622 </code></pre>
 </div>
-<h2 id="análisis-exploratorio-de-datos-y-gráficos">Análisis exploratorio de datos y gráficos</h2>
+<h2 id="análisis-exploratorio-de-datos-y-gráficos">Análisis exploratorio
+de datos y gráficos</h2>
 <h2 id="boxplot">Boxplot</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2530,7 +2574,11 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p><img src="EjemploR_files/figure-html5/unnamed-chunk-7-1.png" width="864" /></p>
 </div>
 <h2 id="ggplot-histograma">ggplot Histograma</h2>
-<p>{ggplot2} es una implementación de Grammar of Graphics de Wilkinson (2006), pero no es necesario leer los libros para comenzar a usarlo. Si volvemos a los datos de Star Wars (contenidos en dplyr) y deseamos dibujar una gráfica de barras del género, las siguientes líneas son suficientes:</p>
+<p>{ggplot2} es una implementación de Grammar of Graphics de Wilkinson
+(2006), pero no es necesario leer los libros para comenzar a usarlo. Si
+volvemos a los datos de Star Wars (contenidos en dplyr) y deseamos
+dibujar una gráfica de barras del género, las siguientes líneas son
+suficientes:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>y02</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2562,7 +2610,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 <p><img src="EjemploR_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
-<p>El primer argumento de la función son los datos (llamados starwars en este ejemplo), y luego la función aes (). Esta función es donde enumera las variables que desea asignar a la estética de las funciones geoms. En la segunda línea, verá que usamos la función geom_bar (). Esta función crea una gráfica de barras de la variable de género. Puede obtener diferentes tipos de gráficos utilizando diferentes funciones geom_. También puede proporcionar el argumento aes () a la función geom _ * ():</p>
+<p>El primer argumento de la función son los datos (llamados starwars en
+este ejemplo), y luego la función aes (). Esta función es donde enumera
+las variables que desea asignar a la estética de las funciones geoms. En
+la segunda línea, verá que usamos la función geom_bar (). Esta función
+crea una gráfica de barras de la variable de género. Puede obtener
+diferentes tipos de gráficos utilizando diferentes funciones geom_.
+También puede proporcionar el argumento aes () a la función geom _ *
+():</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>starwars</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2571,8 +2626,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 <p><img src="EjemploR_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
-<p>La diferencia entre estos dos enfoques es que cuando especificas la estética en la función ggplot(), todas las funciones geom _ * () que siguen heredarán esta estética. Esto es útil si desea evitar escribir el mismo código una y otra vez, pero puede ser problemático si necesita especificar una estética diferente para diferentes funciones geom _ * (). Esto quedará claro en un ejemplo posterior.</p>
-<p>Puede agregar opciones a sus gráficos, por ejemplo, puede cambiar el sistema de coordenadas en su gráfico de barras:</p>
+<p>La diferencia entre estos dos enfoques es que cuando especificas la
+estética en la función ggplot(), todas las funciones geom _ * () que
+siguen heredarán esta estética. Esto es útil si desea evitar escribir el
+mismo código una y otra vez, pero puede ser problemático si necesita
+especificar una estética diferente para diferentes funciones geom _ *
+(). Esto quedará claro en un ejemplo posterior.</p>
+<p>Puede agregar opciones a sus gráficos, por ejemplo, puede cambiar el
+sistema de coordenadas en su gráfico de barras:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>starwars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2583,7 +2644,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p><img src="EjemploR_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
 </div>
 <h2 id="scatter-plots">Scatter plots</h2>
-<p>Los diagramas de dispersión son muy útiles, especialmente si está tratando de averiguar la relación entre dos variables. Por ejemplo, hagamos un diagrama de dispersión de la altura frente al peso de los personajes de Star Wars:</p>
+<p>Los diagramas de dispersión son muy útiles, especialmente si está
+tratando de averiguar la relación entre dos variables. Por ejemplo,
+hagamos un diagrama de dispersión de la altura frente al peso de los
+personajes de Star Wars:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
@@ -2629,7 +2693,11 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p><img src="EjemploR_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
 </div>
 <h2 id="facets">Facets</h2>
-<p>En algunos casos, tiene una variable de factor que separa los datos que desea representar en diferentes categorías. Si desea tener un gráfico por categoría, puede usar la función facet_grid (). Sin embargo, tenga cuidado, esta función no toma una variable como argumento, sino una fórmula, de ahí el símbolo ~ en el siguiente código:</p>
+<p>En algunos casos, tiene una variable de factor que separa los datos
+que desea representar en diferentes categorías. Si desea tener un
+gráfico por categoría, puede usar la función facet_grid (). Sin embargo,
+tenga cuidado, esta función no toma una variable como argumento, sino
+una fórmula, de ahí el símbolo ~ en el siguiente código:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
@@ -2647,7 +2715,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </div>
 <p><img src="EjemploR_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
 </div>
-<p>Podemos agregar una línea de regresión a este diagrama de dispersión:</p>
+<p>Podemos agregar una línea de regresión a este diagrama de
+dispersión:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>starwars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
@@ -2703,7 +2772,8 @@ sample estimates:
       cor 
 0.4331975 </code></pre>
 </div>
-<h2 id="visualización-de-correlación-entre-variables">Visualización de Correlación entre variables</h2>
+<h2 id="visualización-de-correlación-entre-variables">Visualización de
+Correlación entre variables</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/braverock/PerformanceAnalytics'>PerformanceAnalytics</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"PerformanceAnalytics"</span><span class='op'>)</span>
@@ -2722,7 +2792,8 @@ sample estimates:
 </div>
 <p><img src="EjemploR_files/figure-html5/unnamed-chunk-19-1.png" width="864" /></p>
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
