@@ -69,7 +69,7 @@ Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen in
 
 # **Workshop Cero: introducción a la investigación abierta reproducibles**
 
-(Viernes 3 de Junio de 2 pm a 7 pm. Presencial PUC Casa central, Santiago)
+(Viernes 3 de Junio de 2 pm a 7 pm. Presencial **PUC Casa Central**, Santiago)
 
 
 (2.00 pm)
