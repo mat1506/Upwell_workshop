@@ -49,7 +49,7 @@ knitr::include_url("slides/index.html")
 # **Install Party!**
 
 Responsable [Matías Frugone (email)](mailto:frugone.alvarez.m@gmail.com){.email}
-(27 de Mayo 2022 via Zoom)
+(27 de Mayo 2022 via Discord)
 
 ### **Matinal** (obligatorio para participar el viernes 3 junio)
 
