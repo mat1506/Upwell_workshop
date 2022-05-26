@@ -51,7 +51,7 @@ knitr::include_url("slides/index.html")
 Responsable [Matías Frugone (email)](mailto:frugone.alvarez.m@gmail.com){.email}
 (27 de Mayo 2022 via Zoom)
 
-### **Matinal** (obligatorio para participar el viernes 3)
+### **Matinal** (obligatorio para participar el viernes 3 junio)
 
 (Viernes 27 de mayo de 9 a 11 am)
 
@@ -209,7 +209,7 @@ Responsable [carlos.lara\@ucsc.cl](mailto:carlos.lara@ucsc.cl){.email}
 
 -   **Requisitos**: R, Rstudio, Python y Git instalados.
 
-# **Workshop 3 UPWELL: investigación multidisciplinaria integrativa en surgencias oceanográficas**
+# **Workshop 3 UPWELL: investigación multidisciplinaria integrativa**
 
 (Por definir)
 
