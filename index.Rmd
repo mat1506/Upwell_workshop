@@ -51,13 +51,13 @@ knitr::include_url("slides/index.html")
 Responsable [Matías Frugone (email)](mailto:frugone.alvarez.m@gmail.com){.email}
 (27 de Mayo 2022 via Zoom)
 
-### **Matinal**
+### **Matinal** (obligatorio para participar el viernes 3)
 
-(viernes 27 de mayo de 9 a 11 am)
+(Viernes 27 de mayo de 9 a 11 am)
 
 Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub:
 
--   Instalar Git y crear una cuenta en GitHub.
+-   Instalar Git y crear una cuenta en GitHub (solución de problemas).
 -   Instalar R y Rstudio
 
 ### **Vespertino**
