@@ -58,7 +58,7 @@ Responsable [Matías Frugone (email)](mailto:frugone.alvarez.m@gmail.com){.email
 Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub:
 
 -   Instalar Git y crear una cuenta en GitHub (solución de problemas).
--   Instalar R y Rstudio
+-   Instalar R y Rstudio (solución de problemas).
 
 ### **Vespertino**
 
