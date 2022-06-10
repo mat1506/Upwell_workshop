@@ -17,7 +17,7 @@ author:
   url: https://www.upwell.cl/web/investigadores-jovenes/
   affiliation: Investigador joven Paleo-Surgencia
   affiliation_url: https://www.upwell.cl/web/paleo-surgencia/
-- name: Dr. Álvaro Paredes Lizama
+- name: Ms. Álvaro Paredes Lizama
   url: https://www.upwell.cl/web/
   affiliation: Ingeniero de Desarrollo. Data Observatory Foundation
   affiliation_url: https://www.upwell.cl/web/paleo-surgencia/  
