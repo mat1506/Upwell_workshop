@@ -49,7 +49,7 @@ En la consola de RStudio:
 
 ```{r echo=TRUE, eval = FALSE}
 
-install.packages(usethis) #instala el paquete usethis
+install.packages("usethis") #instala el paquete usethis
 
 library(usethis)
 usethis::edit_git_config()

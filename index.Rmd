@@ -17,6 +17,10 @@ author:
   url: https://www.upwell.cl/web/investigadores-jovenes/
   affiliation: Investigador joven Paleo-Surgencia
   affiliation_url: https://www.upwell.cl/web/paleo-surgencia/
+- name: Dr. Álvaro Paredes Lizama
+  url: https://www.upwell.cl/web/
+  affiliation: Ingeniero de Desarrollo. Data Observatory Foundation
+  affiliation_url: https://www.upwell.cl/web/paleo-surgencia/  
 - name: Dr. Matías Frugone-Álvarez.
   url: https://matfrugone.netlify.app
   affiliation: Postdoc UPWELL
@@ -46,75 +50,6 @@ knitr::include_url("slides/index.html")
 
 # **Programa de los talleres**
 
-# **Install Party!**
-
-Responsable [Matías Frugone (email)](mailto:frugone.alvarez.m@gmail.com){.email}
-(27 de Mayo 2022 via Discord)
-
-### **Matinal** (obligatorio para participar el viernes 3 junio)
-
-(Viernes 27 de mayo de 9 a 11 am)
-
-Para los asistentes que no están familiarizados con R/Rstudio/Git, no tienen instalado los programas y necesitan configurar una cuenta en GitHub:
-
--   Instalar Git y crear una cuenta en GitHub (solución de problemas).
--   Instalar R y Rstudio (solución de problemas).
-
-### **Vespertino**
-
-(viernes 27 de mayo de 3 a 5 pm)
-
--   Caracteristicas de los software.
--   Instalar Python.
-
-# **Workshop Cero: introducción a la investigación abierta reproducibles**
-
-(Viernes 3 de Junio de 2 pm a 7 pm. Presencial **PUC Casa Central**, Santiago)
-
-
-(2.00 pm)
-
--   Charla de bienvenida (15 min)
-
--   Conceptos básicos de investigación abierta (45 min)
-
-    -   Investigación reproducible y análisis de datos.
-    -   Acceso abierto a los datos e investigaciones publicadas.
-    -   Licencias y formatos de archivo.
-    -   Plataformas de colaboración.
-    -   Revisión abierta por pares y las métricas.
-    -   Políticas de ciencia abierta
-
--   Coffee Break (15 min)
-
--   Introducción a Git y GitHub (90 min)
-
-    -   Git
-    -   Set up GitHub y RStudio
-
-
--   Git/GitHub con R y introducción a RMarkdown (45 min)
-
-    -   RStudio con Git
-    -   RMarkdown
-
--   Coffee Break (15 min)
-
--   Workflow I (45 min)
-
-    -   Data types, structures and classes
-    -   Tidy data: introducción a tidyverse packages
-    -   Introducción a Data visualization: ggplot2 package
-    -   Introducción a Exploratory Data Analysis (EDA) in R
-
--   Coffee Break (15 min)
-
--   Workflow II (75 min)
-
-    -   Compendios de Investigación
-
--   Palabras de clausura (15 min)
-
 # **Workshop 1: R con Google Earth Engine (GEE)**
 
 (11 de Agosto, UCSC Concepción presencial para estudiantes de postgrado, número de cupos=12)
@@ -124,6 +59,8 @@ Responsable [carlos.lara\@ucsc.cl](mailto:carlos.lara@ucsc.cl){.email}
 ## **Sesión Uno**
 
 ### **Matinal**
+
+Profesor Álvaro Paredes Lizama
 
 **Objetivo**: permitir que lxs estudiantes puedan conectar su instalación de R con Google Earth Engine (GEE), para descargar y visualizar imágenes de interés.
 
@@ -143,6 +80,8 @@ Responsable [carlos.lara\@ucsc.cl](mailto:carlos.lara@ucsc.cl){.email}
 **Requisites**: R/Rstudio, Conda, una cuenta de Google Earth Engine activada. Nociones basicas de R.
 
 ## **Sesión Dos**
+
+Profesor Carlos Lara
 
 ### **Vespertino**
 
