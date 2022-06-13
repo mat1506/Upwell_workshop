@@ -107,11 +107,11 @@ Profesor Carlos Lara
 
 -   **Requisitos**: Rstudio y GEE conectado.
 
-# **Workshop 2 UPWELL: investigación reproducible en Arqueología, Paleoecología, Paleoclimatología y Ecología**
+# **Workshop 2: investigación reproducible en Arqueología, Paleoecología, Paleoclimatología y Ecología**
 
 ## **Sesión Uno**
 
-(12 Agosto. UCSC Concepción presencial para estudiantes de postgrado, número de cupos=12)
+(12 Agosto. UCSC Concepción presencial para estudiantes de postgrado, número de cupos=15)
 
 ### **Matinal**
 
