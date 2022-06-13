@@ -1,14 +1,6 @@
 ---
 title: "Talleres UPWELL/SECOS: ciencia abierta, análisis datos y metadatos en investigación reproducible"
 author:
-- name: Dra. Eugenia Gayo
-  url: http://www.upwell.cl/web/biogeoquimica-de-humboldt/
-  affiliation: Directora del proyecto Upwell
-  affiliation_url: https://www.upwell.cl/web/investigadores/
-- name: Dra. Carola Flores
-  url: http://www.upwell.cl/web/interaccion-humano-ambiente/
-  affiliation: Directora alterna del proyecto Upwell
-  affiliation_url: https://www.upwell.cl/web/investigadores/
 - name: Dr. Bernardo Broitman
   url: http://www.upwell.cl/web/ecologia-de-humboldt/
   affiliation: Investigador responsable Ecología de Humboldt
