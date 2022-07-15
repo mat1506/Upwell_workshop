@@ -20,6 +20,10 @@ author:
 date: "`r Sys.Date()`"
 description: |
   Bienvenidxs a la website del taller sobre manejo de datos del Núcleo Milenio UPWELL. `Espero que lo disfruten!`
+  
+  ![](images/logo2.png)
+ 
+
 site: distill::distill_website
 ---
 
