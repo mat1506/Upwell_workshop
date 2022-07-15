@@ -19,7 +19,7 @@ author:
   affiliation_url: https://www.upwell.cl/web/postdocs/  
 date: "`r Sys.Date()`"
 description: |
-  Bienvenidxs a la website del taller sobre manejo de datos del Núcleo Milenio UPWELL. `Espero que lo disfruten!`
+  Bienvenidxs a la website del taller sobre manejo de datos de los Núcleos Milenios UPWELL & SECOS. `Espero que lo disfruten!`
   
   ![](images/logo2.png)
  
