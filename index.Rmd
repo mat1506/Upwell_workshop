@@ -1,5 +1,5 @@
 ---
-title: "Talleres UPWELL/SECOS: ciencia abierta, análisis datos y metadatos en investigación reproducible"
+title: "Talleres UPWELL/SECOS: ciencia abierta, análisis datos e investigación reproducible"
 author:
 - name: Dr. Bernardo Broitman
   url: http://www.upwell.cl/web/ecologia-de-humboldt/
@@ -103,7 +103,7 @@ Profesor Carlos Lara
 
 -   **Requisitos**: Rstudio y GEE conectado.
 
-# **Workshop 2: investigación reproducible en Arqueología, Paleoecología, Paleoclimatología y Ecología**
+# **Workshop 2: investigación reproducible en Arqueología, Paleoclimatología y Ecología**
 
 ## **Sesión Uno**
 
