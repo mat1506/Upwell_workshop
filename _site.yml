@@ -8,7 +8,7 @@ base_url: https://upwellworkshop.netlify.app/
 google_analytics: "G-EFFL8DYH1G"
 navbar:
   logo:
-    image: images/logo.png
+    image: images/logo2.png
     href: https://www.upwell.cl/web/
   right:
     - text: "Home"
