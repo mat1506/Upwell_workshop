@@ -91,8 +91,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-07-14"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-07-14"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-08-11"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-08-11"/>
   <meta name="article:author" content="Matías Frugone Álvarez (modificado de David February 13, 2021)"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Cómo usar Git/GitHub con RStudio"]},{"type":"character","attributes":{},"value":["Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone Álvarez (modificado de David February 13, 2021)"]}]}]},{"type":"character","attributes":{},"value":["2022-07-14"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Cómo usar Git/GitHub con RStudio"]},{"type":"character","attributes":{},"value":["Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Matías Frugone Álvarez (modificado de David February 13, 2021)"]}]}]},{"type":"character","attributes":{},"value":["2022-08-11"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2299,7 +2299,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Cómo usar Git/GitHub con RStudio","description":"Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/","authors":[{"author":"Matías Frugone Álvarez (modificado de David February 13, 2021)","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-07-14T00:00:00.000-04:00","citationText":"2021), 2022"}
+{"title":"Cómo usar Git/GitHub con RStudio","description":"Este artículo es una traducción automática del artículo: https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/","authors":[{"author":"Matías Frugone Álvarez (modificado de David February 13, 2021)","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-08-11T00:00:00.000-04:00","citationText":"2021), 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2338,7 +2338,7 @@ class="uri">https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/</a
 <div class="d-byline">
   Matías Frugone Álvarez (modificado de David February 13, 2021)  
   
-<br/>2022-07-14
+<br/>2022-08-11
 </div>
 
 <div class="d-article">
@@ -2346,68 +2346,91 @@ class="uri">https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/</a
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#cómo-usar-gitgithub-con-r">Cómo usar Git/GitHub con R</a>
+<li><a href="#cómo-usar-gitgithub-con-r"
+id="toc-cómo-usar-gitgithub-con-r">Cómo usar Git/GitHub con R</a>
 <ul>
-<li><a href="#qué-es-git-qué-es-github">1. ¿Qué es Git? ¿Qué es
-GitHub?</a>
+<li><a href="#qué-es-git-qué-es-github"
+id="toc-qué-es-git-qué-es-github">1. ¿Qué es Git? ¿Qué es GitHub?</a>
 <ul>
-<li><a href="#por-qué-debería-usar-git-y-github">¿Por qué debería usar
-Git y GitHub?</a></li>
+<li><a href="#por-qué-debería-usar-git-y-github"
+id="toc-por-qué-debería-usar-git-y-github">¿Por qué debería usar Git y
+GitHub?</a></li>
 </ul></li>
-<li><a href="#cómo-configurar-git">2. Cómo configurar Git</a>
+<li><a href="#cómo-configurar-git" id="toc-cómo-configurar-git">2. Cómo
+configurar Git</a>
 <ul>
-<li><a href="#configurar-git-editar-gitconfig-file-desde-rstudio">2.1
+<li><a href="#configurar-git-editar-gitconfig-file-desde-rstudio"
+id="toc-configurar-git-editar-gitconfig-file-desde-rstudio">2.1
 Configurar Git (Editar gitconfig file) desde Rstudio</a></li>
 </ul></li>
-<li><a href="#conectar-rstudio-y-github">3. Conectar RStudio y
-GitHub</a>
+<li><a href="#conectar-rstudio-y-github"
+id="toc-conectar-rstudio-y-github">3. Conectar RStudio y GitHub</a>
 <ul>
-<li><a href="#regístrate-en-github">3.1 Regístrate en GitHub</a></li>
-<li><a href="#crear-un-token-de-acceso-personal-pat-en-github">3.2 Crear
-un token de acceso personal (PAT) en GitHub</a></li>
+<li><a href="#regístrate-en-github" id="toc-regístrate-en-github">3.1
+Regístrate en GitHub</a></li>
+<li><a href="#crear-un-token-de-acceso-personal-pat-en-github"
+id="toc-crear-un-token-de-acceso-personal-pat-en-github">3.2 Crear un
+token de acceso personal (PAT) en GitHub</a></li>
 <li><a
-href="#almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github">3.3
+href="#almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github"
+id="toc-almacenar-token-de-acceso-personal-para-conectar-rstudio-y-github">3.3
 Almacenar token de acceso personal para conectar RStudio y
 GitHub</a></li>
 </ul></li>
-<li><a href="#manual-de-sobreviviencia-con-git-y-github-en-rstudio">4.
-Manual de sobreviviencia con Git y GitHub en RStudio</a>
+<li><a href="#manual-de-sobreviviencia-con-git-y-github-en-rstudio"
+id="toc-manual-de-sobreviviencia-con-git-y-github-en-rstudio">4. Manual
+de sobreviviencia con Git y GitHub en RStudio</a>
 <ul>
-<li><a href="#encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted
+<li><a href="#encuentre-a-git-usted-mismo"
+id="toc-encuentre-a-git-usted-mismo">4.1 Encuentre a Git usted
 mismo</a></li>
-<li><a href="#dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a
-RStudio dónde encontrar a Git</a></li>
-<li><a href="#problemas-y-soluciones-rstudio-git-github">4.3 Problemas y
+<li><a href="#dígale-a-rstudio-dónde-encontrar-a-git"
+id="toc-dígale-a-rstudio-dónde-encontrar-a-git">4.2 Dígale a RStudio
+dónde encontrar a Git</a></li>
+<li><a href="#problemas-y-soluciones-rstudio-git-github"
+id="toc-problemas-y-soluciones-rstudio-git-github">4.3 Problemas y
 soluciones RStudio, Git, GitHub</a></li>
 </ul></li>
-<li><a href="#inicializar-un-repositorio-git">5. Inicializar un
-repositorio Git</a></li>
-<li><a href="#ver-historial-de-confirmación">6. Ver historial de
+<li><a href="#inicializar-un-repositorio-git"
+id="toc-inicializar-un-repositorio-git">5. Inicializar un repositorio
+Git</a></li>
+<li><a href="#ver-historial-de-confirmación"
+id="toc-ver-historial-de-confirmación">6. Ver historial de
 confirmación</a></li>
 <li><a
-href="#haga-una-consolidación-o-confirmación-commit-y-vea-más-historia">7.
+href="#haga-una-consolidación-o-confirmación-commit-y-vea-más-historia"
+id="toc-haga-una-consolidación-o-confirmación-commit-y-vea-más-historia">7.
 Haga una consolidación o confirmación (commit) y vea más
 historia</a></li>
 <li><a
-href="#cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github">8.
+href="#cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github"
+id="toc-cómo-conectar-proyectos-de-rstudio-con-repositorios-de-github">8.
 Cómo conectar proyectos de RStudio con repositorios de GitHub</a>
 <ul>
-<li><a href="#rstudio-primero">8.1 RStudio Primero</a></li>
-<li><a href="#github-primero">8.2 GitHub Primero</a></li>
+<li><a href="#rstudio-primero" id="toc-rstudio-primero">8.1 RStudio
+Primero</a></li>
+<li><a href="#github-primero" id="toc-github-primero">8.2 GitHub
+Primero</a></li>
 </ul></li>
-<li><a href="#flujo-de-trabajo-general">9. Flujo de trabajo general</a>
+<li><a href="#flujo-de-trabajo-general"
+id="toc-flujo-de-trabajo-general">9. Flujo de trabajo general</a>
 <ul>
-<li><a href="#push-subir-a-github">9.1 Push (Subir a Github)</a></li>
-<li><a href="#pull-descargar-desde-github">9.2 Pull (Descargar desde
+<li><a href="#push-subir-a-github" id="toc-push-subir-a-github">9.1 Push
+(Subir a Github)</a></li>
+<li><a href="#pull-descargar-desde-github"
+id="toc-pull-descargar-desde-github">9.2 Pull (Descargar desde
 Github)</a></li>
 </ul></li>
-<li><a href="#colaborando-con-git-y-github">10. Colaborando con Git y
+<li><a href="#colaborando-con-git-y-github"
+id="toc-colaborando-con-git-y-github">10. Colaborando con Git y
 Github</a>
 <ul>
-<li><a href="#colaborando">10.1 Colaborando</a></li>
-<li><a href="#branching">10.2 Branching</a></li>
+<li><a href="#colaborando" id="toc-colaborando">10.1
+Colaborando</a></li>
+<li><a href="#branching" id="toc-branching">10.2 Branching</a></li>
 </ul></li>
-<li><a href="#más-información">Más información</a></li>
+<li><a href="#más-información" id="toc-más-información">Más
+información</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2463,28 +2486,27 @@ gitconfig</a>. Agregue su nombre y correo electrónico y cierre esto</p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"usethis"</span><span class='op'>)</span> <span class='co'>#instala el paquete usethis</span>
-
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span>
-<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_git_config</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'># Modificar en el fichero ".gitconfig" los apartados: "name" y "email" </span>
-
-<span class='co'>#Pegar en ".gitconfig" lo siguiente (y luego quitar las #):</span>
-
-<span class='co'>#[filter "lfs"]</span>
-<span class='co'>#    clean = git-lfs clean -- %f</span>
-<span class='co'>#    smudge = git-lfs smudge -- %f</span>
-<span class='co'>#    process = git-lfs filter-process</span>
-<span class='co'>#    required = true</span>
-<span class='co'>#[user]</span>
-<span class='co'>#  name = minombredeusuario</span>
-<span class='co'>#  email = micorreo@gmail.com</span>
-<span class='co'>#[credential]</span>
-<span class='co'>#  helper = cache</span>
-
-<span class='co'># complete con su nombre de usuario y email</span>
-<span class='co'># y guardar el fichero</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"usethis"</span><span class='op'>)</span> <span class='co'>#instala el paquete usethis</span></span>
+<span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span></span>
+<span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_git_config</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='co'># Modificar en el fichero ".gitconfig" los apartados: "name" y "email" </span></span>
+<span></span>
+<span><span class='co'>#Pegar en ".gitconfig" lo siguiente (y luego quitar las #):</span></span>
+<span></span>
+<span><span class='co'>#[filter "lfs"]</span></span>
+<span><span class='co'>#    clean = git-lfs clean -- %f</span></span>
+<span><span class='co'>#    smudge = git-lfs smudge -- %f</span></span>
+<span><span class='co'>#    process = git-lfs filter-process</span></span>
+<span><span class='co'>#    required = true</span></span>
+<span><span class='co'>#[user]</span></span>
+<span><span class='co'>#  name = minombredeusuario</span></span>
+<span><span class='co'>#  email = micorreo@gmail.com</span></span>
+<span><span class='co'>#[credential]</span></span>
+<span><span class='co'>#  helper = cache</span></span>
+<span></span>
+<span><span class='co'># complete con su nombre de usuario y email</span></span>
+<span><span class='co'># y guardar el fichero</span></span></code></pre>
 </div>
 </div>
 <h2 id="conectar-rstudio-y-github">3. Conectar RStudio y GitHub</h2>
@@ -2506,9 +2528,8 @@ pierda porque nunca volverá a aparecer!).</p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span>
-<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/github-token.html'>create_github_token</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span></span>
+<span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/github-token.html'>create_github_token</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <ul>
@@ -2533,28 +2554,25 @@ conectado RStudio a GitHub!</p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"gitcreds"</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-lib/gitcreds'>gitcreds</a></span><span class='op'>)</span>
-<span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'># Ante la pregunta: "Enter password or token"</span>
-<span class='co'># introducir el token copiado en el paso anterior</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"gitcreds"</span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-lib/gitcreds'>gitcreds</a></span><span class='op'>)</span></span>
+<span><span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='co'># Ante la pregunta: "Enter password or token"</span></span>
+<span><span class='co'># introducir el token copiado en el paso anterior</span></span></code></pre>
 </div>
 </div>
 <p>Y/O guarda el token en .Renviron</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'>#  GITHUB_TOKEN="MI_TOKEN"</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#  GITHUB_TOKEN="MI_TOKEN"</span></span></code></pre>
 </div>
 </div>
 <p>Reinicia R y verifica la configuración.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/git_sitrep.html'>git_sitrep</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/git_sitrep.html'>git_sitrep</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>Si queremos ver el token en .Renviron, volvemos a ejecutar (muy
@@ -2563,8 +2581,7 @@ y TOKEN cada cierto tiempo cada vez que hacemos un
 <strong>Commit</strong>)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>Si todo ha salido bien salte al <strong>apartado 5</strong> del
@@ -2844,11 +2861,10 @@ width="820" /></p>
 <p>En la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span>
-<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_git.html'>use_git</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'># Elegir siempre la opción: 1</span>
-<span class='co'># Y ante la ventana, seleccionar: "Save"</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span></span>
+<span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_git.html'>use_git</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='co'># Elegir siempre la opción: 1</span></span>
+<span><span class='co'># Y ante la ventana, seleccionar: "Save"</span></span></code></pre>
 </div>
 </div>
 <p>Y visitar la pestaña: <code>"Git"</code> en RStudio.</p>
@@ -2937,12 +2953,11 @@ opciones con Git a Github, se tienen que realizar los siguientes pasos
 en la consola de RStudio:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span>
-<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_git.html'>use_git</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'>#hacer un commit</span>
-<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_github.html'>use_github</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='co'>#pedira nombre de usuario y token (ver usethis::edit_r_environ())</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usethis.r-lib.org'>usethis</a></span><span class='op'>)</span></span>
+<span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_git.html'>use_git</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='co'>#hacer un commit</span></span>
+<span><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_github.html'>use_github</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='co'>#pedira nombre de usuario y token (ver usethis::edit_r_environ())</span></span></code></pre>
 </div>
 </div>
 <ul>

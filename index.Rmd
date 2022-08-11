@@ -220,4 +220,5 @@ Matías F-Á\
 
 -   [Introducción a R](slides/Introduction_R.html)
 -   [Introducción a Git](slides/Git_GitHub.html)
+-   [Taller UCSC](https://docs.google.com/presentation/d/1yW6Zq7-YNCkdMg-hy65gRC1HW60my3ZEjtP1mw2UuSg/edit?usp=sharing)
 

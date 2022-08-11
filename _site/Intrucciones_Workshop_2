@@ -1,0 +1,84 @@
+Workshop 2: investigación reproducible en Arqueología, Paleoclimatología y Ecología
+
+
+Crear un nuevo repositorio UPWELL (Esta semana) con todos los datos integrados
+- Crear repositorio
+- Crear su webpage
+-
+
+Instrucciones:
+
+tener instalado Git
+tener una cuenta de Github
+tener instralado Python:
+
+
+
+De mis datos a mi paquete en R
+
+1. La importancia de los Tidy data
+
+2. The “Tidyverse”
+
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+
+3. Lectura de datos tabulares con el readr package
+
+4. Leer datos basados en la web
+
+5. Manipulación básica de datos
+
+6. Trabajar con grandes conjuntos de datos
+
+
+
+Taller am
+
+1. Integración entre GitHub, Zenodo y ORCID
+
+1.1.
+
+Publicar el código del paquete a través de Zenodo tiene varios beneficios.
+
+    El código se archiva de forma gratuita.
+    El código permanece disponible públicamente, incluso si el repositorio de GitHub es removido.
+    El código obtiene un DOI, lo que facilita citar el código y rastrear el citas. Cada lanzamiento tiene su propio lanzamiento y hay un dedicado DOI que siempre apunta a la última versión. Esto le da al usuario una opción entre citar el código en general o una versión específica.
+
+
+1.2. ¿Qué es ORCID?
+
+1.3. ¿Por qué integrar Zenodo y ORCID con GitHub?
+
+Configurar la integración tiene la ventaja de que una nueva versión del paquete obtiene automáticamente un DOI único y se agrega a su perfil ORCID.
+
+
+Configurar ORCID
+
+
+    Crea una cuenta en https://orcid.org
+    Ir a DataCite (https://profiles.datacite.org/sign_in) y seleccione "Iniciar sesión con Globus", luego "Iniciar sesión con ORCID iD".
+    Autorizar el acceso a Globus Auth.
+
+Configurar Zenodo
+
+
+    Cree una cuenta con su ORCID en https://zenodo.org/signup/
+
+Una vez por repositorio
+
+    Inicie sesión en Zenodo .
+    Vaya al cuadro desplegable asociado a su cuenta (arriba a la derecha) y elige GitHub.
+    Busque el repositorio en la lista de repositorios. Utilice el "Sincronizar ahora" botón si no puede encontrar el repositorio. Tenga en cuenta que sólo puede utilizar repositorios públicos.
+    Cambia el interruptor del repositorio a "On".
+
+
+
+2. Revisar Archivos de trabajo
+
+3. Tranformar Archivos exel a LiPD
+
+4. Mapa de los registros
+
